@@ -19,7 +19,11 @@ export const apiDataSlice = createSlice({
     fetchDataError: (state) => {
       state.status = "error";
     },
-    fetchWeatherData: (state, action: PayloadAction<string | null>) => {
+    fetchWeather: () => {},
+    setWeatherDataSuccess: (
+      state,
+      action: PayloadAction<{ lat: number; lon: number }>
+    ) => {
       state.weatherData = action.payload;
       state.status = "success";
     },
@@ -31,7 +35,8 @@ export const {
   fetchGeoCoding,
   setGeoCodingSuccess,
   fetchDataError,
-  fetchWeatherData,
+  setWeatherDataSuccess,
+  fetchWeather,
 } = apiDataSlice.actions;
 
 export const selectApiDataState = (state: any) => state.apiData;
