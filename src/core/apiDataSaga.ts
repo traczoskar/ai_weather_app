@@ -4,21 +4,29 @@ import {
   setGeoCodingSuccess,
   fetchDataError,
   setLoading,
+  fetchWeather,
+  setWeatherDataSuccess,
 } from "./apiDataSlice";
 import { getGeocoding } from "../utils/getGeocoding";
+import { getWeatherData } from "../utils/getWeatherData";
 
-interface GeoCodingResponse {
+interface Response {
   data: {}[];
 }
-interface FetchGeocodingDataAction {
+interface FetchGeocodingAction {
   type: string;
   payload: JSON;
 }
 
-function* fetchGeoCodingDataHandler(action: FetchGeocodingDataAction) {
+interface FetchWeatherAction {
+  type: string;
+  payload: { lat: number; lon: number };
+}
+
+function* fetchGeoCodingDataHandler(action: FetchGeocodingAction) {
   try {
     yield put(setLoading());
-    const geoCodingData: GeoCodingResponse = yield call(
+    const geoCodingData: Response = yield call(
       getGeocoding as any,
       action.payload
     );
@@ -29,6 +37,21 @@ function* fetchGeoCodingDataHandler(action: FetchGeocodingDataAction) {
   }
 }
 
+function* fetchWeatherDataHandler(action: FetchWeatherAction) {
+  try {
+    yield put(setLoading());
+    const { lat, lon } = action.payload;
+    const weatherData: Response = yield call(getWeatherData, lat, lon);
+    console.log(weatherData);
+    yield put(setWeatherDataSuccess(weatherData as any));
+  } catch (error) {
+    yield put(fetchDataError());
+  }
+}
+
 export function* apiDataSaga() {
-  yield all([takeLatest(fetchGeoCoding.type, fetchGeoCodingDataHandler)]);
+  yield all([
+    takeLatest(fetchGeoCoding.type, fetchGeoCodingDataHandler),
+    takeLatest(fetchWeather.type, fetchWeatherDataHandler),
+  ]);
 }
