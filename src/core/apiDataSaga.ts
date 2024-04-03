@@ -10,8 +10,8 @@ import {
 import { getGeocoding } from "../utils/getGeocoding";
 import { getWeatherData } from "../utils/getWeatherData";
 
-interface Response {
-  data: {}[];
+interface Response<T> {
+  data: T[];
 }
 interface FetchGeocodingAction {
   type: string;
@@ -26,7 +26,7 @@ interface FetchWeatherAction {
 function* fetchGeoCodingDataHandler(action: FetchGeocodingAction) {
   try {
     yield put(setLoading());
-    const geoCodingData: Response = yield call(
+    const geoCodingData: Response<JSON> = yield call(
       getGeocoding as any,
       action.payload
     );
@@ -41,7 +41,7 @@ function* fetchWeatherDataHandler(action: FetchWeatherAction) {
   try {
     yield put(setLoading());
     const { lat, lon } = action.payload;
-    const weatherData: Response = yield call(getWeatherData, lat, lon);
+    const weatherData: Response<JSON> = yield call(getWeatherData, lat, lon);
     console.log(weatherData);
     yield put(setWeatherDataSuccess(weatherData as any));
   } catch (error) {
