@@ -6,13 +6,9 @@ import {
   selectGeoCodingData,
   selectStatus,
   selectWeatherData,
-} from "./apiDataSlice";
-import { getGeocoding } from "../utils/getGeocoding";
-
-interface GeocodingData {
-  lat: number;
-  lon: number;
-}
+} from "../slices/apiDataSlice";
+import WeatherForm from "../features/weather/WeatherForm";
+import { GeocodingData } from "../types/types";
 
 export default function App() {
   const status = useSelector(selectStatus);
@@ -24,19 +20,32 @@ export default function App() {
   const getGeocodingData = async () => {
     if (geocodingResponse) {
       const geocodingData: GeocodingData = {
-        lat: geocodingResponse[0].lat.toFixed(2),
-        lon: geocodingResponse[0].lon.toFixed(2),
+        lat: geocodingResponse[0].lat,
+        lon: geocodingResponse[0].lon,
       };
       console.log(geocodingData);
       return geocodingData;
     }
   };
 
+  const handleFetchWeather = async () => {
+    const geocodingData = await getGeocodingData();
+    if (geocodingData) {
+      dispatch(fetchWeather(geocodingData as any));
+    }
+  };
+
   return (
-    <>
-      <h1 className="text-3xl">Hello world!</h1>
+    <main>
+      <header className="flex justify-center align-center mt-20">
+        <h1 className="text-4xl font-bold">Weather App</h1>
+      </header>
+
       <div>
-        <button onClick={() => dispatch(fetchGeoCoding())}>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+          onClick={() => dispatch(fetchGeoCoding())}
+        >
           Pobierz dane geolokalizacyjne
         </button>
         {status === "loading" && <p>Ładowanie...</p>}
@@ -47,7 +56,8 @@ export default function App() {
       </div>
       <div>
         <button
-          onClick={() => dispatch(fetchWeather(getGeocodingData() as any))}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleFetchWeather}
         >
           Pobierz dane pogodowe
         </button>
@@ -57,6 +67,7 @@ export default function App() {
           <pre>{JSON.stringify(weatherResponse, null, 2)}</pre>
         )}
       </div>
-    </>
+      <WeatherForm />
+    </main>
   );
 }
