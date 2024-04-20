@@ -1,11 +1,10 @@
 import { call, put, takeLatest, all, debounce } from "redux-saga/effects";
 import {
   fetchGeoCoding,
-  setGeoCodingSuccess,
   fetchDataError,
-  setLoading,
   fetchWeather,
-  setWeatherDataSuccess,
+  fetchGeoCodingSuccess,
+  fetchWeatherDataSuccess,
 } from "../slices/apiDataSlice";
 import { getGeocoding } from "../api/getGeocoding";
 import { getWeatherData } from "../api/getWeatherData";
@@ -15,7 +14,7 @@ interface Response<T> {
 }
 interface FetchGeocodingAction {
   type: string;
-  payload: JSON;
+  payload: string;
 }
 
 interface FetchWeatherAction {
@@ -25,13 +24,13 @@ interface FetchWeatherAction {
 
 function* fetchGeoCodingDataHandler(action: FetchGeocodingAction) {
   try {
-    yield put(setLoading());
-    const geoCodingData: Response<JSON> = yield call(
-      getGeocoding as any,
-      action.payload
-    );
+    const cityName = action.payload;
+    const geoCodingData: Response<JSON> = yield call(getGeocoding, cityName);
+    if (!geoCodingData) {
+      throw new Error("No data found.");
+    }
     console.log(geoCodingData);
-    yield put(setGeoCodingSuccess(geoCodingData as any));
+    yield put(fetchGeoCodingSuccess(geoCodingData as any));
   } catch (error) {
     yield put(fetchDataError());
   }
@@ -39,11 +38,10 @@ function* fetchGeoCodingDataHandler(action: FetchGeocodingAction) {
 
 function* fetchWeatherDataHandler(action: FetchWeatherAction) {
   try {
-    yield put(setLoading());
     const { lat, lon } = action.payload;
     const weatherData: Response<JSON> = yield call(getWeatherData, lat, lon);
     console.log(weatherData);
-    yield put(setWeatherDataSuccess(weatherData as any));
+    yield put(fetchWeatherDataSuccess(weatherData as any));
   } catch (error) {
     yield put(fetchDataError());
   }
