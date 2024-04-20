@@ -1,4 +1,11 @@
-import { call, put, takeLatest, all, debounce } from "redux-saga/effects";
+import {
+  call,
+  put,
+  takeLatest,
+  all,
+  debounce,
+  throttle,
+} from "redux-saga/effects";
 import {
   fetchGeoCoding,
   fetchDataError,
@@ -40,9 +47,13 @@ function* fetchWeatherDataHandler(action: FetchWeatherAction) {
   try {
     const { lat, lon } = action.payload;
     const weatherData: Response<JSON> = yield call(getWeatherData, lat, lon);
+    if (!weatherData) {
+      throw new Error("No weather data received.");
+    }
     console.log(weatherData);
     yield put(fetchWeatherDataSuccess(weatherData as any));
   } catch (error) {
+    console.error("Error fetching weather data:", error);
     yield put(fetchDataError());
   }
 }
