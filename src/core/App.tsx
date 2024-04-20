@@ -1,21 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchGeoCoding,
-  fetchWeather,
-  selectError,
-  selectGeoCodingData,
-  selectStatus,
-  selectWeatherData,
-} from "../slices/apiDataSlice";
 import WeatherForm from "../features/weather/WeatherForm";
-import { GeocodingData } from "../types/types";
 import WeatherDisplay from "../features/weather/WeatherDisplay";
+import Header from "../components/Header";
 
 export default function App() {
   return (
-    <main>
-      <header className="flex justify-center align-center mt-20">
-        <h1 className="text-4xl font-bold">Weather App</h1>
+    <main className="flex flex-col bg-custom-bg bg-cover bg-center h-full m-16 rounded-3xl border-solid border-2">
+      <Header title="WeatherWise.ai" />
+      <header className="flex justify-center align-center">
+        <h1 className="text-4xl font-bold py-20">Weather App</h1>
       </header>
       <WeatherForm />
       <WeatherDisplay />
