@@ -4,23 +4,28 @@ export const apiDataSlice = createSlice({
   name: "apiData",
   initialState: {
     status: "initial",
+    locationName: "",
+    coordinates: {},
     geoCoding: null as any,
     weatherData: null as any,
   },
   reducers: {
-    setLoading: (state) => {
+    fetchGeoCoding: (state, action: PayloadAction<string>) => {
       state.status = "loading";
+      state.locationName = action.payload;
     },
-    fetchGeoCoding: () => {},
-    setGeoCodingSuccess: (state, action: PayloadAction<{}[] | null>) => {
+    fetchGeoCodingSuccess: (state, action: PayloadAction<{}[] | null>) => {
       state.geoCoding = action.payload;
       state.status = "success";
     },
     fetchDataError: (state) => {
       state.status = "error";
     },
-    fetchWeather: () => {},
-    setWeatherDataSuccess: (
+    fetchWeather: (state, action: PayloadAction<{}>) => {
+      state.status = "loading";
+      state.coordinates = action.payload;
+    },
+    fetchWeatherDataSuccess: (
       state,
       action: PayloadAction<{ lat: number; lon: number }>
     ) => {
@@ -31,16 +36,17 @@ export const apiDataSlice = createSlice({
 });
 
 export const {
-  setLoading,
   fetchGeoCoding,
-  setGeoCodingSuccess,
+  fetchGeoCodingSuccess,
   fetchDataError,
-  setWeatherDataSuccess,
+  fetchWeatherDataSuccess,
   fetchWeather,
 } = apiDataSlice.actions;
 
 export const selectApiDataState = (state: any) => state.apiData;
 export const selectStatus = (state: string) => selectApiDataState(state).status;
+export const selectCityName = (state: string) =>
+  selectApiDataState(state).locationName;
 export const selectError = (state: any) => selectApiDataState(state).error;
 export const selectGeoCodingData = (state: any) =>
   selectApiDataState(state).geoCoding;
