@@ -1,11 +1,4 @@
-import {
-  call,
-  put,
-  takeLatest,
-  all,
-  debounce,
-  throttle,
-} from "redux-saga/effects";
+import { call, put, takeLatest, all, debounce } from "redux-saga/effects";
 import {
   fetchGeoCoding,
   fetchDataError,
