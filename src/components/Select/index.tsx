@@ -3,7 +3,7 @@ interface SelectProps {
   children: React.ReactNode;
 }
 
-function Select({ onClick, children }: SelectProps) {
+const Select = ({ onClick, children }: SelectProps) => {
   return (
     <div
       onClick={onClick}
@@ -13,6 +13,6 @@ function Select({ onClick, children }: SelectProps) {
       {children}
     </div>
   );
-}
+};
 
 export default Select;
