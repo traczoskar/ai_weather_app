@@ -10,7 +10,6 @@ import {
 } from "../../../slices/apiDataSlice";
 import { useState } from "react";
 import Select from "../../../components/Select";
-import TranspContainer from "../../../components/TranspContainer";
 
 function WeatherForm() {
   const [cityName, setCityName] = useState<string>("");
@@ -49,28 +48,25 @@ function WeatherForm() {
   //   }
   // };
 
-  const handleLocation = (e) => {
+  const handleLocation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("Button clicked");
     if (navigator.geolocation) {
       console.log("Geolocation is available");
-      navigator.geolocation.getCurrentPosition(showPosition, handleError);
+      navigator.geolocation.getCurrentPosition(
+        getGeolocation,
+        handleGeolocationError
+      );
     } else {
-      alert("Geolocation is not supported by this browser.");
+      alert("Sorry, geolocation is not supported by this browser.");
     }
   };
 
-  const handleError = (error: GeolocationPositionError) => {
+  const handleGeolocationError = (error: GeolocationPositionError) => {
     console.error("Error obtaining location: ", error.message);
     alert(`Error obtaining location: ${error.message}`);
   };
 
-  const showPosition = (position: GeolocationPosition) => {
-    console.log(
-      "Fetching weather for:",
-      position.coords.latitude,
-      position.coords.longitude
-    );
+  const getGeolocation = (position: GeolocationPosition) => {
     dispatch(
       fetchWeather({
         lat: position.coords.latitude,
@@ -81,7 +77,7 @@ function WeatherForm() {
   };
 
   return (
-    <TranspContainer>
+    <>
       <form className="flex justify-center align-center">
         <label>
           <div className="relative">
@@ -95,9 +91,9 @@ function WeatherForm() {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                 />
               </svg>
@@ -110,7 +106,6 @@ function WeatherForm() {
                 className="w-5 h-5 text-gray-400"
                 aria-hidden="true"
                 id="fi_2136283"
-                enable-background="new 0 0 512 512"
                 height="512"
                 viewBox="0 0 512 512"
                 width="512"
@@ -131,7 +126,7 @@ function WeatherForm() {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-full p-4 ps-10 text-sm  border border-neutral-600 rounded-lg bg-gray-700  focus:ring-blue-500 focus:border-gray-300 placeholder:text-neutral-400 hover:bg-gray-600 
+              className="block w-96 max-w-3xl p-4 ps-10 text-sm  border border-neutral-600 rounded-lg bg-gray-700  focus:ring-blue-500 focus:border-gray-300 placeholder:text-neutral-400 hover:bg-gray-600 
         focus:outline-none w-200"
             ></input>
           </div>
@@ -155,7 +150,7 @@ function WeatherForm() {
         )}
         {status === "loading" && <div>Loading...</div>}
       </form>
-    </TranspContainer>
+    </>
   );
 }
 
