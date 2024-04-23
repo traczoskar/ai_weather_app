@@ -10,6 +10,14 @@ export interface GeocodingData extends GeocodingResponse {
   state?: string;
 }
 
+export interface ApiDataState {
+  status: string;
+  locationName: string;
+  coordinates: {};
+  geoCoding: GeocodingData | null;
+  weatherData: WeatherResponse | null;
+}
+
 export interface WeatherResponse {
   main: {
     temp: number;
@@ -43,4 +51,10 @@ export interface WeatherResponse {
   timezone: number;
   id: number;
   name: string;
+}
+
+export interface AICompletionState {
+  isLoading: boolean;
+  error: string | null;
+  response: string | null;
 }
