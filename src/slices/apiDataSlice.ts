@@ -1,20 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ApiDataState, GeocodingData, WeatherResponse } from "../types/types";
+
+const initialState: ApiDataState = {
+  status: "initial",
+  locationName: "",
+  coordinates: {},
+  geoCoding: null,
+  weatherData: null,
+};
 
 export const apiDataSlice = createSlice({
   name: "apiData",
-  initialState: {
-    status: "initial",
-    locationName: "",
-    coordinates: {},
-    geoCoding: null as any,
-    weatherData: null as any,
-  },
+  initialState,
   reducers: {
     fetchGeoCoding: (state, action: PayloadAction<string>) => {
       state.status = "loading";
       state.locationName = action.payload;
     },
-    fetchGeoCodingSuccess: (state, action: PayloadAction<{}[] | null>) => {
+    fetchGeoCodingSuccess: (
+      state,
+      action: PayloadAction<GeocodingData | null>
+    ) => {
       state.geoCoding = action.payload;
       state.status = "success";
     },
@@ -27,7 +33,7 @@ export const apiDataSlice = createSlice({
     },
     fetchWeatherDataSuccess: (
       state,
-      action: PayloadAction<{ lat: number; lon: number }>
+      action: PayloadAction<WeatherResponse>
     ) => {
       state.weatherData = action.payload;
       state.status = "success";
