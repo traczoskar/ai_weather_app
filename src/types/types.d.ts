@@ -1,3 +1,12 @@
+// API Data Slice Types
+export interface ApiDataState {
+  status: string;
+  locationName: string;
+  coordinates: {};
+  geoCoding: GeocodingData | null;
+  weatherData: WeatherResponse | null;
+}
+
 export interface GeocodingResponse {
   lat: number;
   lon: number;
@@ -8,14 +17,6 @@ export interface GeocodingData extends GeocodingResponse {
   local_names?: Record<string, any>;
   country: string;
   state?: string;
-}
-
-export interface ApiDataState {
-  status: string;
-  locationName: string;
-  coordinates: {};
-  geoCoding: GeocodingData | null;
-  weatherData: WeatherResponse | null;
 }
 
 export interface WeatherResponse {
@@ -53,8 +54,30 @@ export interface WeatherResponse {
   name: string;
 }
 
+// API Data Saga Types
+export interface Response<T> {
+  data: T[];
+}
+
+export interface FetchWeatherAction {
+  type: string;
+  payload: { lat: number; lon: number };
+}
+
+export interface FetchGeocodingAction {
+  type: string;
+  payload: string;
+}
+
+// AI Completion Types
 export interface AICompletionState {
   isLoading: boolean;
   error: string | null;
+  query: AIQuery;
   response: string | null;
+}
+
+export interface AIQuery {
+  systemMessage: string;
+  userMessage: string;
 }
