@@ -1,23 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
   selectStatus,
   selectWeatherData,
 } from "../../../slices/apiDataSlice";
 import Lottie from "react-lottie";
-import rainy_cloud from "../../../assets/animations/rainy_cloud.json";
 import TranspContainer from "../../../components/TranspContainer";
 import {
   formatDescription,
   formatTemperature,
-} from "../../../utils/dataFormattingFunc";
+} from "../../../utils/dataFormatting";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
-import { requestFunction } from "../../../utils/openAI";
+import { selectAIIsLoading, setQuery } from "../../../slices/aiCompletionSlice";
+import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { usePromptDataBase } from "../../suggestions/usePromptDataBase";
+import Loader from "../../../components/Loader";
 
 function WeatherDisplay() {
+  const isAILoading = useSelector(selectAIIsLoading);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
   const weatherResponse = useSelector(selectWeatherData);
+  const dispatch = useDispatch();
+  const prompt = usePromptDataBase();
   const defaultOptions = (animationData: string) => ({
     loop: true,
     autoplay: true,
@@ -27,18 +32,9 @@ function WeatherDisplay() {
     },
   });
 
-  function getCurrentDate() {
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
-    return `${day < 10 ? "0" + day : day}.${
-      month < 10 ? "0" + month : month
-    }.${year}`;
-  }
-
   const handleGetWeatherAdvice = () => {
-    // requestFunction();
+    const { systemMessage, userMessage } = prompt;
+    dispatch(setQuery({ systemMessage, userMessage }));
   };
 
   return (
@@ -127,14 +123,17 @@ function WeatherDisplay() {
                 height={120}
                 width={120}
               />
-              <div className="flex gap-2">
+              <div
+                onClick={handleGetWeatherAdvice}
+                className="flex gap-2 hover:cursor-pointer hover:bg-gray-600 active:bg-gray-800 bg-gray-500 px-3 py-2 rounded-lg items-center"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="gold"
-                  className="w-6 h-6"
+                  className="w-5 h-5"
                 >
                   <path
                     strokeLinecap="round"
@@ -142,10 +141,16 @@ function WeatherDisplay() {
                     d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
                   />
                 </svg>
-                <h4 className="text-gray-100 text-lg font-normal">
-                  Get AI weather advice
+                <h4 className="text-gray-100 text-md font-normal">
+                  Ask AI for advice
                 </h4>
               </div>
+              {isAILoading && (
+                <p className="text-gray-300 text-md font-light">
+                  Waiting for AI response...
+                  <Loader />
+                </p>
+              )}
             </div>
           </div>
         )}
