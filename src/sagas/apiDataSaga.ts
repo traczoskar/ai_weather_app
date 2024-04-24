@@ -8,19 +8,11 @@ import {
 } from "../slices/apiDataSlice";
 import { getGeocoding } from "../api/getGeocoding";
 import { getWeatherData } from "../api/getWeatherData";
-
-interface Response<T> {
-  data: T[];
-}
-interface FetchGeocodingAction {
-  type: string;
-  payload: string;
-}
-
-interface FetchWeatherAction {
-  type: string;
-  payload: { lat: number; lon: number };
-}
+import {
+  FetchGeocodingAction,
+  FetchWeatherAction,
+  Response,
+} from "../types/types";
 
 function* fetchGeoCodingDataHandler(action: FetchGeocodingAction) {
   try {
