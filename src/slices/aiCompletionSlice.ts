@@ -16,9 +16,11 @@ const aiCompletionSlice = createSlice({
   initialState,
   reducers: {
     setQuery: (state, action: PayloadAction<AIQuery>) => {
+      state.query = action.payload;
+    },
+    setLoading: (state) => {
       state.isLoading = true;
       state.error = null;
-      state.query = action.payload;
       state.response = null;
     },
     setLoadingError: (state, action: PayloadAction<string>) => {
@@ -34,7 +36,7 @@ const aiCompletionSlice = createSlice({
   },
 });
 
-export const { setQuery, setLoadingError, setResponse } =
+export const { setQuery, setLoading, setLoadingError, setResponse } =
   aiCompletionSlice.actions;
 
 export const selectAICompletionState = (state: any) => state.aiCompletion;
