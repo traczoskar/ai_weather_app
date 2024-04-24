@@ -123,7 +123,7 @@ function WeatherDisplay() {
                 height={120}
                 width={120}
               />
-              <div
+              <button
                 onClick={handleGetWeatherAdvice}
                 className="flex gap-2 hover:cursor-pointer hover:bg-gray-600 active:bg-gray-800 bg-gray-500 px-3 py-2 rounded-lg items-center"
               >
@@ -144,7 +144,7 @@ function WeatherDisplay() {
                 <h4 className="text-gray-100 text-md font-normal">
                   Ask AI for advice
                 </h4>
-              </div>
+              </button>
               {isAILoading && (
                 <p className="text-gray-300 text-md font-light">
                   Waiting for AI response...
