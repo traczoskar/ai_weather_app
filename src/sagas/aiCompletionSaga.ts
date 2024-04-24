@@ -4,6 +4,7 @@ import {
   setLoadingError,
   setResponse,
   setQuery,
+  setLoading,
 } from "../slices/aiCompletionSlice";
 
 interface RequestAIAction {
@@ -14,7 +15,8 @@ interface RequestAIAction {
 function* handleAICompletion(action: RequestAIAction) {
   try {
     const { systemMessage, userMessage } = action.payload;
-    yield put(setQuery(action.payload));
+    yield put(setLoading());
+    console.log("Fetching AI completion... for", systemMessage, userMessage);
     const completion: string = yield call(
       getAiResponse,
       systemMessage,
