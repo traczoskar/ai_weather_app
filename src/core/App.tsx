@@ -6,9 +6,9 @@ export default function App() {
   return (
     <main className="flex flex-col items-center bg-custom-bg bg-cover bg-center h-full m-16 rounded-3xl border-solid border-2">
       <Header title="WeatherWise.ai" />
-      <div className="flex items-center gap-8">
+      <div className="flex flex-col items-center gap-8 mx-8 my-2">
         <WeatherDisplay />
-        <SuggestionDisplay message="It's a good day to go out!" />
+        <SuggestionDisplay />
       </div>
     </main>
   );
