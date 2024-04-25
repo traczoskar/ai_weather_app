@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { GeocodingData, GeocodingResponse } from "../../../types/types";
+import { GeocodingData } from "../../../types/types";
 import {
   fetchGeoCoding,
   fetchWeather,
@@ -30,23 +30,6 @@ function WeatherForm() {
       console.log("Location name is empty");
     }
   };
-
-  // const getGeocodingData = async () => {
-  //   if (geocodingResponse) {
-  //     const geocodingData: GeocodingResponse = {
-  //       lat: geocodingResponse[0].lat,
-  //       lon: geocodingResponse[0].lon,
-  //     };
-  //     console.log(geocodingData);
-  //     return geocodingData;
-  //   }
-  // };
-
-  // const handleFetchWeather = async () => {
-  //   const geocodingData = await getGeocodingData();
-  //   if (geocodingData) {
-  //   }
-  // };
 
   const handleLocation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
