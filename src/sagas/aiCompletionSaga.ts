@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { getAiResponse } from "../utils/aiRequestFunction"; // Import your Redux actions
+import { getAiResponse } from "../openAI/openAIRequest"; // Import your Redux actions
 import {
   setLoadingError,
   setResponse,
