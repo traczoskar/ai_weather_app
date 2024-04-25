@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { selectWeatherData } from "../../slices/apiDataSlice";
-import { getCurrentDate } from "../../utils/getCurrentDate";
-import { formatTemperature } from "../../utils/dataFormatting";
+import { selectWeatherData } from "../slices/apiDataSlice";
+import { getCurrentDate } from "../utils/getCurrentDate";
+import { formatTemperature } from "../utils/dataFormatting";
 
 const activities = {
   rain: "Rain weather activities: movie watching, book reading, board games, baking cookies, crafting art, music listening, indoor exercises, museum visits, journal writing, yoga session",
