@@ -9,9 +9,9 @@ const SuggestionDisplay = () => {
     <>
       {aiResponse && (
         <TranspContainer>
-          <section className="flex flex-col w-96">
+          <section className="flex flex-col w-auto">
             <h2 className="text-2xl font-bold mb-4">AI suggestion:</h2>
-            <article className="text-sm text-gray-200">
+            <article className="text-md text-gray-200">
               {/* <p className="text-sm font-normal py-4 whitespace-pre-line">
           {aiResponse}
         </p> */}
