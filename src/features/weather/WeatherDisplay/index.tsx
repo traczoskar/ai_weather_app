@@ -13,7 +13,7 @@ import {
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
 import { selectAIIsLoading, setQuery } from "../../../slices/aiCompletionSlice";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
-import { usePromptDataBase } from "../../suggestions/usePromptDataBase";
+import { usePromptDataBase } from "../../../openAI/usePromptDataBase";
 import Loader from "../../../components/Loader";
 
 function WeatherDisplay() {
