@@ -5,11 +5,7 @@ export default {
     fontFamily: {
       sans: ["OpenSans", "sans-serif"],
     },
-    extend: {
-      backgroundImage: {
-        "custom-bg": "url(../src/assets/backgrounds/cloudy_sky.jpg)",
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
