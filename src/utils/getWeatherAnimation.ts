@@ -6,7 +6,7 @@ import thunderstorm from "../assets/animations/thunderstorm.json";
 import drizzle from "../assets/animations/drizzle.json";
 import special from "../assets/animations/special.json";
 
-export const getWeatherAnimation = (weatherType: string) => {
+export const getWeatherAnimation = (weatherType: string): any => {
   switch (weatherType) {
     case "Rain":
       return rain;
