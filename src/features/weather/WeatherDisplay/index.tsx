@@ -15,6 +15,7 @@ import { selectAIIsLoading, setQuery } from "../../../slices/aiCompletionSlice";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { usePromptDataBase } from "../../../openAI/usePromptDataBase";
 import Loader from "../../../components/Loader";
+import Clock from "../../../components/Clock";
 
 function WeatherDisplay() {
   const isAILoading = useSelector(selectAIIsLoading);
@@ -46,8 +47,6 @@ function WeatherDisplay() {
           <div className="flex justify-between gap-12">
             <article className="flex flex-col">
               {weatherResponse && (
-                // dodać ikonkę lokalizacji oraz datę, dopasować układ i rozmiary kontenera,
-                // zacząć robić integrację z AI
                 <>
                   <h3 className="font-semibold text-xl">Now</h3>
                   <div className="flex items-center my-2">
@@ -90,7 +89,8 @@ function WeatherDisplay() {
                       />
                     </svg>
                     <h4 className="font-normal text-md text-gray-400">
-                      {getCurrentDate()}
+                      {getCurrentDate()}, {""}
+                      <Clock timezone={weatherResponse.timezone} />
                     </h4>
                   </div>
 
