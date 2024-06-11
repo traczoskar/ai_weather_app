@@ -6,7 +6,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   return (
-    <header className="flex justify-between items-center gap-12 bg-black/10 backdrop-blur-md p-6 w-full rounded-3xl">
+    <header className="flex justify-between items-center w-full mt-6">
       <div className="flex items-center">
         <svg
           version="1.1"
