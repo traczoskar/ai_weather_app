@@ -10,11 +10,12 @@ import {
 } from "../../../slices/apiDataSlice";
 import { useState } from "react";
 import Select from "../../../components/Select";
+import Loader from "../../../components/Loader";
 
 function WeatherForm() {
   const [cityName, setCityName] = useState<string>("");
   const status = useSelector(selectStatus);
-  const error = useSelector(selectError);
+  const error: any = useSelector(selectError);
   const weatherResponse = useSelector(selectWeatherData);
   const geocodingResponse = useSelector(selectGeoCodingData);
   const dispatch = useDispatch();
@@ -23,11 +24,8 @@ function WeatherForm() {
     const currentInput: string = e.target.value;
     setCityName(currentInput);
     if (currentInput.length > 2) {
-      console.log("Input updated:", currentInput);
       const trimmedInput = currentInput.trim();
       dispatch(fetchGeoCoding(trimmedInput));
-    } else {
-      console.log("Location name is empty");
     }
   };
 
@@ -61,12 +59,12 @@ function WeatherForm() {
 
   return (
     <>
-      <form className="flex justify-center align-center">
+      <form className="flex justify-center items-center gap-4">
         <label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
-                className="w-4 h-4  text-gray-400"
+                className="w-4 h-4  text-gray-600"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -86,7 +84,7 @@ function WeatherForm() {
               className="absolute inset-y-0 end-2 flex items-center ps-3 hover:cursor-pointer"
             >
               <svg
-                className="w-5 h-5 text-gray-400"
+                className="w-5 h-5 text-gray-600"
                 aria-hidden="true"
                 id="fi_2136283"
                 height="512"
@@ -109,29 +107,33 @@ function WeatherForm() {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-96 max-w-3xl p-4 ps-10 text-sm  border border-neutral-600 rounded-lg bg-gray-700  focus:ring-blue-500 focus:border-gray-300 placeholder:text-neutral-400 hover:bg-gray-600 
+              className="block w-96 max-w-3xl p-4 ps-10 text-sm  border border-sky-300 rounded-lg bg-white  focus:ring-blue-500 focus:border-sky-500 placeholder:text-gray-400 hover:bg-gray-100 
         focus:outline-none w-200"
             ></input>
           </div>
         </label>
 
-        {geocodingResponse && geocodingResponse.length > 0 && (
-          <div className="">
-            {geocodingResponse.map((location: GeocodingData, index: number) => (
-              <Select
-                key={index}
-                onClick={() =>
-                  dispatch(
-                    fetchWeather({ lat: location.lat, lon: location.lon })
-                  )
-                }
-              >
-                {location.name}, {location.country}, ({location.state})
-              </Select>
-            ))}
-          </div>
-        )}
-        {status === "loading" && <div>Loading...</div>}
+        {geocodingResponse &&
+          geocodingResponse.length > 0 &&
+          !weatherResponse && (
+            <div className="absolute">
+              {geocodingResponse.map(
+                (location: GeocodingData, index: number) => (
+                  <Select
+                    key={index}
+                    onClick={() =>
+                      dispatch(
+                        fetchWeather({ lat: location.lat, lon: location.lon })
+                      )
+                    }
+                  >
+                    {location.name}, {location.country}, ({location.state})
+                  </Select>
+                )
+              )}
+            </div>
+          )}
+        {status === "loading" && <Loader borderColor="border-gray-600" />}
       </form>
     </>
   );
