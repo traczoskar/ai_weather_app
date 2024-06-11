@@ -17,11 +17,19 @@ import { usePromptDataBase } from "../../../openAI/usePromptDataBase";
 import Loader from "../../../components/Loader";
 import Clock from "../../../components/Clock";
 
-function WeatherDisplay() {
+interface WeatherDisplayProps {
+  weatherData: {
+    isPending: boolean;
+    data: any;
+    error: any;
+  };
+}
+
+const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
   const isAILoading = useSelector(selectAIIsLoading);
-  const status = useSelector(selectStatus);
-  const error = useSelector(selectError);
-  const weatherResponse = useSelector(selectWeatherData);
+  // const status = useSelector(selectStatus);
+  // const error = useSelector(selectError);
+  // const data = useSelector(selectWeatherData);
   const dispatch = useDispatch();
   const prompt = usePromptDataBase();
   const defaultOptions = (animationData: string) => ({
@@ -32,6 +40,7 @@ function WeatherDisplay() {
       preserveAspectRatio: "xMidYMid slice",
     },
   });
+  const { isPending, data, error } = weatherData;
 
   const handleGetWeatherAdvice = () => {
     const { systemMessage, userMessage } = prompt;
@@ -40,12 +49,12 @@ function WeatherDisplay() {
 
   return (
     <>
-      {weatherResponse && (
+      {!isPending && (
         <section className="flex w-full">
           <TranspContainer>
-            {status === "loading" && <h3>Loading...</h3>}
-            {status === "failed" && <h3>{error}</h3>}
-            {status === "success" && (
+            {isPending && <h3>Loading...</h3>}
+            {error && <h3>{error}</h3>}
+            {!isPending && (
               <div className="flex justify-between gap-12">
                 <article className="flex flex-col">
                   <div className="flex gap-12">
@@ -72,7 +81,7 @@ function WeatherDisplay() {
                           />
                         </svg>
                         <h4 className="font-normal text-md text-gray-600">
-                          {weatherResponse.name}
+                          {data.name}
                         </h4>
                       </div>
                       <div className="flex items-center">
@@ -92,25 +101,23 @@ function WeatherDisplay() {
                         </svg>
                         <h4 className="font-normal text-md text-gray-600">
                           {getCurrentDate()}, {""}
-                          <Clock timezone={weatherResponse.timezone} />
+                          <Clock timezone={data.timezone} />
                         </h4>
                       </div>
 
                       <p className="text-lg font-light py-2">
-                        {formatDescription(
-                          weatherResponse.weather[0].description
-                        )}
+                        {formatDescription(data.weather[0].description)}
                       </p>
                       <div className="flex items-center justify-center gap-4">
                         <Lottie
                           options={defaultOptions(
-                            getWeatherAnimation(weatherResponse.weather[0].main)
+                            getWeatherAnimation(data.weather[0].main)
                           )}
                           height={120}
                           width={120}
                         />
                         <p className="text-6xl font-semibold py-2">
-                          {formatTemperature(weatherResponse.main.temp)}°C
+                          {formatTemperature(data.main.temp)}°C
                         </p>
                       </div>
                     </div>
@@ -118,13 +125,13 @@ function WeatherDisplay() {
                       <p className="text-lg py-1">
                         Odczuwalne:{" "}
                         <span className="ml-2 text-xl font-semibold">
-                          {formatTemperature(weatherResponse.main.feels_like)}°C
+                          {formatTemperature(data.main.feels_like)}°C
                         </span>
                       </p>
                       <p className="text-lg py-1">
                         Wilgotność:{" "}
                         <span className="ml-2 text-xl font-semibold">
-                          {weatherResponse.main.humidity}%
+                          {data.main.humidity}%
                         </span>
                       </p>
                     </div>
@@ -156,7 +163,7 @@ function WeatherDisplay() {
                   {isAILoading && (
                     <p className="text-gray-300 text-md font-light">
                       Waiting for AI response...
-                      <Loader />
+                      <Loader borderColor="black" />
                     </p>
                   )}
                 </div>
@@ -167,7 +174,7 @@ function WeatherDisplay() {
       )}
     </>
   );
-}
+};
 
 export default WeatherDisplay;
 
