@@ -2,21 +2,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { GeocodingData } from "../../../types/types";
 import {
   fetchGeoCoding,
-  fetchWeather,
-  selectError,
   selectGeoCodingData,
   selectStatus,
-  selectWeatherData,
 } from "../../../slices/apiDataSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Select from "../../../components/Select";
 import Loader from "../../../components/Loader";
 
-function WeatherForm() {
+interface WeatherFormProps {
+  updateLocation: (location: GeocodingData) => void;
+  weatherData: {
+    isPending: boolean;
+    data: any;
+    error: any;
+  } | null;
+}
+
+const WeatherForm: React.FC<WeatherFormProps> = ({
+  updateLocation,
+  weatherData,
+}) => {
   const [cityName, setCityName] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const status = useSelector(selectStatus);
-  const error: any = useSelector(selectError);
-  const weatherResponse = useSelector(selectWeatherData);
   const geocodingResponse = useSelector(selectGeoCodingData);
   const dispatch = useDispatch();
 
@@ -26,6 +34,13 @@ function WeatherForm() {
     if (currentInput.length > 2) {
       const trimmedInput = currentInput.trim();
       dispatch(fetchGeoCoding(trimmedInput));
+    }
+  };
+
+  const handleReset = () => {
+    setCityName("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
     }
   };
 
@@ -48,13 +63,13 @@ function WeatherForm() {
   };
 
   const getGeolocation = (position: GeolocationPosition) => {
-    dispatch(
-      fetchWeather({
-        lat: position.coords.latitude,
-        lon: position.coords.longitude,
-      })
-    );
-    console.log(weatherResponse);
+    updateLocation({
+      lat: position.coords.latitude,
+      lon: position.coords.longitude,
+      name: "Current Location",
+      country: "",
+      state: "",
+    });
   };
 
   return (
@@ -103,6 +118,7 @@ function WeatherForm() {
               </svg>
             </div>
             <input
+              ref={inputRef}
               type="text"
               value={cityName}
               onChange={handleLocationInput}
@@ -115,17 +131,16 @@ function WeatherForm() {
 
         {geocodingResponse &&
           geocodingResponse.length > 0 &&
-          !weatherResponse && (
+          cityName !== "" && (
             <div className="absolute">
               {geocodingResponse.map(
                 (location: GeocodingData, index: number) => (
                   <Select
                     key={index}
-                    onClick={() =>
-                      dispatch(
-                        fetchWeather({ lat: location.lat, lon: location.lon })
-                      )
-                    }
+                    onClick={() => {
+                      updateLocation(location);
+                      handleReset();
+                    }}
                   >
                     {location.name}, {location.country}, ({location.state})
                   </Select>
@@ -137,6 +152,6 @@ function WeatherForm() {
       </form>
     </>
   );
-}
+};
 
 export default WeatherForm;
