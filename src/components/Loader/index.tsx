@@ -1,8 +1,14 @@
 import React from "react";
 
-const Loader: React.FC = () => {
+interface LoaderProps {
+  borderColor: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({ borderColor }) => {
   return (
-    <div className="w-5 h-5 border-4 border-dashed rounded-full animate-spin border-t-transparent border-white"></div>
+    <div
+      className={`w-5 h-5 border-4 border-dashed rounded-full animate-spin border-t-transparent ${borderColor}`}
+    ></div>
   );
 };
 
