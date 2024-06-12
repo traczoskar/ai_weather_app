@@ -8,33 +8,33 @@ import {
 import { useRef, useState } from "react";
 import Select from "../../../components/Select";
 import Loader from "../../../components/Loader";
+import { useGeocodingData } from "../../../api/useGeocodingData";
 
 interface WeatherFormProps {
   updateLocation: (location: GeocodingData) => void;
-  weatherData: {
-    isPending: boolean;
-    data: any;
-    error: any;
-  } | null;
 }
 
-const WeatherForm: React.FC<WeatherFormProps> = ({
-  updateLocation,
-  weatherData,
-}) => {
+interface GeocodingState {
+  isPending: boolean;
+  data: GeocodingData[] | null;
+  error: Error | null;
+}
+
+const WeatherForm: React.FC<WeatherFormProps> = ({ updateLocation }) => {
   const [cityName, setCityName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const status = useSelector(selectStatus);
-  const geocodingResponse = useSelector(selectGeoCodingData);
-  const dispatch = useDispatch();
+  // const status = useSelector(selectStatus);
+  // const geocodingResponse = useSelector(selectGeoCodingData);
+  // const dispatch = useDispatch();
+
+  const {
+    isFetching,
+    data: locations,
+    error,
+  } = useGeocodingData(cityName.length > 2 ? cityName.trim() : null);
 
   const handleLocationInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentInput: string = e.target.value;
-    setCityName(currentInput);
-    if (currentInput.length > 2) {
-      const trimmedInput = currentInput.trim();
-      dispatch(fetchGeoCoding(trimmedInput));
-    }
+    setCityName(e.target.value);
   };
 
   const handleReset = () => {
@@ -129,26 +129,22 @@ const WeatherForm: React.FC<WeatherFormProps> = ({
           </div>
         </label>
 
-        {geocodingResponse &&
-          geocodingResponse.length > 0 &&
-          cityName !== "" && (
-            <div className="absolute">
-              {geocodingResponse.map(
-                (location: GeocodingData, index: number) => (
-                  <Select
-                    key={index}
-                    onClick={() => {
-                      updateLocation(location);
-                      handleReset();
-                    }}
-                  >
-                    {location.name}, {location.country}, ({location.state})
-                  </Select>
-                )
-              )}
-            </div>
-          )}
-        {status === "loading" && <Loader borderColor="border-gray-600" />}
+        {locations && locations.length > 0 && cityName !== "" && (
+          <div className="absolute">
+            {locations.map((location: GeocodingData, index: number) => (
+              <Select
+                key={index}
+                onClick={() => {
+                  updateLocation(location);
+                  handleReset();
+                }}
+              >
+                {location.name}, {location.country}, ({location.state})
+              </Select>
+            ))}
+          </div>
+        )}
+        {isFetching && <Loader borderColor="border-gray-600" />}
       </form>
     </>
   );
