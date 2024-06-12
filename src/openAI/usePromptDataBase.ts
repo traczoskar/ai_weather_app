@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
-import { selectWeatherData } from "../slices/apiDataSlice";
-import { getCurrentDate } from "../utils/getCurrentDate";
+import { useCurrentDate } from "../utils/useCurrentDate";
 import { formatTemperature } from "../utils/dataFormatting";
+import { WeatherResponse } from "../types/types";
+
+const currentDate: string = useCurrentDate();
 
 const activities = {
   rain: "Rain weather activities: movie watching, book reading, board games, baking cookies, crafting art, music listening, indoor exercises, museum visits, journal writing, yoga session",
@@ -39,9 +40,7 @@ const getContext = (weatherType: string) => {
   }
 };
 
-export const usePromptDataBase = () => {
-  const weatherResponse = useSelector(selectWeatherData);
-
+export const usePromptDataBase = (weatherResponse: WeatherResponse | null) => {
   const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in Markdown format. Let's make the most of your day!
   ###
   Example activities for this weather: ${
@@ -49,7 +48,7 @@ export const usePromptDataBase = () => {
   }###`;
 
   const userMessage = `Dane pogodowe:
-- dzisiejsza data: ${getCurrentDate()} r.,
+- dzisiejsza data: ${currentDate} r.,
 - lokalizacja: ${weatherResponse?.name},
 - opis pogody: ${weatherResponse?.weather[0].description},
 - temperatura: ${
