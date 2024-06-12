@@ -1,21 +1,34 @@
-import { useSelector } from "react-redux";
 import TranspContainer from "../../../components/TranspContainer";
-import { selectAIResponse } from "../../../slices/aiCompletionSlice";
 import ReactMarkdown from "react-markdown";
+import Loader from "../../../components/Loader";
 
-const SuggestionDisplay = () => {
-  const aiResponse = useSelector(selectAIResponse);
+interface AiData {
+  isPending: boolean;
+  data: any | null;
+  error: any | null;
+}
+interface SuggestionsDisplayProps {
+  aiData: AiData;
+}
+
+const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({ aiData }) => {
+  const { isPending, data, error } = aiData;
+
+  {
+    isPending && <Loader borderColor="black" />;
+  }
+  {
+    error && <h3>{error.message}</h3>;
+  }
+
   return (
     <>
-      {aiResponse && (
+      {data && (
         <TranspContainer>
           <section className="flex flex-col w-auto">
             <h2 className="text-2xl font-bold mb-4">AI suggestion:</h2>
             <article className="text-md text-gray-700">
-              {/* <p className="text-sm font-normal py-4 whitespace-pre-line">
-          {aiResponse}
-        </p> */}
-              <ReactMarkdown>{aiResponse}</ReactMarkdown>
+              <ReactMarkdown>{data}</ReactMarkdown>
             </article>
           </section>
         </TranspContainer>
@@ -23,4 +36,5 @@ const SuggestionDisplay = () => {
     </>
   );
 };
+
 export default SuggestionDisplay;
