@@ -1,4 +1,4 @@
-export const getCurrentDate = () => {
+export const useCurrentDate = () => {
   const currentDate = new Date();
   const day = currentDate.getDate();
   const month = currentDate.getMonth() + 1;
