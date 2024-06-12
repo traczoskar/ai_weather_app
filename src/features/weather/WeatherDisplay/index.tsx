@@ -1,9 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectError,
-  selectStatus,
-  selectWeatherData,
-} from "../../../slices/apiDataSlice";
 import Lottie from "react-lottie";
 import TranspContainer from "../../../components/TranspContainer";
 import {
@@ -12,26 +7,37 @@ import {
 } from "../../../utils/dataFormatting";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
 import { selectAIIsLoading, setQuery } from "../../../slices/aiCompletionSlice";
-import { getCurrentDate } from "../../../utils/getCurrentDate";
-import { usePromptDataBase } from "../../../openAI/usePromptDataBase";
+import { useCurrentDate } from "../../../utils/useCurrentDate";
 import Loader from "../../../components/Loader";
 import Clock from "../../../components/Clock";
+import { WeatherResponse } from "../../../types/types";
 
 interface WeatherDisplayProps {
   weatherData: {
     isPending: boolean;
-    data: any;
-    error: any;
+    isWeatherFetching: boolean;
+    data: WeatherResponse | null;
+    error: Error | null;
+  };
+  aiRequest: () => void;
+  aiData: {
+    isPending: boolean;
+    data: any | null;
+    error: any | null;
   };
 }
 
-const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
-  const isAILoading = useSelector(selectAIIsLoading);
+const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
+  weatherData,
+  aiRequest,
+  aiData,
+}) => {
+  // const isAILoading = useSelector(selectAIIsLoading);
   // const status = useSelector(selectStatus);
   // const error = useSelector(selectError);
   // const data = useSelector(selectWeatherData);
-  const dispatch = useDispatch();
-  const prompt = usePromptDataBase();
+  // const dispatch = useDispatch();
+
   const defaultOptions = (animationData: string) => ({
     loop: true,
     autoplay: true,
@@ -40,20 +46,26 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   });
-  const { isPending, data, error } = weatherData;
+  const { isPending, isWeatherFetching, data, error } = weatherData;
+  const currentDate = useCurrentDate();
+  const { isPending: isAILoading } = aiData;
 
-  const handleGetWeatherAdvice = () => {
-    const { systemMessage, userMessage } = prompt;
-    dispatch(setQuery({ systemMessage, userMessage }));
-  };
+  // const handleGetWeatherAdvice = () => {
+  //   const { systemMessage, userMessage } = prompt;
+  //   dispatch(setQuery({ systemMessage, userMessage }));
+  // };
 
   return (
     <>
       {!isPending && (
         <section className="flex w-full">
           <TranspContainer>
-            {isPending && <h3>Loading...</h3>}
-            {error && <h3>{error}</h3>}
+            {isWeatherFetching && (
+              <div>
+                Loading ... <Loader borderColor="black" />
+              </div>
+            )}
+            {error && <h3>{error.message}</h3>}
             {!isPending && (
               <div className="flex justify-between gap-12">
                 <article className="flex flex-col">
@@ -81,7 +93,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
                           />
                         </svg>
                         <h4 className="font-normal text-md text-gray-600">
-                          {data.name}
+                          {data?.name}
                         </h4>
                       </div>
                       <div className="flex items-center">
@@ -100,13 +112,15 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
                           />
                         </svg>
                         <h4 className="font-normal text-md text-gray-600">
-                          {getCurrentDate()}, {""}
-                          <Clock timezone={data.timezone} />
+                          {currentDate}, {""}
+                          {data ? <Clock timezone={data.timezone} /> : null}
                         </h4>
                       </div>
 
                       <p className="text-lg font-light py-2">
-                        {formatDescription(data.weather[0].description)}
+                        {data
+                          ? formatDescription(data.weather[0].description)
+                          : null}
                       </p>
                       <div className="flex items-center justify-center gap-4">
                         <Lottie
@@ -125,13 +139,16 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
                       <p className="text-lg py-1">
                         Odczuwalne:{" "}
                         <span className="ml-2 text-xl font-semibold">
-                          {formatTemperature(data.main.feels_like)}°C
+                          {data
+                            ? formatTemperature(data.main.feels_like)
+                            : null}
+                          °C
                         </span>
                       </p>
                       <p className="text-lg py-1">
                         Wilgotność:{" "}
                         <span className="ml-2 text-xl font-semibold">
-                          {data.main.humidity}%
+                          {data?.main.humidity}%
                         </span>
                       </p>
                     </div>
@@ -139,8 +156,8 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
                 </article>
                 <div className="flex flex-col gap-8">
                   <button
-                    onClick={handleGetWeatherAdvice}
-                    className="flex gap-2 hover:cursor-pointer hover:bg-gray-600 active:bg-gray-800 bg-gray-500 px-3 py-2 rounded-lg items-center"
+                    onClick={aiRequest}
+                    className="flex gap-2 hover:cursor-pointer hover:bg-gray-700 active:bg-gray-500 bg-gray-600 px-3 py-2 rounded-lg items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -156,14 +173,14 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
                         d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
                       />
                     </svg>
-                    <h4 className="text-gray-100 text-md font-normal">
+                    <h4 className="text-gray-300 text-md font-normal">
                       Ask AI for advice
                     </h4>
                   </button>
                   {isAILoading && (
-                    <p className="text-gray-300 text-md font-light">
+                    <p className="text-gray-800 text-md font-light">
                       Waiting for AI response...
-                      <Loader borderColor="black" />
+                      <Loader borderColor="gray" />
                     </p>
                   )}
                 </div>
