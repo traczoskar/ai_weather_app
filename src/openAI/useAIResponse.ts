@@ -13,7 +13,6 @@ const requestFunction = async (content: any) => {
       model: "gpt-3.5-turbo",
     });
     const response = prompt.choices[0].message.content;
-    console.log("AI response: ", response);
     return response;
   } catch (error) {
     console.error("Error fetching AI completion:", error);
