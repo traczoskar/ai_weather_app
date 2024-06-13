@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import Lottie from "react-lottie";
 import TranspContainer from "../../../components/TranspContainer";
 import {
@@ -6,13 +5,13 @@ import {
   formatTemperature,
 } from "../../../utils/dataFormatting";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
-import { selectAIIsLoading, setQuery } from "../../../slices/aiCompletionSlice";
 import { useCurrentDate } from "../../../utils/useCurrentDate";
 import Loader from "../../../components/Loader";
 import Clock from "../../../components/Clock";
-import { WeatherResponse } from "../../../types/types";
+import { GeocodingData, WeatherResponse } from "../../../types/types";
 
 interface WeatherDisplayProps {
+  selectedLocation: GeocodingData | null;
   weatherData: {
     isPending: boolean;
     isWeatherFetching: boolean;
@@ -28,16 +27,11 @@ interface WeatherDisplayProps {
 }
 
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
+  selectedLocation,
   weatherData,
   aiRequest,
   aiData,
 }) => {
-  // const isAILoading = useSelector(selectAIIsLoading);
-  // const status = useSelector(selectStatus);
-  // const error = useSelector(selectError);
-  // const data = useSelector(selectWeatherData);
-  // const dispatch = useDispatch();
-
   const defaultOptions = (animationData: string) => ({
     loop: true,
     autoplay: true,
@@ -47,13 +41,8 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
     },
   });
   const { isPending, isWeatherFetching, data, error } = weatherData;
-  const currentDate = useCurrentDate();
   const { isPending: isAILoading } = aiData;
-
-  // const handleGetWeatherAdvice = () => {
-  //   const { systemMessage, userMessage } = prompt;
-  //   dispatch(setQuery({ systemMessage, userMessage }));
-  // };
+  const currentDate = useCurrentDate();
 
   return (
     <>
@@ -92,8 +81,8 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                           />
                         </svg>
-                        <h4 className="font-normal text-md text-gray-600">
-                          {data?.name}
+                        <h4 className="font-normal text-md text-gray-800">
+                          {`${selectedLocation?.name}, ${data?.name}`}
                         </h4>
                       </div>
                       <div className="flex items-center">
@@ -123,15 +112,18 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                           : null}
                       </p>
                       <div className="flex items-center justify-center gap-4">
-                        <Lottie
-                          options={defaultOptions(
-                            getWeatherAnimation(data.weather[0].main)
-                          )}
-                          height={120}
-                          width={120}
-                        />
+                        {data ? (
+                          <Lottie
+                            options={defaultOptions(
+                              getWeatherAnimation(data.weather[0].main)
+                            )}
+                            height={120}
+                            width={120}
+                          />
+                        ) : null}
+
                         <p className="text-6xl font-semibold py-2">
-                          {formatTemperature(data.main.temp)}°C
+                          {data ? formatTemperature(data.main.temp) : null}°C
                         </p>
                       </div>
                     </div>
