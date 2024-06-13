@@ -1,31 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
 import { GeocodingData } from "../../../types/types";
-import {
-  fetchGeoCoding,
-  selectGeoCodingData,
-  selectStatus,
-} from "../../../slices/apiDataSlice";
 import { useRef, useState } from "react";
 import Select from "../../../components/Select";
 import Loader from "../../../components/Loader";
-import { useGeocodingData } from "../../../api/useGeocodingData";
+import { useGeocodingData } from "../../../hooks/api/useGeocodingData";
 
 interface WeatherFormProps {
-  updateLocation: (location: GeocodingData) => void;
+  setSelectedLocation: (location: GeocodingData) => void;
 }
 
-interface GeocodingState {
-  isPending: boolean;
-  data: GeocodingData[] | null;
-  error: Error | null;
-}
-
-const WeatherForm: React.FC<WeatherFormProps> = ({ updateLocation }) => {
+const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
   const [cityName, setCityName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  // const status = useSelector(selectStatus);
-  // const geocodingResponse = useSelector(selectGeoCodingData);
-  // const dispatch = useDispatch();
 
   const {
     isFetching,
@@ -37,7 +22,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ updateLocation }) => {
     setCityName(e.target.value);
   };
 
-  const handleReset = () => {
+  const handleReset = (): void => {
     setCityName("");
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -63,7 +48,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ updateLocation }) => {
   };
 
   const getGeolocation = (position: GeolocationPosition) => {
-    updateLocation({
+    setSelectedLocation({
       lat: position.coords.latitude,
       lon: position.coords.longitude,
       name: "Current Location",
@@ -135,7 +120,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ updateLocation }) => {
               <Select
                 key={index}
                 onClick={() => {
-                  updateLocation(location);
+                  setSelectedLocation(location);
                   handleReset();
                 }}
               >
