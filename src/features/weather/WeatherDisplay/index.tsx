@@ -59,7 +59,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
             {error && <h3>{error.message}</h3>}
             {!isPending && (
               <div className="flex w-full">
-                <article className="flex w-full">
+                <article className="flex ">
                   <div className="flex gap-24 justify-between w-full">
                     <div>
                       <h3 className="font-semibold text-xl">Now</h3>
