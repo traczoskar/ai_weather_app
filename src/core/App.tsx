@@ -4,15 +4,9 @@ import SuggestionDisplay from "../features/suggestions/SuggestionDisplay";
 
 import { useWeatherData } from "../api/useWeatherData";
 import { useEffect, useState } from "react";
-import { GeocodingData } from "../types/types";
+import { AiData, GeocodingData } from "../types/types";
 import { usePromptDataBase } from "../openAI/usePromptDataBase";
 import { useAIResponse } from "../openAI/useAIResponse";
-
-interface AiData {
-  isPending: boolean;
-  data: any | null;
-  error: any | null;
-}
 
 const App: React.FC = () => {
   //---Geocoding Hooks---

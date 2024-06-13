@@ -1,12 +1,8 @@
 import TranspContainer from "../../../components/TranspContainer";
 import ReactMarkdown from "react-markdown";
 import Loader from "../../../components/Loader";
+import { AiData } from "../../../types/types";
 
-interface AiData {
-  isPending: boolean;
-  data: any | null;
-  error: any | null;
-}
 interface SuggestionsDisplayProps {
   aiData: AiData;
 }
