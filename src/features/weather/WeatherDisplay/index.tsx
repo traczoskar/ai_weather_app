@@ -5,10 +5,10 @@ import {
   formatTemperature,
 } from "../../../utils/dataFormatting";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
-import { useCurrentDate } from "../../../utils/useCurrentDate";
+import { useCurrentDate } from "../../../hooks/useCurrentDate";
 import Loader from "../../../components/Loader";
 import Clock from "../../../components/Clock";
-import { GeocodingData, WeatherResponse } from "../../../types/types";
+import { AiData, GeocodingData, WeatherResponse } from "../../../types/types";
 
 interface WeatherDisplayProps {
   selectedLocation: GeocodingData | null;
@@ -19,11 +19,7 @@ interface WeatherDisplayProps {
     error: Error | null;
   };
   aiRequest: () => void;
-  aiData: {
-    isPending: boolean;
-    data: any | null;
-    error: any | null;
-  };
+  aiData: AiData;
 }
 
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
