@@ -2,11 +2,11 @@ import WeatherDisplay from "../features/weather/WeatherDisplay";
 import Header from "../components/Header";
 import SuggestionDisplay from "../features/suggestions/SuggestionDisplay";
 
-import { useWeatherData } from "../api/useWeatherData";
+import { useWeatherData } from "../hooks/api/useWeatherData";
 import { useEffect, useState } from "react";
 import { AiData, GeocodingData } from "../types/types";
-import { usePromptDataBase } from "../openAI/usePromptDataBase";
-import { useAIResponse } from "../openAI/useAIResponse";
+import { usePromptDataBase } from "../hooks/openAI/usePromptDataBase";
+import { useAIResponse } from "../hooks/openAI/useAIResponse";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -81,8 +81,7 @@ const App: React.FC = () => {
     <main className="flex flex-col items-center gap-8">
       <Header
         title="WeatherWise.ai"
-        updateLocation={setSelectedLocation}
-        weatherData={{ isPending, data, error }}
+        setSelectedLocation={setSelectedLocation}
       />
       <div className="flex flex-col items-center gap-8 w-full">
         <WeatherDisplay
