@@ -2,15 +2,10 @@ import WeatherForm from "../../features/weather/WeatherForm";
 
 interface HeaderProps {
   title: string;
-  updateLocation: (location: any) => void;
-  weatherData: {
-    isPending: boolean;
-    data: any;
-    error: any;
-  } | null;
+  setSelectedLocation: (location: any) => void;
 }
 
-const Header = ({ title, updateLocation, weatherData }: HeaderProps) => {
+const Header = ({ title, setSelectedLocation }: HeaderProps) => {
   return (
     <header className="flex justify-between items-center w-full mt-6">
       <div className="flex items-center">
@@ -40,7 +35,7 @@ const Header = ({ title, updateLocation, weatherData }: HeaderProps) => {
         </svg>
         <h1 className="text-3xl font-bold font-['Raleway'] ">{title}</h1>
       </div>
-      <WeatherForm updateLocation={updateLocation} weatherData={weatherData} />
+      <WeatherForm setSelectedLocation={setSelectedLocation} />
     </header>
   );
 };
