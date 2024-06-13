@@ -14,14 +14,14 @@ interface AiData {
   error: any | null;
 }
 
-const App = () => {
+const App: React.FC = () => {
+  //---Geocoding Hooks---
+
   const [selectedLocation, setSelectedLocation] =
     useState<GeocodingData | null>(null);
-  const [aiData, setAiData] = useState<AiData>({
-    isPending: false,
-    data: null,
-    error: null,
-  });
+
+  //---Weather Hooks---
+
   const {
     isPending,
     isFetching: isWeatherFetching,
@@ -38,14 +38,29 @@ const App = () => {
     console.log("error: ", error);
   }, [isPending, data, error]);
 
+  //---AI Hooks---
+
+  const [aiData, setAiData] = useState<AiData>({
+    isPending: false,
+    data: null,
+    error: null,
+  });
+
   const prompt = usePromptDataBase(data);
 
-  const {
-    refetch,
-    isFetching,
-    data: aiResponse,
-    error: aiError,
-  } = useAIResponse(prompt.systemMessage, prompt.userMessage);
+  const { refetch, isFetching: isAIFetching } = useAIResponse(
+    prompt.systemMessage,
+    prompt.userMessage
+  );
+
+  useEffect(() => {
+    setAiData((prev) => ({
+      ...prev,
+      isPending: isAIFetching,
+    }));
+  }, [isAIFetching]);
+
+  //---AI Request Function---
 
   const getWeatherAdvice = async () => {
     setAiData((prev) => ({
@@ -53,33 +68,20 @@ const App = () => {
       isPending: true,
     }));
     try {
-      const { data } = await refetch();
+      const { data: aiResponse, error: aiError } = await refetch();
       setAiData({
         isPending: false,
-        data: data,
-        error: null,
+        data: aiResponse,
+        error: aiError,
       });
     } catch (error) {
       setAiData({
         isPending: false,
         data: null,
-        error,
+        error: error,
       });
     }
   };
-
-  useEffect(() => {
-    setAiData((prev) => ({
-      ...prev,
-      isPending: isFetching,
-    }));
-  }, [isFetching]);
-
-  useEffect(() => {
-    console.log("aiData: ", aiData.data);
-    console.log("aiData error: ", aiData.error);
-    console.log("aiData isPending: ", aiData.isPending);
-  }, [aiData.data, aiData.error, aiData.isPending]);
 
   return (
     <main className="flex flex-col items-center gap-8">
@@ -88,14 +90,14 @@ const App = () => {
         updateLocation={setSelectedLocation}
         weatherData={{ isPending, data, error }}
       />
-
       <div className="flex flex-col items-center gap-8 w-full">
-        <SuggestionDisplay aiData={aiData} />
         <WeatherDisplay
-          aiData={aiData}
+          selectedLocation={selectedLocation}
           weatherData={{ isPending, isWeatherFetching, data, error }}
+          aiData={aiData}
           aiRequest={getWeatherAdvice}
         />
+        <SuggestionDisplay aiData={aiData} />
       </div>
     </main>
   );
