@@ -1,7 +1,8 @@
 import { WeatherResponse } from "../../../../types/types";
 import {
-  formatTemperature,
-  formatTime,
+  formatHoursMinutes,
+  formatSecondaryTemp,
+  formatWindSpeed,
 } from "../../../../utils/dataFormatting";
 import FeelsLikeIcon from "../../../../assets/icons/feather.svg?react";
 import ArrowUpIcon from "../../../../assets/icons/arrow-up.svg?react";
@@ -21,27 +22,31 @@ interface DetailedInfoProps {
 
 const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
       {weather?.main.feels_like ? (
         <Detail
           icon={<FeelsLikeIcon width={27} height={27} />}
           width="w-auto"
           textSize="text-xl"
           title="Feels like:"
-          data={`${formatTemperature(weather.main.feels_like)}°C`}
+          data={`${formatSecondaryTemp(weather.main.feels_like)}°C`}
         />
       ) : null}
-      <div className="grid grid-cols-2 gap-x-12 gap-y-3">
-        <Detail
-          icon={<ArrowUpIcon width={22} height={22} />}
-          title="Max:"
-          data={`${weather?.main.temp_max}°C`}
-        />
-        <Detail
-          icon={<ArrowDownIcon width={22} height={22} />}
-          title="Min:"
-          data={`${weather?.main.temp_min}°C`}
-        />
+      <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+        {weather?.main.temp_max ? (
+          <Detail
+            icon={<ArrowUpIcon width={22} height={22} />}
+            title="Max:"
+            data={`${formatSecondaryTemp(weather?.main.temp_max)}°C`}
+          />
+        ) : null}
+        {weather?.main.temp_min ? (
+          <Detail
+            icon={<ArrowDownIcon width={22} height={22} />}
+            title="Min:"
+            data={`${formatSecondaryTemp(weather?.main.temp_min)}°C`}
+          />
+        ) : null}
         <Detail
           icon={<HumidityIcon width={22} height={22} />}
           title="Humidity:"
@@ -52,21 +57,29 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
           title="Pressure:"
           data={`${weather?.main.pressure} hPa`}
         />
-        <Detail
-          icon={<WindIcon width={22} height={22} />}
-          title="Wind:"
-          data={`${weather?.wind.speed} m/s`}
-        />
+        {weather?.wind.speed ? (
+          <Detail
+            icon={<WindIcon width={22} height={22} />}
+            title="Wind:"
+            data={`${formatWindSpeed(weather?.wind.speed)} km/h`}
+          />
+        ) : null}
         <Detail
           icon={<CloudinessIcon width={22} height={22} />}
           title="Cloudiness:"
           data={weather?.clouds.all + " %"}
         />
-        <Detail
-          icon={<VisibilityIcon width={22} height={22} />}
-          title="Visibility:"
-          data={weather?.visibility + " m"}
-        />
+        {weather?.visibility ? (
+          <Detail
+            icon={<VisibilityIcon width={22} height={22} />}
+            title="Visibility:"
+            data={
+              weather?.visibility >= 10000
+                ? "Unlimited"
+                : weather.visibility + " m"
+            }
+          />
+        ) : null}
       </div>
       <div className="grid grid-cols-2 gap-x-8 ">
         {weather?.sys.sunrise ? (
@@ -74,7 +87,7 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
             textSize="text-xl"
             icon={<SunRiseIcon width={27} height={27} />}
             title="Sunrise:"
-            data={formatTime(weather.sys.sunrise)}
+            data={formatHoursMinutes(weather.sys.sunrise)}
           />
         ) : null}
         {weather?.sys.sunset ? (
@@ -82,7 +95,7 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
             textSize="text-xl"
             icon={<SunSetIcon width={27} height={27} />}
             title="Sunset:"
-            data={formatTime(weather.sys.sunset)}
+            data={formatHoursMinutes(weather.sys.sunset)}
           />
         ) : null}
       </div>
