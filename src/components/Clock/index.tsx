@@ -20,7 +20,7 @@ const Clock: React.FC<ClockProps> = ({ timezone }) => {
     const minutes = targetDate.getMinutes().toString().padStart(2, "0");
     const seconds = targetDate.getSeconds().toString().padStart(2, "0");
 
-    setCurrentTime(`${hours} : ${minutes} : ${seconds}`);
+    setCurrentTime(`${hours}:${minutes}:${seconds}`);
   };
 
   useEffect(() => {
