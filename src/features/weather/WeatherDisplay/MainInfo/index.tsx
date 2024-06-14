@@ -5,7 +5,7 @@ import { useCurrentDate } from "../../../../hooks/useCurrentDate";
 import Clock from "../../../../components/Clock";
 import {
   formatDescription,
-  formatTemperature,
+  formatPrimaryTemp,
 } from "../../../../utils/dataFormatting";
 import Lottie from "react-lottie";
 import { getWeatherAnimation } from "../../../../utils/getWeatherAnimation";
@@ -27,23 +27,25 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
   });
 
   return (
-    <div>
-      <h3 className="font-semibold text-xl">Now</h3>
-      <div className="flex items-center my-2">
-        <LocationIcon width={40} height={40} />
-        <h4 className="font-normal text-md text-gray-800">
-          {`${selectedLocation?.name}, ${weather?.name}`}
-        </h4>
+    <div className="flex flex-col gap-4">
+      <h2 className="font-bold text-3xl text-sky-700">
+        {selectedLocation?.name}
+      </h2>
+      <div className="flex items-center  text-slate-600">
+        <LocationIcon width={45} height={45} />
+        <h4 className="font-normal text-lg">{`${weather?.name}`}</h4>
       </div>
       <div className="flex items-center">
-        <CalendarIcon />
-        <h4 className="font-normal text-md text-gray-600">
+        <CalendarIcon width={45} height={45} />
+        <h4 className="font-normal text-lg text-slate-600 tracking-wide">
           {currentDate}, {""}
           {weather ? <Clock timezone={weather.timezone} /> : null}
         </h4>
       </div>
-
-      <p className="text-lg font-light py-2">
+      <p
+        className="text-2xl font-semibold
+       text-sky-600"
+      >
         {weather ? formatDescription(weather.weather[0].description) : null}
       </p>
       <div className="flex items-center justify-center gap-4">
@@ -57,8 +59,8 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
           />
         ) : null}
 
-        <p className="text-6xl font-semibold py-2">
-          {weather ? formatTemperature(weather.main.temp) : null}°C
+        <p className="text-6xl font-semibold">
+          {weather ? formatPrimaryTemp(weather.main.temp) : null}°C
         </p>
       </div>
     </div>
