@@ -1,5 +1,8 @@
 import { useCurrentDate } from "../useCurrentDate";
-import { formatTemperature } from "../../utils/dataFormatting";
+import {
+  formatPrimaryTemp,
+  formatSecondaryTemp,
+} from "../../utils/dataFormatting";
 import { WeatherResponse } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
@@ -52,10 +55,10 @@ export const usePromptDataBase = (weatherResponse: WeatherResponse | null) => {
 - lokalizacja: ${weatherResponse?.name},
 - opis pogody: ${weatherResponse?.weather[0].description},
 - temperatura: ${
-    weatherResponse ? formatTemperature(weatherResponse?.main.temp) : ""
+    weatherResponse ? formatPrimaryTemp(weatherResponse?.main.temp) : ""
   }°C
 - temperatura odczuwalna: ${
-    weatherResponse ? formatTemperature(weatherResponse?.main.feels_like) : ""
+    weatherResponse ? formatSecondaryTemp(weatherResponse?.main.feels_like) : ""
   }°C
 - ciśnienie: ${weatherResponse?.main.pressure} hPa
 - wilgotność: ${weatherResponse?.main.humidity}%
