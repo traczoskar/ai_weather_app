@@ -43,7 +43,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
         </h4>
       </div>
       <p
-        className="text-2xl font-semibold
+        className="text-xl font-semibold
        text-sky-600"
       >
         {weather ? formatDescription(weather.weather[0].description) : null}
