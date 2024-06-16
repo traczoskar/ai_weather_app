@@ -4,7 +4,7 @@ const fetchWeather = async (lat: number, lon: number) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
       import.meta.env.VITE_API_KEY
-    }&lang=pl&units=metric`
+    }&lang=en&units=metric`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch weather data!");
