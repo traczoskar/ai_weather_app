@@ -1,10 +1,15 @@
 import TranspContainer from "../../../components/TranspContainer";
 import Loader from "../../../components/Loader";
-import { AiData, GeocodingData, WeatherResponse } from "../../../types/types";
+import {
+  GeocodingData,
+  QueryData,
+  WeatherResponse,
+} from "../../../types/types";
 import StarsIcon from "../../../assets/icons/stars.svg?react";
 import DetailedInfo from "./DetailedInfo";
 import Button from "../../../components/Button";
 import MainInfo from "./MainInfo";
+import AirPollutionInfo from "./AirPollutionInfo";
 
 interface WeatherDisplayProps {
   selectedLocation: GeocodingData | null;
@@ -15,13 +20,15 @@ interface WeatherDisplayProps {
     error: Error | null;
   };
   aiRequest: () => void;
-  aiData: AiData;
+  airPollutionData: QueryData;
+  aiData: QueryData;
 }
 
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
   selectedLocation,
   weatherData,
   aiRequest,
+  airPollutionData,
   aiData,
 }) => {
   const { isPending, isWeatherFetching, data, error } = weatherData;
@@ -33,21 +40,22 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
         <section className="flex w-full">
           <TranspContainer>
             {isWeatherFetching && (
-              <div>
+              <div className="absolute top-3 left-3">
                 Loading ... <Loader borderColor="black" />
               </div>
             )}
             {error && <h3>{error.message}</h3>}
             {!isPending && (
               <div className="flex w-full">
-                <article className="flex ">
-                  <div className="flex gap-24 justify-between w-full">
+                <article className="flex w-full flex-col gap-4">
+                  <div className="flex justify-between w-full">
                     <MainInfo
                       weather={data}
                       selectedLocation={selectedLocation}
                     />
-                    <div className="flex flex-col gap-4">
-                      <div className="flex self-end gap-4 items-center absolute translate-x-9 -translate-y-4">
+                    <div className="w-px bg-slate-300" />
+                    <div className="flex flex-col">
+                      <div className="flex self-end gap-4 items-center absolute translate-x-3 -translate-y-3">
                         {isAILoading ? (
                           <div className="flex text-sky-700 text-sm font-light gap-4">
                             Waiting for AI response...
@@ -62,6 +70,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                       <DetailedInfo weather={data} />
                     </div>
                   </div>
+                  <AirPollutionInfo airPollutionData={airPollutionData} />
                 </article>
               </div>
             )}
