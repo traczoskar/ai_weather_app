@@ -49,8 +49,9 @@ export interface WeatherResponse {
 
 //---AI Data Types---
 
-export interface AiData {
+export interface QueryData {
   isPending: boolean;
+  isFetching?: boolean;
   data: any | null;
   error: any | null;
 }
