@@ -31,20 +31,20 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
       <h2 className="font-bold text-3xl text-sky-700">
         {selectedLocation?.name}
       </h2>
-      <div className="flex items-center  text-slate-600">
-        <LocationIcon width={45} height={45} />
+      <div className="flex items-center gap-3 text-slate-500">
+        <LocationIcon width={28} height={28} />
         <h4 className="font-normal text-lg">{`${weather?.name}`}</h4>
       </div>
-      <div className="flex items-center">
-        <CalendarIcon width={45} height={45} />
-        <h4 className="font-normal text-lg text-slate-600 tracking-wide">
+      <div className="flex items-center gap-3  text-slate-500">
+        <CalendarIcon width={28} height={28} />
+        <h4 className="font-normal text-lg tracking-wide">
           {currentDate}, {""}
           {weather ? <Clock timezone={weather.timezone} /> : null}
         </h4>
       </div>
       <p
         className="text-xl font-semibold
-       text-sky-600"
+       text-sky-600 pt-2"
       >
         {weather ? formatDescription(weather.weather[0].description) : null}
       </p>
