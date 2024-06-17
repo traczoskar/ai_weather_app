@@ -92,7 +92,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <main className="flex flex-col items-center gap-8">
+    <main className="flex flex-col items-center gap-8 py-6">
       <Header
         title="WeatherWise.ai"
         setSelectedLocation={setSelectedLocation}
@@ -105,8 +105,11 @@ const App: React.FC = () => {
           aiData={aiData}
           aiRequest={getWeatherAdvice}
         />
+        <SuggestionDisplay
+          aiData={aiData}
+          selectedLocation={selectedLocation}
+        />
         <WeatherForecast forecastData={forecastData} />
-        <SuggestionDisplay aiData={aiData} />
       </div>
     </main>
   );
