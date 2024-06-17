@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 const fetchGeocoding = async (city: string) => {
   console.log("Fetching geocoding for:", city);
@@ -14,9 +15,21 @@ const fetchGeocoding = async (city: string) => {
 };
 
 export const useGeocodingData = (city: string | null) => {
+  const [debouncedCity, setDebouncedCity] = useState<string | null>(city);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedCity(city);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [city]);
+
   return useQuery({
-    queryKey: city ? ["geocoding", city] : [],
-    queryFn: () => fetchGeocoding(city!),
-    enabled: !!city && city.length > 2,
+    queryKey: debouncedCity ? ["geocoding", debouncedCity] : [],
+    queryFn: () => fetchGeocoding(debouncedCity!),
+    enabled: !!debouncedCity && debouncedCity.length > 2,
   });
 };
