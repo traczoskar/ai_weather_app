@@ -33,7 +33,10 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
       </h2>
       <div className="flex items-center gap-3 text-slate-500">
         <LocationIcon width={28} height={28} />
-        <h4 className="font-normal text-lg">{`${weather?.name}`}</h4>
+        <h4 className="font-normal text-lg">
+          {weather?.name}
+          {selectedLocation?.country ? `, ${selectedLocation.country}` : null}
+        </h4>
       </div>
       <div className="flex items-center gap-3  text-slate-500">
         <CalendarIcon width={28} height={28} />
@@ -48,7 +51,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
       >
         {weather ? formatDescription(weather.weather[0].description) : null}
       </p>
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center pb-2 gap-4">
         {weather ? (
           <Lottie
             options={defaultOptions(
