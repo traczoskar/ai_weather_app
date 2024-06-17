@@ -15,6 +15,7 @@
     "@tanstack/react-query-devtools": "^5.44.0",
     "@types/react-lottie": "^1.2.10",
     "@types/react-svg": "^5.0.0",
+    "lottie-react": "^2.4.0",
     "lottie-web": "^5.12.2",
     "openai": "^4.38.3",
     "prop-types": "^15.8.1",
