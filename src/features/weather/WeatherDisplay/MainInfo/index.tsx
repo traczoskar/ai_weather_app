@@ -7,7 +7,7 @@ import {
   formatDescription,
   formatPrimaryTemp,
 } from "../../../../utils/dataFormatting";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import { getWeatherAnimation } from "../../../../utils/getWeatherAnimation";
 
 interface MainInfoProps {
@@ -26,9 +26,13 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
     },
   });
 
+  const animationData = weather
+    ? getWeatherAnimation(weather.weather[0].main)
+    : null;
+
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-bold text-3xl text-sky-700">
+      <h2 className="font-bold text-3xl drop-shadow text-sky-700">
         {selectedLocation?.name}
       </h2>
       <div className="flex items-center gap-3 text-slate-500">
@@ -52,17 +56,16 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
         {weather ? formatDescription(weather.weather[0].description) : null}
       </p>
       <div className="flex items-center justify-center pb-2 gap-4">
-        {weather ? (
+        {weather && animationData ? (
           <Lottie
-            options={defaultOptions(
-              getWeatherAnimation(weather.weather[0].main)
-            )}
-            height={120}
-            width={120}
+            animationData={animationData}
+            loop={true}
+            autoplay={true}
+            style={{ width: "150px", height: "150px" }}
           />
         ) : null}
 
-        <p className="text-6xl font-semibold">
+        <p className="text-6xl font-semibold text-sky-900 drop-shadow-md">
           {weather ? formatPrimaryTemp(weather.main.temp) : null}°C
         </p>
       </div>
