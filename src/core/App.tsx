@@ -1,13 +1,14 @@
 import WeatherDisplay from "../features/weather/WeatherDisplay";
 import Header from "../components/Header";
 import SuggestionDisplay from "../features/suggestions/SuggestionDisplay";
-
 import { useWeatherData } from "../hooks/api/useWeatherData";
 import { useEffect, useState } from "react";
 import { GeocodingData, QueryData } from "../types/types";
 import { usePromptDataBase } from "../hooks/openAI/usePromptDataBase";
 import { useAIResponse } from "../hooks/openAI/useAIResponse";
 import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
+import { useForecastData } from "../hooks/api/useForecastData";
+import WeatherForecast from "../features/weather/WeatherForecast";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -27,21 +28,23 @@ const App: React.FC = () => {
     selectedLocation?.lon || null
   );
 
+  //---Forecast Hooks---
+
+  const forecastData = useForecastData(
+    selectedLocation?.lat || null,
+    selectedLocation?.lon || null
+  );
+
   useEffect(() => {
-    console.log("isPending: ", isPending);
-    console.log("data: ", data);
-    console.log("error: ", error);
-  }, [isPending, data, error]);
+    console.log("Forecast Data: ", forecastData.data);
+  }, [forecastData.data]);
+
   //---Air Pollution Hooks---
 
   const airPollutionData = useAirPollutionData(
     selectedLocation?.lat || null,
     selectedLocation?.lon || null
   );
-
-  useEffect(() => {
-    console.log("data: ", airPollutionData.data?.list[0].components);
-  }, [airPollutionData.data]);
 
   //---AI Hooks---
 
@@ -102,6 +105,7 @@ const App: React.FC = () => {
           aiData={aiData}
           aiRequest={getWeatherAdvice}
         />
+        <WeatherForecast forecastData={forecastData} />
         <SuggestionDisplay aiData={aiData} />
       </div>
     </main>
