@@ -7,8 +7,8 @@ const Select = ({ onClick, children }: SelectProps) => {
   return (
     <div
       onClick={onClick}
-      className="px-3 py-2 text-sm text-gray-800 bg-neutral-100
-        hover:bg-neutral-200 hover:border-neutral-300 hover:cursor-pointer"
+      className="w-full px-3 py-2 text-sm  bg-white
+        hover:bg-sky-100 hover:border-slate-300 hover:border hover:cursor-pointer"
     >
       {children}
     </div>
