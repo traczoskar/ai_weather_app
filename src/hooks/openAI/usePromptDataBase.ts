@@ -3,7 +3,7 @@ import {
   formatPrimaryTemp,
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
-import { WeatherResponse } from "../../types/types";
+import { GeocodingResponse, WeatherResponse } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
 
@@ -43,7 +43,11 @@ const getContext = (weatherType: string) => {
   }
 };
 
-export const usePromptDataBase = (weatherResponse: WeatherResponse | null) => {
+export const usePromptDataBase = (
+  weatherResponse: WeatherResponse | null,
+  geocodingResponse: GeocodingResponse | null,
+  airPollutionResponse: any | null
+) => {
   const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in Markdown format. Let's make the most of your day!
   ###
   Example activities for this weather: ${
