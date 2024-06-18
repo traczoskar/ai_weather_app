@@ -55,11 +55,7 @@ const App: React.FC = () => {
     error: null,
   });
 
-  const prompt = usePromptDataBase(
-    weatherData,
-    selectedLocation,
-    airPollutionData
-  );
+  const prompt = usePromptDataBase(weatherData);
 
   const { refetch, isFetching: isAIFetching } = useAIResponse(
     prompt.systemMessage,
