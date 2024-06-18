@@ -17,14 +17,6 @@ interface MainInfoProps {
 
 const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
   const currentDate = useCurrentDate();
-  const defaultOptions = (animationData: string) => ({
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  });
 
   const animationData = weather
     ? getWeatherAnimation(weather.weather[0].main)
@@ -32,7 +24,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-bold text-3xl drop-shadow text-sky-700">
+      <h2 className="font-bold text-3xl max-w-xs drop-shadow text-sky-700">
         {selectedLocation?.name}
       </h2>
       <div className="flex items-center gap-3 text-slate-500">
