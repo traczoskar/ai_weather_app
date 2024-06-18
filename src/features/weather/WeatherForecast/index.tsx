@@ -5,9 +5,11 @@ import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
 import NightIcon from "../../../assets/icons/night.svg?react";
 import HumidityIcon from "../../../assets/icons/drop.svg?react";
 import PressureIcon from "../../../assets/icons/barometer.svg?react";
+import { useEffect } from "react";
 
 interface WeatherForecastProps {
   forecastData: QueryData;
+  setNightTemp: (temp: number | null) => void;
 }
 
 interface Forecast {
@@ -29,7 +31,10 @@ interface Forecast {
   }>;
 }
 
-const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecastData }) => {
+const WeatherForecast: React.FC<WeatherForecastProps> = ({
+  forecastData,
+  setNightTemp,
+}) => {
   const processForecastData = (data: Forecast["list"]) => {
     const days: { [key: string]: any } = {};
 
@@ -88,6 +93,11 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecastData }) => {
 
   const forecastDays = processForecastData(forecastData?.data.list);
   console.log("Forecast Days:", forecastDays);
+
+  useEffect(() => {
+    const todaysNightTemp = calculateAverage(forecastDays[0].nightTemps);
+    setNightTemp(todaysNightTemp ? parseInt(todaysNightTemp) : null);
+  }, [forecastDays]);
 
   return (
     <TranspContainer>
