@@ -1,10 +1,6 @@
 import TranspContainer from "../../../components/TranspContainer";
 import Loader from "../../../components/Loader";
-import {
-  GeocodingData,
-  QueryData,
-  WeatherResponse,
-} from "../../../types/types";
+import { GeocodingData, QueryData } from "../../../types/types";
 import StarsIcon from "../../../assets/icons/stars.svg?react";
 import DetailedInfo from "./DetailedInfo";
 import Button from "../../../components/Button";
@@ -13,12 +9,8 @@ import AirPollutionInfo from "./AirPollutionInfo";
 
 interface WeatherDisplayProps {
   selectedLocation: GeocodingData | null;
-  weatherData: {
-    isPending: boolean;
-    isWeatherFetching: boolean;
-    data: WeatherResponse | null;
-    error: Error | null;
-  };
+  weatherData: QueryData;
+  nightTemp: number | null;
   aiRequest: () => void;
   airPollutionData: QueryData;
   aiData: QueryData;
@@ -27,30 +19,36 @@ interface WeatherDisplayProps {
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
   selectedLocation,
   weatherData,
+  nightTemp,
   aiRequest,
   airPollutionData,
   aiData,
 }) => {
-  const { isPending, isWeatherFetching, data, error } = weatherData;
+  const {
+    isPending: isWeatherPending,
+    isFetching: isWeatherFetching,
+    data: weather,
+    error,
+  } = weatherData;
   const { isPending: isAILoading } = aiData;
 
   return (
     <>
-      {!isPending && (
+      {isWeatherFetching && (
+        <div className="absolute top-3 left-3">
+          Loading ... <Loader />
+        </div>
+      )}
+      {!isWeatherPending && (
         <section className="flex w-full">
           <TranspContainer>
-            {isWeatherFetching && (
-              <div className="absolute top-3 left-3">
-                Loading ... <Loader borderColor="black" />
-              </div>
-            )}
             {error && <h3>{error.message}</h3>}
-            {!isPending && (
+            {!isWeatherPending && (
               <div className="flex w-full">
                 <article className="flex w-full flex-col gap-4">
                   <div className="flex justify-between w-full">
                     <MainInfo
-                      weather={data}
+                      weather={weather}
                       selectedLocation={selectedLocation}
                     />
                     <div className="w-px bg-slate-300" />
@@ -59,7 +57,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                         {isAILoading ? (
                           <div className="flex text-sky-700 text-sm font-light gap-4">
                             Waiting for AI response...
-                            <Loader borderColor="border-sky-700" />
+                            <Loader />
                           </div>
                         ) : (
                           <Button onClick={aiRequest} icon={<StarsIcon />}>
@@ -67,7 +65,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                           </Button>
                         )}
                       </div>
-                      <DetailedInfo weather={data} />
+                      <DetailedInfo weather={weather} nightTemp={nightTemp} />
                     </div>
                   </div>
                   <AirPollutionInfo airPollutionData={airPollutionData} />
