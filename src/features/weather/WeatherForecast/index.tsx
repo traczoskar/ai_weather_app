@@ -2,6 +2,7 @@ import TranspContainer from "../../../components/TranspContainer";
 import { QueryData } from "../../../types/types";
 import Lottie from "lottie-react";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
+import ForecastIcon from "../../../assets/icons/fortune-teller.svg?react";
 import NightIcon from "../../../assets/icons/night.svg?react";
 import HumidityIcon from "../../../assets/icons/drop.svg?react";
 import PressureIcon from "../../../assets/icons/barometer.svg?react";
@@ -101,15 +102,15 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
 
   return (
     <TranspContainer>
-      <div className="flex flex-col items-center justify-between w-full gap-4">
+      <div className="flex flex-col items-center justify-between w-full gap-8">
         <h2 className="text-sky-700 text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
-          Forecast for the next 5 days
+          Forecast <ForecastIcon width={28} height={28} />
         </h2>
-        <ul className="grid grid-cols-5 items-center w-full gap-3">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center w-full gap-3">
           {forecastDays?.map((day, index) => (
             <li
               key={index}
-              className="flex flex-col h-full p-4 border border-slate-200 rounded-xl shadow-md"
+              className="flex flex-col h-full p-6 sm:p-4 border border-slate-200 rounded-xl shadow-md"
             >
               <h3 className="text-lg text-sky-800 font-bold">
                 {new Date(day.date).toLocaleDateString("en-EN", {
@@ -144,7 +145,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
               >
                 {day.description}
               </p>
-              <div className="flex flex-col gap-3 pt-4">
+              <div className="flex flex-row  sm:flex-col gap-6 sm:gap-3 pt-4">
                 <div className="flex  text-slate-400 items-center gap-3 ">
                   <PressureIcon width={20} height={20} />
 
