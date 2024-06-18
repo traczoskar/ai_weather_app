@@ -3,7 +3,7 @@ import {
   formatPrimaryTemp,
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
-import { GeocodingResponse, WeatherResponse } from "../../types/types";
+import { GeocodingResponse, QueryData } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
 
@@ -44,29 +44,35 @@ const getContext = (weatherType: string) => {
 };
 
 export const usePromptDataBase = (
-  weatherResponse: WeatherResponse | null,
+  weatherResponse: QueryData,
   geocodingResponse: GeocodingResponse | null,
-  airPollutionResponse: any | null
+  airPollutionResponse: QueryData
 ) => {
+  //---Weather Data---
+
+  const { data: weatherData } = weatherResponse;
+
+  //---System Message---
+
   const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in Markdown format. Let's make the most of your day!
   ###
   Example activities for this weather: ${
-    weatherResponse ? getContext(weatherResponse.weather[0].main) : ""
+    weatherData ? getContext(weatherData.weather[0].main) : ""
   }###`;
+
+  //---User Message---
 
   const userMessage = `Dane pogodowe:
 - dzisiejsza data: ${currentDate} r.,
-- lokalizacja: ${weatherResponse?.name},
-- opis pogody: ${weatherResponse?.weather[0].description},
-- temperatura: ${
-    weatherResponse ? formatPrimaryTemp(weatherResponse?.main.temp) : ""
-  }°C
+- lokalizacja: ${weatherData?.name},
+- opis pogody: ${weatherData?.weather[0].description},
+- temperatura: ${weatherData ? formatPrimaryTemp(weatherData?.main.temp) : ""}°C
 - temperatura odczuwalna: ${
-    weatherResponse ? formatSecondaryTemp(weatherResponse?.main.feels_like) : ""
+    weatherData ? formatSecondaryTemp(weatherData?.main.feels_like) : ""
   }°C
-- ciśnienie: ${weatherResponse?.main.pressure} hPa
-- wilgotność: ${weatherResponse?.main.humidity}%
-- prędkość wiatru: ${weatherResponse?.wind.speed} m/s
+- ciśnienie: ${weatherData?.main.pressure} hPa
+- wilgotność: ${weatherData?.main.humidity}%
+- prędkość wiatru: ${weatherData?.wind.speed} m/s
 Udziel mi proszę rozbudowanej odpowiedzi.`;
   return {
     systemMessage,
