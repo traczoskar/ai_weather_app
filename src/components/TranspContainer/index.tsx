@@ -4,7 +4,7 @@ interface TranspContainerProps {
 
 const TranspContainer = ({ children }: TranspContainerProps) => {
   return (
-    <div className="flex bg-white p-14 rounded-3xl w-full shadow-lg">
+    <div className="flex bg-white dark:bg-sky-800 sm:p-14 p-7 rounded-3xl w-full shadow-lg">
       {children}
     </div>
   );
