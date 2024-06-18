@@ -16,6 +16,7 @@ import CloudinessIcon from "../../../../assets/icons/cloud.svg?react";
 import SunRiseIcon from "../../../../assets/icons/sunrise.svg?react";
 import SunSetIcon from "../../../../assets/icons/sunset.svg?react";
 import Detail from "./Detail";
+import { useMediaQuery } from "react-responsive";
 
 interface DetailedInfoProps {
   weather: WeatherResponse | null;
@@ -23,18 +24,30 @@ interface DetailedInfoProps {
 }
 
 const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
+  const isMobile: boolean = useMediaQuery({
+    query: `(max-width: 767px)`,
+  });
+
+  const isSmallMobile: boolean = useMediaQuery({
+    query: `(max-width: 639px)`,
+  });
   return (
-    <div className="flex flex-col h-full justify-between gap-12 py-8">
+    <div className="flex flex-col h-full justify-between gap-4 sm:gap-12 py-8">
       {weather?.main.feels_like ? (
         <Detail
-          icon={<FeelsLikeIcon width={27} height={27} />}
-          width="w-auto"
-          textSize="text-xl"
+          icon={
+            <FeelsLikeIcon
+              width={isMobile ? 22 : 27}
+              height={isMobile ? 22 : 27}
+            />
+          }
+          width={`${isSmallMobile ? "w-full" : "w-auto"}`}
+          textSize={`${isMobile ? "text-md" : "text-xl"}`}
           title="Feels like:"
           data={`${formatSecondaryTemp(weather.main.feels_like)}°C`}
         />
       ) : null}
-      <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-20 gap-y-4">
         {weather?.main.temp_max ? (
           <Detail
             icon={<ArrowUpIcon width={22} height={22} />}
@@ -90,19 +103,29 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
           />
         ) : null}
       </div>
-      <div className="grid grid-cols-2 gap-x-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 ">
         {weather?.sys.sunrise ? (
           <Detail
-            textSize="text-xl"
-            icon={<SunRiseIcon width={27} height={27} />}
+            textSize={`${isMobile ? "text-md" : "text-xl"}`}
+            icon={
+              <SunRiseIcon
+                width={isMobile ? 22 : 27}
+                height={isMobile ? 22 : 27}
+              />
+            }
             title="Sunrise:"
             data={formatHoursMinutes(weather.sys.sunrise)}
           />
         ) : null}
         {weather?.sys.sunset ? (
           <Detail
-            textSize="text-xl"
-            icon={<SunSetIcon width={27} height={27} />}
+            textSize={`${isMobile ? "text-md" : "text-xl"}`}
+            icon={
+              <SunSetIcon
+                width={isMobile ? 22 : 27}
+                height={isMobile ? 22 : 27}
+              />
+            }
             title="Sunset:"
             data={formatHoursMinutes(weather.sys.sunset)}
           />
