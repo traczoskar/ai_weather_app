@@ -1,5 +1,6 @@
 {
-  "name": "weatherwise_ai",
+  "name": "ai_weather_app",
+  "homepage": "https://traczoskar.github.io/ai_weather_app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.44.0",
