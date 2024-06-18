@@ -57,7 +57,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
     setSelectedLocation({
       lat: position.coords.latitude,
       lon: position.coords.longitude,
-      name: "Current Location",
+      name: "Browser Location",
       country: "",
       state: "",
     });
@@ -67,17 +67,20 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
     <>
       <form className="flex justify-center items-center gap-4 relative">
         {/* {isFetching && <Loader borderColor="border-gray-600" />} */}
-        {(cityName.length >= 1 || isFetching) && !locations && (
-          <Loader borderColor="border-gray-600" />
-        )}
+
         <label className="w-full">
           <div className="relative w-full">
-            <div className="absolute inset-y-0 start-0 flex items-center text-gray-600 ps-3 pointer-events-none">
+            <div className="absolute inset-y-0 start-0 flex items-center text-gray-600 ps-3.5 pointer-events-none">
               <MagnifyIcon width={16} height={16} stroke="2" />
             </div>
+            {(cityName.length >= 1 || isFetching) && !locations && (
+              <div className="absolute inset-y-0 end-0 flex items-center  pe-14 pointer-events-none">
+                <Loader width="w-6" height="h-6" color="text-slate-300" />
+              </div>
+            )}
             <div
               onClick={handleLocation}
-              className="absolute inset-y-0 end-2 flex items-center ps-3 hover:cursor-pointer text-gray-600"
+              className="absolute inset-y-0 end-4 flex items-center  hover:cursor-pointer text-gray-600"
             >
               <TargetIcon width={20} height={20} />
             </div>
@@ -87,7 +90,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-96 max-w-3xl p-4 ps-10 text-sm  border border-sky-200 rounded-lg bg-white  focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-sky-100 hover:placeholder:text-sky-700
+              className="block w-96 max-w-3xl p-4 ps-10 text-sm  border border-sky-200 rounded-xl bg-white  focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-sky-50 hover:placeholder:text-sky-700
         focus:outline-none "
             ></input>
           </div>
