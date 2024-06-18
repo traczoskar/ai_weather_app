@@ -66,7 +66,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
       <form className="flex justify-center items-center gap-4 w-full relative">
         <label className="w-full">
           <div className="flex justify-end relative w-full">
-            <div className="absolute inset-y-0 start-0 lg:start-24 flex items-center text-gray-600 ps-3.5 pointer-events-none">
+            <div className="absolute inset-y-0 start-0 lg:start-24 flex items-center text-gray-500 ps-3.5 pointer-events-none">
               <MagnifyIcon width={16} height={16} stroke="2" />
             </div>
             {(cityName.length >= 1 || isFetching) && !locations && (
@@ -76,7 +76,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
             )}
             <div
               onClick={handleLocation}
-              className="absolute inset-y-0 end-4 flex items-center  hover:cursor-pointer text-gray-600"
+              className="absolute inset-y-0 end-4 flex items-center  hover:cursor-pointer text-gray-500"
             >
               <TargetIcon width={20} height={20} />
             </div>
@@ -86,14 +86,14 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-full lg:w-[600px] p-4 ps-10 text-sm  border border-sky-200 rounded-xl bg-white  focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-sky-50 hover:placeholder:text-sky-700
+              className="block w-full lg:w-[600px] p-4 ps-10 text-sm  text-sky-900 dark:text-slate-200 border border-sky-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-slate-800 hover:placeholder:text-slate-300
         focus:outline-none "
             ></input>
           </div>
         </label>
 
         {locations && locations.length > 0 && cityName !== "" && (
-          <div className="absolute top-full mt-1 w-full max-w-3xl bg-white border border-slate-200 rounded 3xl shadow-lg z-10">
+          <div className="absolute top-full mt-1 w-full max-w-3xl border border-slate-200 dark:border-slate-400 rounded 3xl shadow-lg z-10">
             {locations.map((location: GeocodingData, index: number) => (
               <Select
                 key={index}
