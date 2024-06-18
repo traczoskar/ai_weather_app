@@ -25,7 +25,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   }, [selectedLocation]);
 
   {
-    isPending && <Loader borderColor="black" />;
+    isPending && <Loader />;
   }
   {
     error && <h3>{error.message}</h3>;
