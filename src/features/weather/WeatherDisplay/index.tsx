@@ -46,15 +46,15 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
             {!isWeatherPending && (
               <div className="flex w-full">
                 <article className="flex w-full flex-col gap-4">
-                  <div className="flex justify-between w-full">
+                  <div className="flex justify-between w-full flex-col lg:flex-row">
                     <MainInfo
                       weather={weather}
                       selectedLocation={selectedLocation}
                     />
-                    <div className="w-px bg-slate-300" />
+                    <div className="lg:w-px bg-slate-300 h-px lg:h-full w-full " />
                     <div className="flex flex-col">
                       <div className="flex self-end gap-4 items-center absolute translate-x-3 -translate-y-3">
-                        {isAILoading ? (
+                        {/* {isAILoading ? (
                           <div className="flex text-sky-700 text-sm font-light gap-4">
                             Waiting for AI response...
                             <Loader />
@@ -63,7 +63,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                           <Button onClick={aiRequest} icon={<StarsIcon />}>
                             Ask AI for advice
                           </Button>
-                        )}
+                        )} */}
                       </div>
                       <DetailedInfo weather={weather} nightTemp={nightTemp} />
                     </div>
