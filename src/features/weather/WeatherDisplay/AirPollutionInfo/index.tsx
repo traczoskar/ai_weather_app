@@ -10,7 +10,7 @@ interface AirPollutionProps {
 const AirPollutionInfo: React.FC<AirPollutionProps> = ({
   airPollutionData,
 }) => {
-  const { isPending, data, error } = airPollutionData;
+  const { data } = airPollutionData;
   const airComponents = data?.list[0].components;
   console.log(data?.list[0].main.aqi);
 
