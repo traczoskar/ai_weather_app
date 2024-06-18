@@ -72,18 +72,18 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
 
   return (
     <div className="flex flex-col gap-8 w-full border-t pt-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between">
         <h2 className="text-sky-700 text-2xl font-semibold flex gap-4 drop-shadow items-center">
           Air Quality <BreathIcon width={28} height={28} />
         </h2>
-        <h3 className="text-slate-500 text-lg font-normal">
+        <h3 className="text-slate-500 self-center sm:self-start text-lg font-normal">
           Overall rating:{" "}
-          <span className="text-sky-600 pl-2 font-semibold">
+          <span className="text-sky-600 ml-2 px-2 py-1 sm:p-0 shadow-md sm:shadow-none sm:border-none border-2 border-sky-600 rounded-lg font-semibold">
             {getAirQualityRating(data?.list[0].main.aqi)}
           </span>
         </h3>
       </div>
-      <ul className="flex justify-between gap-2">
+      <ul className="grid justify-between place-items-stretch grid-cols-2 gap-4 lg:grid-cols-8 lg:gap-2 md:grid-cols-4 ">
         {airComponents
           ? Object.entries(airComponents).map(([key, value]) => (
               <li
