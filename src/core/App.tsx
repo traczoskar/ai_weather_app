@@ -18,15 +18,16 @@ const App: React.FC = () => {
 
   //---Weather Hooks---
 
-  const {
-    isPending,
-    isFetching: isWeatherFetching,
-    data,
-    error,
-  } = useWeatherData(
+  const weatherData = useWeatherData(
     selectedLocation?.lat || null,
     selectedLocation?.lon || null
   );
+
+  useEffect(() => {
+    console.log("Weather Data: ", weatherData.data);
+  }, [weatherData.data]);
+
+  const [nightTemp, setNightTemp] = useState<number | null>(null);
 
   //---Forecast Hooks---
 
@@ -54,7 +55,11 @@ const App: React.FC = () => {
     error: null,
   });
 
-  const prompt = usePromptDataBase(data);
+  const prompt = usePromptDataBase(
+    weatherData,
+    selectedLocation,
+    airPollutionData
+  );
 
   const { refetch, isFetching: isAIFetching } = useAIResponse(
     prompt.systemMessage,
@@ -100,7 +105,8 @@ const App: React.FC = () => {
       <div className="flex flex-col items-center gap-8 w-full">
         <WeatherDisplay
           selectedLocation={selectedLocation}
-          weatherData={{ isPending, isWeatherFetching, data, error }}
+          weatherData={weatherData}
+          nightTemp={nightTemp}
           airPollutionData={airPollutionData}
           aiData={aiData}
           aiRequest={getWeatherAdvice}
@@ -109,7 +115,10 @@ const App: React.FC = () => {
           aiData={aiData}
           selectedLocation={selectedLocation}
         />
-        <WeatherForecast forecastData={forecastData} />
+        <WeatherForecast
+          forecastData={forecastData}
+          setNightTemp={setNightTemp}
+        />
       </div>
     </main>
   );
