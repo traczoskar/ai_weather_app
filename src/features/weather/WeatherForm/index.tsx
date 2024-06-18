@@ -14,11 +14,9 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
   const [cityName, setCityName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const {
-    isFetching,
-    data: locations,
-    error,
-  } = useGeocodingData(cityName.length > 2 ? cityName.trim() : null);
+  const { isFetching, data: locations } = useGeocodingData(
+    cityName.length > 2 ? cityName.trim() : null
+  );
 
   useEffect(() => {
     console.log("Locations: ", locations);
