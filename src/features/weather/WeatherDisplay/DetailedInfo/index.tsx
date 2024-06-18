@@ -10,6 +10,7 @@ import ArrowDownIcon from "../../../../assets/icons/arrow-down.svg?react";
 import HumidityIcon from "../../../../assets/icons/drop.svg?react";
 import PressureIcon from "../../../../assets/icons/barometer.svg?react";
 import VisibilityIcon from "../../../../assets/icons/binoculars.svg?react";
+import NightIcon from "../../../../assets/icons/night.svg?react";
 import WindIcon from "../../../../assets/icons/wind.svg?react";
 import CloudinessIcon from "../../../../assets/icons/cloud.svg?react";
 import SunRiseIcon from "../../../../assets/icons/sunrise.svg?react";
@@ -18,11 +19,12 @@ import Detail from "./Detail";
 
 interface DetailedInfoProps {
   weather: WeatherResponse | null;
+  nightTemp: number | null;
 }
 
-const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
+const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col h-full justify-between gap-12 py-8">
       {weather?.main.feels_like ? (
         <Detail
           icon={<FeelsLikeIcon width={27} height={27} />}
@@ -78,6 +80,13 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather }) => {
                 ? "Unlimited"
                 : weather.visibility + " m"
             }
+          />
+        ) : null}
+        {nightTemp ? (
+          <Detail
+            icon={<NightIcon width={22} height={22} />}
+            title="Night:"
+            data={`${formatSecondaryTemp(nightTemp)}°C`}
           />
         ) : null}
       </div>
