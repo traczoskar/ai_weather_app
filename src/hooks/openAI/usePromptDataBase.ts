@@ -3,7 +3,7 @@ import {
   formatPrimaryTemp,
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
-import { GeocodingResponse, QueryData } from "../../types/types";
+import { QueryData } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
 
@@ -44,9 +44,9 @@ const getContext = (weatherType: string) => {
 };
 
 export const usePromptDataBase = (
-  weatherResponse: QueryData,
-  geocodingResponse: GeocodingResponse | null,
-  airPollutionResponse: QueryData
+  weatherResponse: QueryData
+  // geocodingResponse: GeocodingResponse | null,
+  // airPollutionResponse: QueryData
 ) => {
   //---Weather Data---
 
