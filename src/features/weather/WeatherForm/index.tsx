@@ -86,14 +86,14 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-full lg:w-[600px] p-4 ps-10 text-sm  text-sky-900 dark:text-slate-200 border border-sky-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-slate-800 hover:placeholder:text-slate-300
+              className="block w-full lg:w-[600px] p-4 ps-10 text-sm  text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 hover:bg-slate-800 hover:placeholder:text-slate-300
         focus:outline-none "
             ></input>
           </div>
         </label>
 
         {locations && locations.length > 0 && cityName !== "" && (
-          <div className="absolute top-full mt-1 w-full max-w-3xl border border-slate-200 dark:border-slate-400 rounded shadow-lg z-10">
+          <div className="absolute top-full mt-1 w-full max-w-3xl border border-slate-200 dark:border-slate-400 transition-colors rounded shadow-lg z-10">
             {locations.map((location: GeocodingData, index: number) => (
               <Select
                 key={index}
@@ -102,17 +102,17 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
                   handleReset();
                 }}
               >
-                <span className="text-sky-700 dark:text-sky-400 font-bold">
+                <span className="text-sky-700 dark:text-sky-400 transition-colors font-bold">
                   {location.name}
                 </span>
                 ,{" "}
-                <span className="text-sky-700 dark:text-sky-400 font-semibold">
-                  <span className="text-slate-600 dark:text-slate-400 font-normal text-xs">
+                <span className="text-sky-700 dark:text-sky-400 transition-colors font-semibold">
+                  <span className="text-slate-600 dark:text-slate-400 transition-colors font-normal text-xs">
                     Country:
                   </span>{" "}
                   {location.country}{" "}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400 font-normal text-xs">
+                <span className="text-slate-500 dark:text-slate-400 transition-colors font-normal text-xs">
                   ({location.state})
                 </span>
               </Select>
