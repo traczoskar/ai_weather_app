@@ -16,7 +16,7 @@ const Detail: React.FC<DetailProps> = ({
   textSize,
 }) => {
   return (
-    <div className="flex items-center gap-4 text-slate-500">
+    <div className="flex items-center gap-4 text-slate-500 dark:text-sky-300 transition-colors">
       {icon}
       <p
         className={`flex items-center gap-6 justify-between  ${
@@ -24,7 +24,9 @@ const Detail: React.FC<DetailProps> = ({
         } ${textSize ? textSize : "text-md"} font-normal}`}
       >
         {title}{" "}
-        <span className="text-sky-600 text-md font-semibold">{data}</span>
+        <span className="text-sky-600 dark:text-sky-100 transition-colors text-md font-semibold">
+          {data}
+        </span>
       </p>
     </div>
   );
