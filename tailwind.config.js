@@ -6,7 +6,18 @@ export default {
     fontFamily: {
       sans: ["OpenSans", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      animation: {
+        pulseOnce: "pulseOnce 0.15s ease-in-out",
+      },
+      keyframes: {
+        pulseOnce: {
+          "0%": { opacity: 1 },
+          "50%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+    },
+    plugins: [],
   },
-  plugins: [],
 };
