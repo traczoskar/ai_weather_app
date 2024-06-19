@@ -73,12 +73,12 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
   return (
     <div className="flex flex-col gap-8 w-full border-t pt-8">
       <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between">
-        <h2 className="text-sky-700 text-2xl font-semibold flex gap-4 drop-shadow items-center">
+        <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-2xl font-semibold flex gap-4 drop-shadow items-center">
           Air Quality <BreathIcon width={28} height={28} />
         </h2>
-        <h3 className="text-slate-500 self-center sm:self-start text-lg font-normal">
+        <h3 className="text-slate-500 transition-colors  dark:text-sky-300 self-center sm:self-start text-lg font-normal">
           Overall rating:{" "}
-          <span className="text-sky-600 ml-2 px-2 py-1 sm:p-0 shadow-md sm:shadow-none sm:border-none border-2 border-sky-600 rounded-lg font-semibold">
+          <span className="text-sky-600 transition-colors  dark:text-sky-50 ml-2 px-2 py-1 sm:p-0 shadow-md sm:shadow-none sm:border-none border-2 border-sky-600 dark:border-sky-200 rounded-lg font-semibold">
             {getAirQualityRating(data?.list[0].main.aqi)}
           </span>
         </h3>
@@ -88,13 +88,13 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
           ? Object.entries(airComponents).map(([key, value]) => (
               <li
                 key={key}
-                className="flex flex-col items-center justify-center p-2 border rounded-xl shadow border-slate-200"
+                className="flex flex-col items-center justify-center p-2 border rounded-xl transition-colors shadow dark:bg-sky-600 dark:border-sky-500 border-slate-200"
               >
-                <h5 className=" text-lg mb-4 font-bold text-slate-700">
+                <h5 className=" text-lg mb-4 font-bold text-slate-700 transition-colors dark:text-sky-100">
                   {formatKey(key)}
                 </h5>
                 <div
-                  className={`flex flex-col shadow-md p-4 w-20 h-20  items-center justify-center ${getAirQualityClass(
+                  className={`flex flex-col shadow-md p-4 w-20 h-20  transition-colors items-center justify-center ${getAirQualityClass(
                     value as number,
                     key
                   )} rounded-lg`}
@@ -108,7 +108,7 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
                     </span>
                   </div>
                 </div>
-                <span className=" text-md mt-4 font-normal text-slate-700">
+                <span className=" text-md mt-4 font-normal text-slate-700 dark:text-sky-300 transition-colors">
                   {getAirQualityName(value as number, key)}
                 </span>
               </li>
