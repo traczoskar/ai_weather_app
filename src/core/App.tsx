@@ -1,11 +1,8 @@
 import WeatherDisplay from "../features/weather/WeatherDisplay";
 import Header from "../components/Header";
-import SuggestionDisplay from "../features/suggestions/SuggestionDisplay";
 import { useWeatherData } from "../hooks/api/useWeatherData";
 import { useEffect, useState } from "react";
-import { GeocodingData, QueryData } from "../types/types";
-import { usePromptDataBase } from "../hooks/openAI/usePromptDataBase";
-import { useAIResponse } from "../hooks/openAI/useAIResponse";
+import { GeocodingData } from "../types/types";
 import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
 import { useForecastData } from "../hooks/api/useForecastData";
 import WeatherForecast from "../features/weather/WeatherForecast";
@@ -23,10 +20,6 @@ const App: React.FC = () => {
     selectedLocation?.lat || null,
     selectedLocation?.lon || null
   );
-
-  useEffect(() => {
-    console.log("Weather Data: ", weatherData.data);
-  }, [weatherData.data]);
 
   const [nightTemp, setNightTemp] = useState<number | null>(null);
 
@@ -48,50 +41,50 @@ const App: React.FC = () => {
     selectedLocation?.lon || null
   );
 
-  //---AI Hooks---
+  // //---AI Hooks---
 
-  const [aiData, setAiData] = useState<QueryData>({
-    isPending: false,
-    data: null,
-    error: null,
-  });
+  // const [aiData, setAiData] = useState<QueryData>({
+  //   isPending: false,
+  //   data: null,
+  //   error: null,
+  // });
 
-  const prompt = usePromptDataBase(weatherData);
+  // const prompt = usePromptDataBase(weatherData);
 
-  const { refetch, isFetching: isAIFetching } = useAIResponse(
-    prompt.systemMessage,
-    prompt.userMessage
-  );
+  // const { refetch, isFetching: isAIFetching } = useAIResponse(
+  //   prompt.systemMessage,
+  //   prompt.userMessage
+  // );
 
-  useEffect(() => {
-    setAiData((prev) => ({
-      ...prev,
-      isPending: isAIFetching,
-    }));
-  }, [isAIFetching]);
+  // useEffect(() => {
+  //   setAiData((prev) => ({
+  //     ...prev,
+  //     isPending: isAIFetching,
+  //   }));
+  // }, [isAIFetching]);
 
-  //---AI Request Function---
+  // //---AI Request Function---
 
-  const getWeatherAdvice = async () => {
-    setAiData((prev) => ({
-      ...prev,
-      isPending: true,
-    }));
-    try {
-      const { data: aiResponse, error: aiError } = await refetch();
-      setAiData({
-        isPending: false,
-        data: aiResponse,
-        error: aiError,
-      });
-    } catch (error) {
-      setAiData({
-        isPending: false,
-        data: null,
-        error: error,
-      });
-    }
-  };
+  // const getWeatherAdvice = async () => {
+  //   setAiData((prev) => ({
+  //     ...prev,
+  //     isPending: true,
+  //   }));
+  //   try {
+  //     const { data: aiResponse, error: aiError } = await refetch();
+  //     setAiData({
+  //       isPending: false,
+  //       data: aiResponse,
+  //       error: aiError,
+  //     });
+  //   } catch (error) {
+  //     setAiData({
+  //       isPending: false,
+  //       data: null,
+  //       error: error,
+  //     });
+  //   }
+  // };
 
   //---Description Modal---
 
@@ -105,11 +98,6 @@ const App: React.FC = () => {
     setIsInfoOpen(true);
   };
 
-  const infoHandling = {
-    handleInfoClose,
-    handleInfoOpen,
-  };
-
   return (
     <main className="flex flex-col items-center gap-8 py-6">
       <Header
@@ -118,19 +106,19 @@ const App: React.FC = () => {
         setSelectedLocation={setSelectedLocation}
       />
       <InfoDisplay isInfoOpen={isInfoOpen} closeInfo={handleInfoClose} />
-      <div className="flex flex-col items-center gap-8 w-full">
+      <div className="flex flex-col items-center gap-8 w-full relative">
         <WeatherDisplay
           selectedLocation={selectedLocation}
           weatherData={weatherData}
           nightTemp={nightTemp}
           airPollutionData={airPollutionData}
+        />
+        {/* <SuggestionDisplay
+          weatherData={weatherData}
           aiData={aiData}
           aiRequest={getWeatherAdvice}
-        />
-        <SuggestionDisplay
-          aiData={aiData}
           selectedLocation={selectedLocation}
-        />
+        /> */}
         <WeatherForecast
           forecastData={forecastData}
           setNightTemp={setNightTemp}
