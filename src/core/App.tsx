@@ -9,6 +9,7 @@ import { useAIResponse } from "../hooks/openAI/useAIResponse";
 import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
 import { useForecastData } from "../hooks/api/useForecastData";
 import WeatherForecast from "../features/weather/WeatherForecast";
+import InfoDisplay from "../features/info/InfoDisplay";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -92,12 +93,31 @@ const App: React.FC = () => {
     }
   };
 
+  //---Description Modal---
+
+  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+
+  const handleInfoClose = () => {
+    setIsInfoOpen(false);
+  };
+
+  const handleInfoOpen = () => {
+    setIsInfoOpen(true);
+  };
+
+  const infoHandling = {
+    handleInfoClose,
+    handleInfoOpen,
+  };
+
   return (
     <main className="flex flex-col items-center gap-8 py-6">
       <Header
         title="WeatherWise.ai"
+        openInfo={handleInfoOpen}
         setSelectedLocation={setSelectedLocation}
       />
+      <InfoDisplay isInfoOpen={isInfoOpen} closeInfo={handleInfoClose} />
       <div className="flex flex-col items-center gap-8 w-full">
         <WeatherDisplay
           selectedLocation={selectedLocation}
