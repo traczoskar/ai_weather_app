@@ -75,7 +75,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                   {forecastDays?.map((day, index) => (
                     <li
                       key={index}
-                      className="flex flex-col h-full p-6 sm:p-4 border transition-colors dark:bg-sky-600 dark:border-sky-500 border-slate-200 rounded-xl shadow-md"
+                      className="flex flex-col h-full p-6 sm:p-4 border transition-colors dark:border-x-0 dark:border-b-0  dark:bg-sky-700 dark:border-sky-600 border-slate-200 rounded-xl shadow-md"
                     >
                       <h3 className="text-lg text-sky-800 dark:text-sky-100 transition-colors font-bold">
                         {new Date(day.date).toLocaleDateString("en-EN", {
