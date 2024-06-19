@@ -66,7 +66,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
       <form className="flex justify-center items-center gap-4 w-full relative">
         <label className="w-full">
           <div className="flex justify-end relative w-full">
-            <div className="absolute inset-y-0 start-0 start-2 flex items-center text-gray-400 ps-3.5 pointer-events-none">
+            <div className="absolute inset-y-0  start-2 flex items-center text-gray-400 ps-3.5 pointer-events-none">
               <MagnifyIcon width={16} height={16} stroke="2" />
             </div>
             {(cityName.length >= 1 || isFetching) && !locations && (
