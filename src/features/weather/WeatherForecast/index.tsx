@@ -103,21 +103,21 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
   return (
     <TranspContainer>
       <div className="flex flex-col items-center justify-between w-full gap-8">
-        <h2 className="text-sky-700 text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
+        <h2 className="text-sky-700 dark:text-sky-200 transition-colors text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
           Forecast <ForecastIcon width={28} height={28} />
         </h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center w-full gap-3">
           {forecastDays?.map((day, index) => (
             <li
               key={index}
-              className="flex flex-col h-full p-6 sm:p-4 border border-slate-200 rounded-xl shadow-md"
+              className="flex flex-col h-full p-6 sm:p-4 border transition-colors dark:bg-sky-600 dark:border-sky-500 border-slate-200 rounded-xl shadow-md"
             >
-              <h3 className="text-lg text-sky-800 font-bold">
+              <h3 className="text-lg text-sky-800 dark:text-sky-100 transition-colors font-bold">
                 {new Date(day.date).toLocaleDateString("en-EN", {
                   weekday: "long",
                 })}
               </h3>
-              <p className="text-sm text-slate-500 font-semibold">
+              <p className="text-sm text-slate-500 dark:text-sky-300 transition-colors font-semibold">
                 {new Date(day.date).toLocaleDateString("en-EN", {
                   day: "2-digit",
                   month: "2-digit",
@@ -132,7 +132,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                     style={{ width: "45px", height: "45px" }}
                   />
                 )}
-                <p className="text-2xl text-sky-900 font-bold drop-shadow">
+                <p className="text-2xl text-sky-900 dark:text-sky-100 transition-colors font-bold drop-shadow">
                   {day.dayTemps.length > 0
                     ? calculateAverage(day.dayTemps)
                     : calculateAverage(day.nightTemps)}{" "}
@@ -141,25 +141,25 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
               </div>
               <p
                 className="text-md capitalize drop-shadow-sm font-semibold
-       text-sky-600 "
+       text-sky-600 dark:text-sky-300 transition-colors"
               >
                 {day.description}
               </p>
               <div className="flex flex-row  sm:flex-col gap-6 sm:gap-3 pt-4">
-                <div className="flex  text-slate-400 items-center gap-3 ">
+                <div className="flex  text-slate-400 dark:text-sky-200 transition-colors items-center gap-3 ">
                   <PressureIcon width={20} height={20} />
 
-                  <p className="text-sm text-slate-500 font-semibold drop-shadow">
+                  <p className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow">
                     {day.dayPressures.length > 0
                       ? calculateAverage(day.dayPressures)
                       : calculateAverage(day.nightPressures)}{" "}
                     hPa
                   </p>
                 </div>
-                <div className="flex  text-slate-400 items-center gap-3 ">
+                <div className="flex  text-slate-400 dark:text-sky-200 transition-colors items-center gap-3 ">
                   <HumidityIcon width={20} height={20} />
 
-                  <p className="text-sm text-slate-500 font-semibold drop-shadow">
+                  <p className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow">
                     {day.dayHumidities.length > 0
                       ? calculateAverage(day.dayHumidities)
                       : calculateAverage(day.nightHumidities)}{" "}
@@ -167,7 +167,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="flex self-center text-sky-700 items-center gap-3 pt-3 mt-3 w-full justify-center border-t">
+              <div className="flex self-center text-sky-700 dark:text-amber-200 transition-colors items-center gap-3 pt-3 mt-3 w-full justify-center border-t">
                 <NightIcon width={32} height={32} />
 
                 <p className="text-lg font-bold drop-shadow">
