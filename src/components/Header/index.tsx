@@ -4,13 +4,15 @@ import ThemeSwitch from "../ThemeSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsDarkMode, toggleDarkMode } from "../../slices/themeSlice";
 import { useEffect } from "react";
+import InfoButton from "../InfoButton";
 
 interface HeaderProps {
   title: string;
+  openInfo: () => void;
   setSelectedLocation: (location: any) => void;
 }
 
-const Header = ({ title, setSelectedLocation }: HeaderProps) => {
+const Header = ({ title, setSelectedLocation, openInfo }: HeaderProps) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const dispatch = useDispatch();
 
@@ -40,7 +42,10 @@ const Header = ({ title, setSelectedLocation }: HeaderProps) => {
           <AppLogo className="w-8 h-8 mr-3" />
           <h1 className="text-3xl font-bold font-['Raleway'] ">{title}</h1>
         </div>
-        <ThemeSwitch />
+        <div className="flex justify-center items-center gap-4">
+          <InfoButton onClick={openInfo} />
+          <ThemeSwitch />
+        </div>
       </div>
       <WeatherForm setSelectedLocation={setSelectedLocation} />
     </header>
