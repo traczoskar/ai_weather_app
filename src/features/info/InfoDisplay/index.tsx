@@ -1,4 +1,5 @@
 import GitHubIcon from "../../../assets/icons/github.svg?react";
+import LinkedInIcon from "../../../assets/icons/linkedIn.svg?react";
 import { motion } from "framer-motion";
 
 interface InfoDisplayProps {
@@ -12,7 +13,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
       {isInfoOpen && (
         <div className="flex justify-center items-center w-full h-full fixed left-0 top-0 backdrop-blur-md z-50 ">
           <motion.div
-            className="flex flex-col w-9/12 h-9/12 p-10 rounded-2xl gap-4 relative items-center justify-center bg-sky-900 dark:bg-sky-300 bg-opacity-70 dark:bg-opacity-25"
+            className="flex flex-col w-[90vw] h-[90vh] lg:w-9/12 lg:h-9/12 p-10 rounded-2xl gap-4 relative shadow-xl items-center justify-center border-t dark:border-t-sky-700 bg-sky-900 border-t-sky-300 dark:bg-sky-800 bg-opacity-70 overflow-auto dark:bg-opacity-70"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -37,13 +38,13 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 />
               </svg>
             </button>
-            <p className="text-sky-200 font-light text-sm drop-shadow-sm">
+            <p className="text-sky-200 font-light text-md drop-shadow-sm">
               Hello! Thanks for visiting my App! Feel free to try it every way
               you want and please let me know if there is still something to
               improve. This App is built with React, TypeScript, TailwindCSS,
               and Framer Motion. It uses OpenWeatherMap API for weather data.
             </p>
-            <p className="text-sky-200 font-light text-sm drop-shadow-sm">
+            <p className="text-sky-200 font-light text-md drop-shadow-sm">
               This application was originally designed to use the Open AI API to
               provide users with suggestions for leisure activities and clothing
               based on weather data retrieved from the API. Unfortunately,
@@ -58,8 +59,30 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
               line of code that imports the "SuggestionDisplay" component in the
               App.tsx file. Let me know how you like this feature!
             </p>
-
-            <GitHubIcon className="w-8 h-8 text-sky-300" />
+            <div className="flex gap-4">
+              <a
+                href="https://www.linkedin.com/in/traczoskar/"
+                className="flex items-center no-underline transition-all hover:text-sky-200 text-sky-300 "
+              >
+                <LinkedInIcon className="w-6 h-6 " />
+              </a>
+              <a
+                href="https://github.com/traczoskar/ai_weather_app"
+                className="flex items-center no-underline  transition-all hover:text-sky-200 text-sky-300 "
+              >
+                <GitHubIcon className="w-6 h-6" />
+              </a>
+              <div className="flex gap-2 text-sky-300 text-sm self-end font-extralight">
+                Developed by{" "}
+                <a
+                  href="https://traczoskar.dev"
+                  className="transition-all underline underline-offset-2 hover:text-sky-200 text-sky-500"
+                >
+                  Oskar Tracz
+                </a>{" "}
+                @2024
+              </div>
+            </div>
           </motion.div>
         </div>
       )}
