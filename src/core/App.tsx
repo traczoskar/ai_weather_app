@@ -9,7 +9,6 @@ import { useAIResponse } from "../hooks/openAI/useAIResponse";
 import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
 import { useForecastData } from "../hooks/api/useForecastData";
 import WeatherForecast from "../features/weather/WeatherForecast";
-import ThemeSwitch from "../components/ThemeSwitch";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -95,7 +94,6 @@ const App: React.FC = () => {
 
   return (
     <main className="flex flex-col items-center gap-8 py-6">
-      <ThemeSwitch />
       <Header
         title="WeatherWise.ai"
         setSelectedLocation={setSelectedLocation}
