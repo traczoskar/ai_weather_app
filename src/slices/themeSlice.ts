@@ -5,8 +5,12 @@ interface ThemeState {
   darkMode: boolean;
 }
 
+const prefersDarkMode = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
+
 const initialState: ThemeState = {
-  darkMode: localStorage.getItem("darkMode") === "true",
+  darkMode: localStorage.getItem("darkMode") === "true" || prefersDarkMode,
 };
 
 const themeSlice = createSlice({
