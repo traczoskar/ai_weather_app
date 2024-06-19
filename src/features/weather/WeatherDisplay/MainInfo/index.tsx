@@ -34,17 +34,17 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
   return (
     <div className="flex lg:flex-col justify-between gap-4 pb-8 lg:pb-0">
       <div className="flex flex-col gap-2 sm:gap-4">
-        <h2 className="font-bold text-[6vw] sm:text-2xl max-w-xs drop-shadow text-sky-700">
+        <h2 className="font-bold text-[6vw] sm:text-2xl max-w-xs drop-shadow text-sky-700 dark:text-sky-50">
           {selectedLocation?.name}
         </h2>
-        <div className="flex items-center gap-3 text-slate-500">
+        <div className="flex items-center gap-3 text-slate-500 dark:text-sky-300">
           <LocationIcon className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           <h4 className="font-normal text-[3.5vw] sm:text-lg">
             {weather?.name}
             {selectedLocation?.country ? `, ${selectedLocation.country}` : null}
           </h4>
         </div>
-        <div className="flex items-center gap-3  text-slate-500">
+        <div className="flex items-center gap-3  text-slate-500 dark:text-sky-300">
           <CalendarIcon className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
           <h4 className="font-normal text-[3.5vw] sm:text-lg tracking-wide">
             {currentDate}, {""}
@@ -53,7 +53,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
         </div>
         <p
           className="text-md sm:text-xl font-semibold
-       text-sky-600 pt-0 sm:pt-2"
+       text-sky-600 dark:text-sky-100 pt-0 sm:pt-2"
         >
           {weather ? formatDescription(weather.weather[0].description) : null}
         </p>
@@ -72,7 +72,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
           />
         ) : null}
 
-        <p className="text-[8.5vw] sm:text-5xl md:text-6xl font-semibold text-sky-900 drop-shadow-md">
+        <p className="text-[8.5vw] sm:text-5xl md:text-6xl font-semibold text-sky-900 dark:text-sky-200 drop-shadow-md">
           {weather ? formatPrimaryTemp(weather.main.temp) : null}°C
         </p>
       </div>
