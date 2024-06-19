@@ -9,6 +9,7 @@ export default {
     extend: {
       animation: {
         pulseOnce: "pulseOnce 0.15s ease-in-out",
+        pulseQuick: "pulse 0.75s ease-in-out infinite",
       },
       keyframes: {
         pulseOnce: {
