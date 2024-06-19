@@ -5,12 +5,15 @@ import Loader from "../../../components/Loader";
 import { useGeocodingData } from "../../../hooks/api/useGeocodingData";
 import MagnifyIcon from "../../../assets/icons/magnify.svg?react";
 import TargetIcon from "../../../assets/icons/target.svg?react";
+import { useSelector } from "react-redux";
+import { selectIsDarkMode } from "../../../slices/themeSlice";
 
 interface WeatherFormProps {
   setSelectedLocation: (location: GeocodingData) => void;
 }
 
 const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
+  const isDarkMode: boolean = useSelector(selectIsDarkMode);
   const [cityName, setCityName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -71,7 +74,12 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
             </div>
             {(cityName.length >= 1 || isFetching) && !locations && (
               <div className="absolute inset-y-0 end-0 flex items-center  pe-14 pointer-events-none">
-                <Loader width="w-6" height="h-6" color="text-slate-300" />
+                <Loader
+                  width="w-6"
+                  height="h-6"
+                  color={isDarkMode ? "text-sky-700" : "text-slate-300"}
+                  element={isDarkMode ? "fill-sky-50" : "fill-sky-600"}
+                />
               </div>
             )}
             <div
