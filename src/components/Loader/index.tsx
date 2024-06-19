@@ -4,16 +4,17 @@ interface LoaderProps {
   width?: string;
   height?: string;
   color?: string;
+  element?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ width, height, color }) => {
+const Loader: React.FC<LoaderProps> = ({ width, height, color, element }) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
         className={`${width ? width : "w-8"} ${height ? height : "h-8"} ${
           color ? color : "text-slate-200"
-        } animate-spin dark:text-gray-600 fill-sky-600`}
+        } animate-spin  ${element ? element : "fill-sky-600"}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
