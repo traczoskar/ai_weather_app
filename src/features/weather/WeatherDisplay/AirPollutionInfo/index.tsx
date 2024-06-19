@@ -88,7 +88,7 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
           ? Object.entries(airComponents).map(([key, value]) => (
               <li
                 key={key}
-                className="flex flex-col items-center justify-center p-2 border rounded-xl transition-colors shadow dark:bg-sky-600 dark:border-sky-500 border-slate-200"
+                className="flex flex-col items-center justify-center p-2 border dark:border-x-0 dark:border-b-0 rounded-xl transition-colors shadow dark:bg-sky-700 dark:border-sky-600 border-slate-200"
               >
                 <h5 className=" text-lg mb-4 font-bold text-slate-700 transition-colors dark:text-sky-100">
                   {formatKey(key)}
