@@ -71,7 +71,7 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full border-t pt-8">
+    <div className="flex flex-col gap-8 w-full border-t dark:border-t-slate-400 pt-8">
       <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between">
         <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-2xl font-semibold flex gap-4 drop-shadow items-center">
           Air Quality <BreathIcon width={28} height={28} />
