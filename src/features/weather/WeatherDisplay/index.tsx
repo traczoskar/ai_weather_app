@@ -4,6 +4,7 @@ import { GeocodingData, QueryData } from "../../../types/types";
 import StarsIcon from "../../../assets/icons/stars.svg?react";
 import DetailedInfo from "./DetailedInfo";
 import Button from "../../../components/Button";
+import { motion } from "framer-motion";
 import MainInfo from "./MainInfo";
 import AirPollutionInfo from "./AirPollutionInfo";
 
@@ -34,16 +35,34 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 
   return (
     <>
-      {isWeatherFetching && (
-        <div className="absolute top-3 left-3">
-          Loading ... <Loader />
-        </div>
-      )}
-      {!isWeatherPending && (
-        <section className="flex w-full">
+      {error && <h3>{error.message}</h3>}
+      {isWeatherFetching ? (
+        <motion.section
+          className="flex w-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
           <TranspContainer>
-            {error && <h3>{error.message}</h3>}
-            {!isWeatherPending && (
+            <div className="w-full h-40 flex justify-center items-center gap-4 animate-pulseQuick">
+              <span className="font-normal text-xl text-sky-600 dark:text-sky-200 drop-shadow">
+                Loading fresh data...
+              </span>
+              <Loader />
+            </div>
+          </TranspContainer>
+        </motion.section>
+      ) : (
+        <motion.section
+          className="flex w-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
+          {!weather ? null : (
+            <TranspContainer>
               <div className="flex w-full">
                 <article className="flex w-full flex-col gap-4">
                   <div className="flex justify-between w-full flex-col lg:flex-row">
@@ -71,9 +90,9 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                   <AirPollutionInfo airPollutionData={airPollutionData} />
                 </article>
               </div>
-            )}
-          </TranspContainer>
-        </section>
+            </TranspContainer>
+          )}
+        </motion.section>
       )}
     </>
   );
