@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchAirPollution = async (lat: number, lon: number) => {
   const response = await fetch(
-    `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${
+    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${
       import.meta.env.VITE_API_KEY
     }`
   );
