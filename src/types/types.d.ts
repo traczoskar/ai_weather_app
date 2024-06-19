@@ -47,6 +47,26 @@ export interface WeatherResponse {
   name: string;
 }
 
+//---Forecast Data Types---
+export interface Forecast {
+  list: Array<{
+    dt: number;
+    main: {
+      temp: number;
+      pressure: number;
+      humidity: number;
+    };
+    weather: Array<{
+      description: string;
+      main: string;
+    }>;
+    sys: {
+      pod: string;
+    };
+    dt_txt: string;
+  }>;
+}
+
 //---AI Data Types---
 
 export interface QueryData {
