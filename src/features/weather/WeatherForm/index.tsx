@@ -93,7 +93,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
         </label>
 
         {locations && locations.length > 0 && cityName !== "" && (
-          <div className="absolute top-full mt-1 w-full max-w-3xl border border-slate-200 dark:border-slate-400 rounded 3xl shadow-lg z-10">
+          <div className="absolute top-full mt-1 w-full max-w-3xl border border-slate-200 dark:border-slate-400 rounded shadow-lg z-10">
             {locations.map((location: GeocodingData, index: number) => (
               <Select
                 key={index}
@@ -102,14 +102,17 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
                   handleReset();
                 }}
               >
-                <span className="text-sky-700 font-bold">{location.name}</span>,{" "}
-                <span className="text-sky-700 font-semibold">
-                  <span className="text-slate-600 font-normal text-xs">
+                <span className="text-sky-700 dark:text-sky-400 font-bold">
+                  {location.name}
+                </span>
+                ,{" "}
+                <span className="text-sky-700 dark:text-sky-400 font-semibold">
+                  <span className="text-slate-600 dark:text-slate-400 font-normal text-xs">
                     Country:
                   </span>{" "}
                   {location.country}{" "}
                 </span>
-                <span className="text-slate-500 font-normal text-xs">
+                <span className="text-slate-500 dark:text-slate-400 font-normal text-xs">
                   ({location.state})
                 </span>
               </Select>
