@@ -94,14 +94,14 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               value={cityName}
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-full  p-4 ps-14 text-sm  text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-sky-700 shadow rounded-xl bg-white dark:bg-sky-900 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 dark:hover:bg-sky-950 hover:bg-sky-50 dark:hover:placeholder:text-slate-300 hover:placeholder:text-slate-500
+              className="block w-full  p-4 ps-14 text-sm  text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-sky-700 shadow rounded-2xl bg-white dark:bg-sky-900 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 dark:hover:bg-sky-950 hover:bg-sky-50 dark:hover:placeholder:text-slate-300 hover:placeholder:text-slate-500
         focus:outline-none "
             ></input>
           </div>
         </label>
 
         {locations && locations.length > 0 && cityName !== "" && (
-          <div className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded shadow-lg z-10">
+          <div className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded-2xl overflow-hidden shadow-lg z-10">
             {locations.map((location: GeocodingData, index: number) => (
               <Select
                 key={index}
