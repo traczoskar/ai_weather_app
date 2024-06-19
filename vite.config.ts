@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
+  base: "/ai_weather_app/",
   plugins: [
     react(),
     svgr({
@@ -13,6 +14,6 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "dist",
+    outDir: "build",
   },
 });
