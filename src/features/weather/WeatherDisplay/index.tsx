@@ -51,7 +51,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                       weather={weather}
                       selectedLocation={selectedLocation}
                     />
-                    <div className="lg:w-px bg-slate-300 h-px lg:h-full w-full " />
+                    <div className="lg:w-px bg-slate-300 dark:bg-slate-400 h-px lg:h-full w-full " />
                     <div className="flex flex-col">
                       <div className="flex self-end gap-4 items-center absolute translate-x-3 -translate-y-3">
                         {/* {isAILoading ? (
