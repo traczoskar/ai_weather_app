@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 interface SelectProps {
   onClick: () => void;
   children: React.ReactNode;
@@ -5,13 +7,17 @@ interface SelectProps {
 
 const Select = ({ onClick, children }: SelectProps) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
       onClick={onClick}
       className="w-full px-4 py-4 text-sm  bg-white overflow-hidden dark:bg-sky-950 dark:hover:bg-sky-800
         hover:bg-sky-100 hover:border-slate-300 hover:border  hover:cursor-pointer"
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
