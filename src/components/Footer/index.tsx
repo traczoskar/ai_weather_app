@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
         isOnInfoDisplay ? "" : "absolute bottom-8"
       }`}
     >
-      <div className="flex gap-2 text-xs min-[350px]:text-sm self-end font-extralight">
+      <div className="flex gap-2 text-xs sm:text-sm self-end font-extralight">
         Developed by{" "}
         <a
           href="https://traczoskar.dev"
