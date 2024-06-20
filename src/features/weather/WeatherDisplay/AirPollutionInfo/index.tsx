@@ -2,6 +2,7 @@ import { QueryData } from "../../../../types/types";
 import { getAirQualityClass } from "../../../../utils/getAirQualityClass";
 import { getAirQualityName } from "../../../../utils/getAirQualityName";
 import BreathIcon from "../../../../assets/icons/breathing.svg?react";
+import { motion } from "framer-motion";
 
 interface AirPollutionProps {
   airPollutionData: QueryData;
@@ -72,7 +73,12 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
 
   return (
     <div className="flex flex-col gap-8 w-full border-t dark:border-t-slate-400 pt-8">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between"
+      >
         <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-2xl font-semibold flex gap-4 drop-shadow items-center">
           Air Quality <BreathIcon width={28} height={28} />
         </h2>
@@ -82,11 +88,15 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
             {getAirQualityRating(data?.list[0].main.aqi)}
           </span>
         </h3>
-      </div>
+      </motion.div>
       <ul className="grid justify-between place-items-stretch grid-cols-2 gap-4 lg:grid-cols-8 lg:gap-2 md:grid-cols-4 ">
         {airComponents
           ? Object.entries(airComponents).map(([key, value]) => (
-              <li
+              <motion.li
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
                 key={key}
                 className="flex flex-col items-center justify-center p-2 border dark:border-x-0 dark:border-b-0 rounded-xl transition-colors shadow dark:bg-sky-700 dark:border-sky-600 border-slate-200"
               >
@@ -111,7 +121,7 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
                 <span className=" text-md mt-4 font-normal text-slate-700 dark:text-sky-300 transition-colors">
                   {getAirQualityName(value as number, key)}
                 </span>
-              </li>
+              </motion.li>
             ))
           : null}
       </ul>
