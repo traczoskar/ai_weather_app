@@ -15,7 +15,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
         <div className="flex justify-center items-center w-full h-full fixed left-0 top-0 backdrop-blur-md z-40 ">
           <button
             onClick={closeInfo}
-            className="fixed flex justify-center items-center p-1 rounded-full text-sky-600 dark:text-sky-800 bg-sky-200 top-4 left-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
+            className="fixed flex justify-center items-center p-1 rounded-full text-sky-200 dark:text-sky-800 bg-sky-800 opacity-80 dark:bg-sky-200 top-4 left-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
           >
             <CloseIcon />
           </button>
@@ -37,7 +37,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
               <h3 className="text-sky-50 font-bold  text-lg md:text-2xl lg:text-3xl drop-shadow-sm self-start ">
                 Key Features:
               </h3>
-              <ul className="flex flex-col gap-3 text-lg marker:text-sky-400 self-start">
+              <ul className="flex flex-col gap-3 text-mdsm:text-lg marker:text-sky-400 self-start">
                 {INFO_DATA.keyFeatures.map((feature, index) => (
                   <li
                     key={index}
@@ -88,7 +88,13 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
               </p>
               <ol className="list-decimal  text-sky-200  text-md md:text-lg drop-shadow-sm self-start pl-8 marker:font-bold bg-sky-900 py-1 my-4 marker:text-sky-400">
                 <li className="list-item tracking-wide px-2 py-2 ">
-                  Download this repository
+                  Clone this repository on your device
+                </li>
+                <li className="list-item tracking-wide px-2 py-2 ">
+                  Install all needed dependencies by running the command:{" "}
+                  <span className="font-mono tracking-tighter text-gray-300 bg-gray-950 px-2 py-0.5">
+                    npm install
+                  </span>
                 </li>
                 <li className="list-item tracking-wide px-2 py-2 ">
                   Paste your OpenAI API key into the .env file
