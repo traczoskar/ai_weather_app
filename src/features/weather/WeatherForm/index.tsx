@@ -1,5 +1,5 @@
 import { GeocodingData } from "../../../types/types";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Select from "../../../components/Select";
 import Loader from "../../../components/Loader";
 import { useGeocodingData } from "../../../hooks/api/useGeocodingData";
