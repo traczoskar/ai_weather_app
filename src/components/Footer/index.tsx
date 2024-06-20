@@ -14,9 +14,9 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
       transition={{ duration: 0.5 }}
       className={`flex gap-4 ${
         isOnInfoDisplay ? "text-sky-300" : "text-sky-700"
-      } ${
-        isOnInfoDisplay ? "dark:text-sky-300" : "dark:text-sky-600"
-      } absolute bottom-8`}
+      } ${isOnInfoDisplay ? "dark:text-sky-300" : "dark:text-sky-600"} ${
+        isOnInfoDisplay ? "" : "absolute bottom-8"
+      }`}
     >
       <div className="flex gap-2 text-xs min-[350px]:text-sm self-end font-extralight">
         Developed by{" "}
