@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader";
 import { useGeocodingData } from "../../../hooks/api/useGeocodingData";
 import MagnifyIcon from "../../../assets/icons/magnify.svg?react";
 import TargetIcon from "../../../assets/icons/target.svg?react";
+import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { selectIsDarkMode } from "../../../slices/themeSlice";
 
@@ -66,7 +67,12 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
 
   return (
     <>
-      <form className="flex justify-center items-center gap-4 w-full relative">
+      <motion.form
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="flex justify-center items-center gap-4 w-full relative"
+      >
         <label className="w-full">
           <div className="flex justify-end relative w-full">
             <div className="absolute inset-y-0  start-2 flex items-center text-gray-400 ps-3.5 pointer-events-none">
@@ -127,7 +133,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
             ))}
           </div>
         )}
-      </form>
+      </motion.form>
     </>
   );
 };
