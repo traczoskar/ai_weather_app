@@ -3,6 +3,7 @@ import { getAirQualityClass } from "../../../../utils/getAirQualityClass";
 import { getAirQualityName } from "../../../../utils/getAirQualityName";
 import BreathIcon from "../../../../assets/icons/breathing.svg?react";
 import { motion } from "framer-motion";
+import { getAirQualityRating } from "../../../../utils/getAirQualityRating";
 
 interface AirPollutionProps {
   airPollutionData: QueryData;
@@ -13,16 +14,6 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
 }) => {
   const { data } = airPollutionData;
   const airComponents = data?.list[0].components;
-  console.log(data?.list[0].main.aqi);
-
-  const getAirQualityRating = (value: number) => {
-    if (value === 1) return "Very Good";
-    if (value === 2) return "Good";
-    if (value === 3) return "Moderate";
-    if (value === 4) return "Poor";
-    if (value === 5) return "Bad";
-    return "Unknown";
-  };
 
   const formatKey = (key: string) => {
     switch (key) {
