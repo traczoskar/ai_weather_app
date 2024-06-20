@@ -2,7 +2,7 @@ export const INFO_DATA = {
   title: "Hello! 🙋🏻‍♂️",
   subTitle: "Thanks for discovering my App!",
   description:
-    "Dive in and explore all its features. Feel free to try it out in every way you want, and let me know if there's anything we can improve. Here's what makes our app awesome:",
+    "Dive in and explore all its features. Feel free to try it out in every way you want, and let me know if there's anything I can improve. Here's what makes my app valuable:",
   keyFeatures: [
     {
       feature: "🌡️ Current Weather",
@@ -35,10 +35,12 @@ export const INFO_DATA = {
   ],
   builtWith: [
     "React",
+    "OpenWeatherMap API",
+    "TanStack Query",
     "TypeScript",
     "TailwindCSS",
+    "Lottie",
     "Framer Motion",
-    "OpenWeatherMap API",
     "Redux",
     " Vite",
   ],
