@@ -31,10 +31,6 @@ const App: React.FC = () => {
     selectedLocation?.lon || null
   );
 
-  useEffect(() => {
-    console.log("Forecast Data: ", forecastData.data);
-  }, [forecastData.data]);
-
   //---Air Pollution Hooks---
 
   const airPollutionData = useAirPollutionData(
@@ -87,7 +83,7 @@ const App: React.FC = () => {
   //   }
   // };
 
-  //---Description Modal---
+  //---Info Display Handling---
 
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
 
