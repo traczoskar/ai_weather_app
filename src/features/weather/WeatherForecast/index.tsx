@@ -55,8 +55,8 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
         >
           <TranspContainer>
             <div className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick">
-              <span className="font-semibold text-xl text-sky-600 dark:text-sky-200 drop-shadow">
-                🌱⛅️ Loading fresh forecast ...
+              <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
+                🍋 Loading fresh data ...
               </span>
               <Loader />
             </div>
