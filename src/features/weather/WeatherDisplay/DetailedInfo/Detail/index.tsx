@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface DetailProps {
   icon?: ReactNode;
@@ -16,7 +17,12 @@ const Detail: React.FC<DetailProps> = ({
   textSize,
 }) => {
   return (
-    <div className="flex items-center gap-4 text-slate-500 dark:text-sky-300 transition-colors">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
+      className="flex items-center gap-4 text-slate-500 dark:text-sky-300 transition-colors"
+    >
       {icon}
       <p
         className={`flex items-center gap-6 justify-between  ${
@@ -28,7 +34,7 @@ const Detail: React.FC<DetailProps> = ({
           {data}
         </span>
       </p>
-    </div>
+    </motion.div>
   );
 };
 
