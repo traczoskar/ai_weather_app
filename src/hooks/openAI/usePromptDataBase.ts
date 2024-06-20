@@ -43,11 +43,7 @@ const getContext = (weatherType: string) => {
   }
 };
 
-export const usePromptDataBase = (
-  weatherResponse: QueryData
-  // geocodingResponse: GeocodingResponse | null,
-  // airPollutionResponse: QueryData
-) => {
+export const usePromptDataBase = (weatherResponse: QueryData) => {
   //---Weather Data---
 
   const { data: weatherData } = weatherResponse;
