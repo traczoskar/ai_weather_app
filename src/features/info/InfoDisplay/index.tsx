@@ -101,7 +101,8 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 </li>
                 <li className="list-item tracking-wide px-2 py-2 ">
                   Uncomment the line of code that imports the
-                  'SuggestionDisplay' component in the App.tsx file
+                  'SuggestionDisplay' component in the App.tsx file and a block
+                  of AI Hooks and request functions
                 </li>
                 <li className="list-item tracking-wide px-2 py-2 ">
                   Start the development server.
