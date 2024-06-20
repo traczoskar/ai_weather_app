@@ -22,10 +22,6 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
     cityName.length > 2 ? cityName.trim() : null
   );
 
-  useEffect(() => {
-    console.log("Locations: ", locations);
-  }, [locations]);
-
   const handleLocationInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCityName(e.target.value);
   };
