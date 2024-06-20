@@ -99,6 +99,14 @@ const App: React.FC = () => {
     setIsInfoOpen(true);
   };
 
+  useEffect(() => {
+    if (isInfoOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isInfoOpen]);
+
   return (
     <main
       className={`flex flex-col items-center gap-8 pt-6 ${
