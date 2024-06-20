@@ -5,6 +5,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ["OpenSans", "sans-serif"],
+      mono: ["Source Code Pro", "monospace"],
     },
     extend: {
       animation: {
