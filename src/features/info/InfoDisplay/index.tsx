@@ -1,6 +1,6 @@
-import GitHubIcon from "../../../assets/icons/github.svg?react";
-import LinkedInIcon from "../../../assets/icons/linkedIn.svg?react";
+import CloseIcon from "../../../assets/icons/close.svg?react";
 import { motion } from "framer-motion";
+import Footer from "../../../components/Footer";
 
 interface InfoDisplayProps {
   isInfoOpen: boolean;
@@ -21,22 +21,9 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
           >
             <button
               onClick={closeInfo}
-              className="absolute flex justify-center items-center p-1 rounded-full text-sky-600 bg-sky-200 top-4 right-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
+              className="absolute flex justify-center items-center p-1 rounded-full text-sky-600 dark:text-sky-800 bg-sky-200 top-6 right-6 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <CloseIcon />
             </button>
             <p className="text-sky-200 font-light text-md drop-shadow-sm">
               Hello! Thanks for visiting my App! Feel free to try it every way
@@ -59,30 +46,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
               line of code that imports the "SuggestionDisplay" component in the
               App.tsx file. Let me know how you like this feature!
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://www.linkedin.com/in/traczoskar/"
-                className="flex items-center no-underline transition-all hover:text-sky-200 text-sky-300 "
-              >
-                <LinkedInIcon className="w-6 h-6 " />
-              </a>
-              <a
-                href="https://github.com/traczoskar/ai_weather_app"
-                className="flex items-center no-underline  transition-all hover:text-sky-200 text-sky-300 "
-              >
-                <GitHubIcon className="w-6 h-6" />
-              </a>
-              <div className="flex gap-2 text-sky-300 text-sm self-end font-extralight">
-                Developed by{" "}
-                <a
-                  href="https://traczoskar.dev"
-                  className="transition-all underline underline-offset-2 hover:text-sky-200 text-sky-500"
-                >
-                  Oskar Tracz
-                </a>{" "}
-                @2024
-              </div>
-            </div>
+            <Footer isOnInfoDisplay={true} />
           </motion.div>
         </div>
       )}
