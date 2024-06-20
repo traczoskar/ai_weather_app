@@ -7,6 +7,7 @@ import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
 import { useForecastData } from "../hooks/api/useForecastData";
 import WeatherForecast from "../features/weather/WeatherForecast";
 import InfoDisplay from "../features/info/InfoDisplay";
+import Footer from "../components/Footer";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -99,7 +100,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <main className="flex flex-col items-center gap-8 py-6">
+    <main
+      className={`flex flex-col items-center gap-8 pt-6 ${
+        weatherData.data ? "pb-20" : "pb-6"
+      }`}
+    >
       <Header
         title="WeatherWise.ai"
         openInfo={handleInfoOpen}
@@ -124,6 +129,7 @@ const App: React.FC = () => {
           setNightTemp={setNightTemp}
         />
       </div>
+      <Footer />
     </main>
   );
 };
