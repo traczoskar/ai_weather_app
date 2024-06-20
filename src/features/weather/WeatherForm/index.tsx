@@ -40,7 +40,6 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
   const handleLocation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (navigator.geolocation) {
-      console.log("Geolocation is available");
       navigator.geolocation.getCurrentPosition(
         getGeolocation,
         handleGeolocationError
