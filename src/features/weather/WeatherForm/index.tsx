@@ -70,29 +70,42 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
       >
         <label className="w-full">
           <div className="flex justify-end relative w-full">
-            <div className="absolute inset-y-0  start-2 flex items-center text-gray-400 ps-3.5 pointer-events-none">
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0  start-2 flex items-center text-gray-400 ps-3.5 pointer-events-none"
+            >
               <MagnifyIcon width={16} height={16} stroke="2" />
             </div>
             {(cityName.length >= 1 || isFetching) && !locations && (
-              <div className="absolute inset-y-0 end-0 flex items-center  pe-14 pointer-events-none">
-                <Loader
-                  width="w-6"
-                  height="h-6"
-                  color={isDarkMode ? "text-sky-700" : "text-slate-300"}
-                  element={isDarkMode ? "fill-sky-50" : "fill-sky-600"}
-                />
-              </div>
+              <>
+                <div
+                  aria-busy="true"
+                  className="absolute inset-y-0 end-0 flex items-center  pe-14 pointer-events-none"
+                >
+                  <Loader
+                    width="w-6"
+                    height="h-6"
+                    color={isDarkMode ? "text-sky-700" : "text-slate-300"}
+                    element={isDarkMode ? "fill-sky-50" : "fill-sky-600"}
+                  />
+                </div>
+                <span className="sr-only">Loading...</span>
+              </>
             )}
-            <div
+            <button
               onClick={handleLocation}
+              aria-label="Use my geolocation to get weather data"
+              title="Use my location"
               className="absolute inset-y-0 end-5 flex items-center hover:cursor-pointer transition-all hover:scale-110 hover:text-gray-100 text-gray-400 active:scale-75"
             >
               <TargetIcon width={20} height={20} />
-            </div>
+            </button>
             <input
               ref={inputRef}
               type="text"
               value={cityName}
+              aria-expanded="false"
+              aria-label="Search for city."
               onChange={handleLocationInput}
               placeholder="Enter city name..."
               className="block w-full  p-4 ps-14 text-sm  text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-sky-700 shadow rounded-2xl bg-white dark:bg-sky-900 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 dark:hover:bg-sky-950 hover:bg-sky-50 dark:hover:placeholder:text-slate-300 hover:placeholder:text-slate-500
@@ -100,9 +113,12 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
             ></input>
           </div>
         </label>
-
         {locations && locations.length > 0 && cityName !== "" && (
-          <div className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded-2xl overflow-hidden shadow-lg z-10">
+          <nav
+            aria-label="Location search results"
+            aria-expanded="true"
+            className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded-2xl overflow-hidden shadow-lg z-10"
+          >
             {locations.map((location: GeocodingData, index: number) => (
               <Select
                 key={index}
@@ -126,7 +142,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
                 </span>
               </Select>
             ))}
-          </div>
+          </nav>
         )}
       </motion.form>
     </>
