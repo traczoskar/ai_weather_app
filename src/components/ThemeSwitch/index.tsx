@@ -11,6 +11,7 @@ const ThemeSwitch: React.FC = () => {
   return (
     <button
       className="flex px-3 py-1.5 bg-sky-800 dark:bg-sky-700 border-t-sky-900 shadow-md border-b-0 border-x-0 dark:border-t-sky-600 rounded-full border  font-semibold text-sm  active:brightness-110 transition-all hover:scale-105"
+      aria-hidden="true"
       onClick={() => dispatch(toggleDarkMode())}
     >
       <div className="flex  justify-between items-center w-12">
