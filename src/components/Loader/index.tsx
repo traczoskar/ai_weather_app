@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ width, height, color, element }) => {
   return (
     <div role="status">
       <svg
-        aria-hidden="true"
+        aria-busy="true"
         className={`${width ? width : "w-8"} ${height ? height : "h-8"} ${
           color ? color : "text-slate-200"
         } animate-spin  ${element ? element : "fill-sky-600"}`}
