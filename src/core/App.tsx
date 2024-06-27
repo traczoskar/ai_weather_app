@@ -2,12 +2,15 @@ import WeatherDisplay from "../features/weather/WeatherDisplay";
 import Header from "../components/Header";
 import { useWeatherData } from "../hooks/api/useWeatherData";
 import { useEffect, useState } from "react";
-import { GeocodingData } from "../types/types";
+import { GeocodingData, QueryData } from "../types/types";
 import { useAirPollutionData } from "../hooks/api/useAirPollutionData";
 import { useForecastData } from "../hooks/api/useForecastData";
 import WeatherForecast from "../features/weather/WeatherForecast";
 import InfoDisplay from "../features/info/InfoDisplay";
 import Footer from "../components/Footer";
+import { useAIResponse } from "../hooks/openAI/useAIResponse";
+import SuggestionDisplay from "../features/suggestions/SuggestionDisplay";
+import { usePromptDataBase } from "../hooks/openAI/usePromptDataBase";
 
 const App: React.FC = () => {
   //---Geocoding Hooks---
@@ -40,48 +43,48 @@ const App: React.FC = () => {
 
   // //---AI Hooks---
 
-  // const [aiData, setAiData] = useState<QueryData>({
-  //   isPending: false,
-  //   data: null,
-  //   error: null,
-  // });
+  const [aiData, setAiData] = useState<QueryData>({
+    isPending: false,
+    data: null,
+    error: null,
+  });
 
-  // const prompt = usePromptDataBase(weatherData);
+  const prompt = usePromptDataBase(weatherData);
 
-  // const { refetch, isFetching: isAIFetching } = useAIResponse(
-  //   prompt.systemMessage,
-  //   prompt.userMessage
-  // );
+  const { refetch, isFetching: isAIFetching } = useAIResponse(
+    prompt.systemMessage,
+    prompt.userMessage
+  );
 
-  // useEffect(() => {
-  //   setAiData((prev) => ({
-  //     ...prev,
-  //     isPending: isAIFetching,
-  //   }));
-  // }, [isAIFetching]);
+  useEffect(() => {
+    setAiData((prev) => ({
+      ...prev,
+      isPending: isAIFetching,
+    }));
+  }, [isAIFetching]);
 
-  // //---AI Request Function---
+  //---AI Request Function---
 
-  // const getWeatherAdvice = async () => {
-  //   setAiData((prev) => ({
-  //     ...prev,
-  //     isPending: true,
-  //   }));
-  //   try {
-  //     const { data: aiResponse, error: aiError } = await refetch();
-  //     setAiData({
-  //       isPending: false,
-  //       data: aiResponse,
-  //       error: aiError,
-  //     });
-  //   } catch (error) {
-  //     setAiData({
-  //       isPending: false,
-  //       data: null,
-  //       error: error,
-  //     });
-  //   }
-  // };
+  const getWeatherAdvice = async () => {
+    setAiData((prev) => ({
+      ...prev,
+      isPending: true,
+    }));
+    try {
+      const { data: aiResponse, error: aiError } = await refetch();
+      setAiData({
+        isPending: false,
+        data: aiResponse,
+        error: aiError,
+      });
+    } catch (error) {
+      setAiData({
+        isPending: false,
+        data: null,
+        error: error,
+      });
+    }
+  };
 
   //---Info Display Handling---
 
@@ -122,12 +125,12 @@ const App: React.FC = () => {
           nightTemp={nightTemp}
           airPollutionData={airPollutionData}
         />
-        {/* <SuggestionDisplay
+        <SuggestionDisplay
           weatherData={weatherData}
           aiData={aiData}
           aiRequest={getWeatherAdvice}
           selectedLocation={selectedLocation}
-        /> */}
+        />
         <WeatherForecast
           forecastData={forecastData}
           setNightTemp={setNightTemp}
