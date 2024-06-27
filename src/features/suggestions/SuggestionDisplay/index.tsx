@@ -57,9 +57,11 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
       {aiResponse && (
         <TranspContainer>
           <section className="flex flex-col w-auto">
-            <h2 className="text-2xl font-bold mb-4">AI suggestion:</h2>
-            <article className="text-md text-gray-700">
-              <ReactMarkdown>{data}</ReactMarkdown>
+            <h2 className="text-2xl font-bold mb-4 dark:text-sky-100">
+              AI suggestion:
+            </h2>
+            <article className="text-md text-gray-700 dark:text-white">
+              <ReactMarkdown>{data[0].response}</ReactMarkdown>
             </article>
           </section>
         </TranspContainer>
