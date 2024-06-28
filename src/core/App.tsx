@@ -49,7 +49,7 @@ const App: React.FC = () => {
     error: null,
   });
 
-  const prompt = usePromptDataBase(weatherData);
+  const prompt = usePromptDataBase(weatherData, selectedLocation);
 
   const { refetch, isFetching: isAIFetching } = useAIResponse(prompt);
 
