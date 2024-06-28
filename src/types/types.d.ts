@@ -75,3 +75,13 @@ export interface QueryData {
   data: any | null;
   error: any | null;
 }
+
+export interface Message {
+  role: "system" | "user";
+  content: string;
+}
+
+export type ChatPrompt = {
+  systemMessage: Message;
+  userMessage: Message;
+};
