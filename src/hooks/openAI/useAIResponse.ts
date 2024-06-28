@@ -1,19 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import { ChatPrompt } from "../../types/types";
 
-const queryFunction = async (content: any) => {
+const getAIResponse = async (prompt: ChatPrompt) => {
   try {
     const response = await fetch(import.meta.env.VITE_MAKE_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(content),
+      body: JSON.stringify(prompt),
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("response", data);
+    console.log("response", response);
+    console.log("data", data);
     return data;
   } catch (error) {
     console.error("Error fetching AI completion:", error);
@@ -21,24 +23,10 @@ const queryFunction = async (content: any) => {
   }
 };
 
-const getAiResponse = async (systemMessage: string, userMessage: string) => {
-  const answer = await queryFunction([
-    {
-      role: "system",
-      content: systemMessage,
-    },
-    {
-      role: "user",
-      content: userMessage,
-    },
-  ]);
-  return answer;
-};
-
-export const useAIResponse = (systemMessage: string, userMessage: string) => {
+export const useAIResponse = (prompt: ChatPrompt) => {
   return useQuery({
-    queryKey: ["ai", systemMessage, userMessage],
-    queryFn: () => getAiResponse(systemMessage, userMessage),
+    queryKey: ["ai", prompt],
+    queryFn: () => getAIResponse(prompt),
     retry: false,
     enabled: false,
     staleTime: Infinity,
