@@ -1,5 +1,4 @@
-// ./src/components/Time.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ClockProps {
   timezone: number;
