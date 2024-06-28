@@ -345,7 +345,7 @@ $bm_rt = thisComp.layer('Main Stroke width - Color Ctrl').effect('Stroke width')
     
   ### For every suggestion in each category please provide proper emoticon - for example: "💧 Stay hydrated", "🧖‍♀️ Spa day" `,o=`Weather data:
 - current date: ${currentDate} r.,
-- location: ${i!=null&&i.name?i.name:s.name},
+- location: ${i!=null&&i.name?i.name:s==null?void 0:s.name},
 ${i!=null&&i.country?`- country: ${i.country},`:""}
 - weather description: ${s==null?void 0:s.weather[0].description},
 - temperature: ${s?formatPrimaryTemp(s==null?void 0:s.main.temp):""}°C
