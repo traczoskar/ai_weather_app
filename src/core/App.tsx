@@ -51,10 +51,7 @@ const App: React.FC = () => {
 
   const prompt = usePromptDataBase(weatherData);
 
-  const { refetch, isFetching: isAIFetching } = useAIResponse(
-    prompt.systemMessage,
-    prompt.userMessage
-  );
+  const { refetch, isFetching: isAIFetching } = useAIResponse(prompt);
 
   useEffect(() => {
     setAiData((prev) => ({
