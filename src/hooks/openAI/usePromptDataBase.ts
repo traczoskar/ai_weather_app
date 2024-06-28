@@ -3,7 +3,7 @@ import {
   formatPrimaryTemp,
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
-import { QueryData } from "../../types/types";
+import { ChatPrompt, QueryData } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
 
@@ -45,33 +45,54 @@ const getContext = (weatherType: string) => {
 
 export const usePromptDataBase = (weatherResponse: QueryData) => {
   //---Weather Data---
-
   const { data: weatherData } = weatherResponse;
 
   //---System Message---
-
-  const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in Markdown format. Let's make the most of your day!
+  const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in JSON format. Let's make the most of your day!
   ###
   Example activities for this weather: ${
     weatherData ? getContext(weatherData.weather[0].main) : ""
-  }###`;
+  }###
+  Respond only with a JSON object in the following format:
+  {
+    "date": "YYYY-MM-DD",
+    "location": "City Name",
+    "suggestions": {
+      "mood": "Suggested mood",
+      "indoor_activities": ["Indoor Activity 1", "Indoor Activity 2", ...],
+      "outdoor_activities": ["Outdoor Activity 1", "Outdoor Activity 2", ...],
+      "attire": ["Clothing item 1", "Clothing item 2", ...],
+      "food_suggestions": ["Food item 1", "Food item 2", ...],
+      "health_tips": ["Health tip 1", "Health tip 2", ...]
+    }
+  }
+    
+  ### For every suggestion in each category please provide proper emoticon - for example: "💧 Stay hydrated", "🧖‍♀️ Spa day" `;
 
   //---User Message---
-
-  const userMessage = `Dane pogodowe:
-- dzisiejsza data: ${currentDate} r.,
-- lokalizacja: ${weatherData?.name},
-- opis pogody: ${weatherData?.weather[0].description},
-- temperatura: ${weatherData ? formatPrimaryTemp(weatherData?.main.temp) : ""}°C
-- temperatura odczuwalna: ${
+  const userMessage = `Weather data:
+- current date: ${currentDate} r.,
+- location: ${weatherData?.name},
+- weather description: ${weatherData?.weather[0].description},
+- temperature: ${weatherData ? formatPrimaryTemp(weatherData?.main.temp) : ""}°C
+- feels like: ${
     weatherData ? formatSecondaryTemp(weatherData?.main.feels_like) : ""
   }°C
-- ciśnienie: ${weatherData?.main.pressure} hPa
-- wilgotność: ${weatherData?.main.humidity}%
-- prędkość wiatru: ${weatherData?.wind.speed} m/s
-Udziel mi proszę rozbudowanej odpowiedzi.`;
-  return {
-    systemMessage,
-    userMessage,
+- pressure: ${weatherData?.main.pressure} hPa
+- humidity: ${weatherData?.main.humidity}%
+- wind speed: ${weatherData?.wind.speed} m/s
+Answer in JSON format.`;
+
+  const prompt: ChatPrompt = {
+    systemMessage: {
+      role: "system",
+      content: systemMessage,
+    },
+    userMessage: {
+      role: "user",
+      content: userMessage,
+    },
   };
+
+  return prompt;
 };
