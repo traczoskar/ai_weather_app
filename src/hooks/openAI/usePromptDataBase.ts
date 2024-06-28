@@ -3,7 +3,7 @@ import {
   formatPrimaryTemp,
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
-import { ChatPrompt, QueryData } from "../../types/types";
+import { ChatPrompt, GeocodingData, QueryData } from "../../types/types";
 
 const currentDate: string = useCurrentDate();
 
@@ -43,7 +43,10 @@ const getContext = (weatherType: string) => {
   }
 };
 
-export const usePromptDataBase = (weatherResponse: QueryData) => {
+export const usePromptDataBase = (
+  weatherResponse: QueryData,
+  selectedLocation: GeocodingData | null
+) => {
   //---Weather Data---
   const { data: weatherData } = weatherResponse;
 
@@ -64,6 +67,10 @@ export const usePromptDataBase = (weatherResponse: QueryData) => {
       "attire": ["Clothing item 1", "Clothing item 2", ...],
       "food_suggestions": ["Food item 1", "Food item 2", ...],
       "health_tips": ["Health tip 1", "Health tip 2", ...]
+      "places_to_visit": ["Place #1 near the location", "Place #2 near the location", ...]
+      "music": ["Artist - title #1", "Artist - title #2", ...]
+      "movies": ["Movie title #1", "Movie title #2", ...]
+      "general_advice": "General encouraging advice for the day"
     }
   }
     
@@ -72,7 +79,14 @@ export const usePromptDataBase = (weatherResponse: QueryData) => {
   //---User Message---
   const userMessage = `Weather data:
 - current date: ${currentDate} r.,
-- location: ${weatherData?.name},
+- location: ${
+    selectedLocation?.name ? selectedLocation.name : weatherData.name
+  },
+${
+  selectedLocation?.country
+    ? `- country: ${selectedLocation.country}` + ","
+    : ""
+}
 - weather description: ${weatherData?.weather[0].description},
 - temperature: ${weatherData ? formatPrimaryTemp(weatherData?.main.temp) : ""}°C
 - feels like: ${
