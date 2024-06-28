@@ -80,7 +80,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   text: data.suggestions.mood,
                 }}
               />
-              <div className="grid grid-cols-2 gap-4 text-md mt-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-md mt-4">
                 <SuggestionTile
                   title="Indoor Activities"
                   data={data.suggestions.indoor_activities}
