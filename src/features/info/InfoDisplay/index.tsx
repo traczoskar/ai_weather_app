@@ -73,45 +73,13 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 About this App
               </h3>
               <p className="text-sky-200 text-md tracking-wide md:text-lg drop-shadow-sm">
-                This application was originally designed to use the{" "}
+                This application is mainly designed to be connected with AI via{" "}
                 <strong>Open AI API</strong> to provide users with suggestions
                 for leisure activities and clothing based on weather data
-                retrieved from the API. Unfortunately, during development, it
-                turned out that to set up such an application, a private server
-                with a backend is needed to act as a bridge between the frontend
-                application and OpenAI (mainly for security purposes).
+                retrieved from the API. The model used for this is feature is
+                Chat GPT-3.5-Turbo in JSON mode.
               </p>
-              <p className="text-sky-200  text-md tracking-wide md:text-lg drop-shadow-sm">
-                I am currently working on this solution and will soon release a
-                fully functional version.{" "}
-                <strong>
-                  For now, you can run the AI weather advice feature on your
-                  local instance.
-                </strong>{" "}
-                How to do it?:
-              </p>
-              <ol className="list-decimal  text-sky-200  text-md md:text-lg drop-shadow-sm self-start pl-8 marker:font-bold bg-sky-900 py-1 my-4 marker:text-sky-400">
-                <li className="list-item tracking-wide px-2 py-2 ">
-                  Clone this repository on your device
-                </li>
-                <li className="list-item tracking-wide px-2 py-2 ">
-                  Install all needed dependencies by running the command:{" "}
-                  <span className="font-mono tracking-tighter text-gray-300 bg-gray-950 px-2 py-0.5">
-                    npm install
-                  </span>
-                </li>
-                <li className="list-item tracking-wide px-2 py-2 ">
-                  Paste your OpenAI API key into the .env file
-                </li>
-                <li className="list-item tracking-wide px-2 py-2 ">
-                  Uncomment the line of code that imports the
-                  'SuggestionDisplay' component in the App.tsx file and a block
-                  of AI Hooks and request functions
-                </li>
-                <li className="list-item tracking-wide px-2 py-2 ">
-                  Start the development server.
-                </li>
-              </ol>{" "}
+
               <span className="font-bold  text-lg md:text-xl self-start text-sky-200">
                 Let me know how you like this feature! 🔥🚀
               </span>
