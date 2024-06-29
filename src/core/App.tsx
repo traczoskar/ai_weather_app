@@ -112,14 +112,16 @@ const App: React.FC = () => {
       <Header
         title="WeatherWise.ai"
         openInfo={handleInfoOpen}
+        aiData={aiData}
+        aiRequest={getWeatherAdvice}
         setSelectedLocation={setSelectedLocation}
+        selectedLocation={selectedLocation}
       />
       <InfoDisplay isInfoOpen={isInfoOpen} closeInfo={handleInfoClose} />
       <div className="flex flex-col items-center gap-8 w-full relative">
         <SuggestionDisplay
           weatherData={weatherData}
           aiData={aiData}
-          aiRequest={getWeatherAdvice}
           selectedLocation={selectedLocation}
         />
         <WeatherDisplay
