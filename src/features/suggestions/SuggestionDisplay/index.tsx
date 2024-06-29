@@ -44,7 +44,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
       {weather && (
         <div className="flex self-end gap-4 items-center absolute top-6 right-6">
           {isPending ? (
-            <div className="flex text-sky-700 text-sm font-light gap-4">
+            <div className="flex text-sky-700 dark:text-sky-200 text-sm font-light gap-4">
               Waiting for AI response...
               <Loader />
             </div>
