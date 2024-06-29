@@ -12,24 +12,20 @@ import HealthIcon from "../../../assets/icons/suggestions/health.svg?react";
 import PlacesIcon from "../../../assets/icons/suggestions/places.svg?react";
 import MusicIcon from "../../../assets/icons/suggestions/music.svg?react";
 import MovieIcon from "../../../assets/icons/suggestions/movie.svg?react";
-import Button from "../../../components/Button";
 import SuggestionTile from "../SuggestionTile";
+import { motion } from "framer-motion";
 
 interface SuggestionsDisplayProps {
   aiData: QueryData;
   weatherData: QueryData;
   selectedLocation: GeocodingData | null;
-  aiRequest: () => void;
 }
 
 const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   aiData,
-  weatherData,
   selectedLocation,
-  aiRequest,
 }) => {
   const { isPending, data, error } = aiData;
-  const { data: weather } = weatherData;
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
@@ -49,23 +45,38 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
 
   return (
     <>
-      {weather && !aiResponse && (
-        <div className="flex self-end gap-4 items-center absolute top-6 right-6">
-          {isPending ? (
-            <div className="flex text-sky-700 dark:text-sky-200 text-sm font-light gap-4">
-              Waiting for AI response...
+      {isPending && (
+        <motion.div
+          className="flex w-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.75 }}
+        >
+          <TranspContainer>
+            <div className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick">
+              <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
+                🤖 Waiting for AI response ...
+              </span>
               <Loader />
             </div>
-          ) : (
-            <Button onClick={aiRequest} icon={<StarsIcon />}>
-              Ask AI for advice
-            </Button>
-          )}
-        </div>
+          </TranspContainer>
+        </motion.div>
+      )}
+      {error && (
+        <TranspContainer>
+          <h3>{error.message}</h3>
+        </TranspContainer>
       )}
       {aiResponse && (
         <TranspContainer>
-          <section className="flex flex-col w-full">
+          <motion.section
+            className="flex flex-col w-full"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.75 }}
+          >
             <div className="flex justify-between flex-col gap-4 md:flex-row w-full">
               <h2 className="text-sky-700 transition-colors dark:text-sky-200  text-md sm:text-xl md:text-2xl font-semibold flex flex-wrap gap-3 drop-shadow items-center">
                 AI advices for today {`at ${data.location}`}
@@ -142,7 +153,11 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                 />
               </div>
             </article>
-          </section>
+            <p className="text-sm dark:text-sky-300  text-sky-700 mt-4">
+              <span className="font-bold">✅ Tip:</span> To unlock next AI query
+              first search for new location.
+            </p>
+          </motion.section>
         </TranspContainer>
       )}
     </>
