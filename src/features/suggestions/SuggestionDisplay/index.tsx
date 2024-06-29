@@ -78,7 +78,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
             transition={{ duration: 0.75 }}
           >
             <div className="flex justify-between flex-col gap-4 md:flex-row w-full">
-              <h2 className="text-sky-700 transition-colors dark:text-sky-200  text-md sm:text-xl md:text-2xl font-semibold flex flex-wrap gap-3 drop-shadow items-center">
+              <h2 className="text-sky-700 transition-colors dark:text-sky-200  text-md sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
                 AI advices for today {`at ${data.location}`}
                 <span className="text-fuchsia-400 drop-shadow-md">
                   <StarsIcon width={28} height={28} />
