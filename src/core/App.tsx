@@ -116,17 +116,17 @@ const App: React.FC = () => {
       />
       <InfoDisplay isInfoOpen={isInfoOpen} closeInfo={handleInfoClose} />
       <div className="flex flex-col items-center gap-8 w-full relative">
-        <WeatherDisplay
-          selectedLocation={selectedLocation}
-          weatherData={weatherData}
-          nightTemp={nightTemp}
-          airPollutionData={airPollutionData}
-        />
         <SuggestionDisplay
           weatherData={weatherData}
           aiData={aiData}
           aiRequest={getWeatherAdvice}
           selectedLocation={selectedLocation}
+        />
+        <WeatherDisplay
+          selectedLocation={selectedLocation}
+          weatherData={weatherData}
+          nightTemp={nightTemp}
+          airPollutionData={airPollutionData}
         />
         <WeatherForecast
           forecastData={forecastData}
