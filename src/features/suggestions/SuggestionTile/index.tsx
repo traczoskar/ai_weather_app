@@ -20,7 +20,7 @@ const SuggestionTile: React.FC<SuggestionTileProps> = ({
   isArray,
 }) => {
   return (
-    <div className="flex flex-col gap-4 bg-sky-700 p-6 rounded-lg shadow-md border-t border-t-sky-600">
+    <div className="flex flex-col gap-4 bg-sky-700 p-6 rounded-lg shadow-md border-t border-t-sky-600 hover:scale-[1.02] hover:shadow-lg transition-all">
       {isArray ? (
         <>
           <h4 className="text-xl font-bold text-sky-300">{title}</h4>
