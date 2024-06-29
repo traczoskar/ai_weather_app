@@ -79,8 +79,13 @@ const Header = ({
           className="flex justify-center items-center gap-4"
         >
           <InfoButton onClick={openInfo} />
-          {!aiResponse && (
-            <div className="flex self-end gap-4 items-center ">
+          {!aiResponse && selectedLocation && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="flex self-end gap-4 items-center "
+            >
               <Button
                 disabled={isAiPending}
                 onClick={aiRequest}
@@ -88,7 +93,7 @@ const Header = ({
               >
                 Ask AI for advice
               </Button>
-            </div>
+            </motion.div>
           )}
 
           <ThemeSwitch />
