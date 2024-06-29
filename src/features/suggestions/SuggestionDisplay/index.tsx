@@ -4,6 +4,14 @@ import { GeocodingData, QueryData } from "../../../types/types";
 import { useEffect, useState } from "react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import StarsIcon from "../../../assets/icons/stars.svg?react";
+import IndoorIcon from "../../../assets/icons/suggestions/indoor.svg?react";
+import OutdoorIcon from "../../../assets/icons/suggestions/outdoor.svg?react";
+import AttireIcon from "../../../assets/icons/suggestions/attire.svg?react";
+import FoodIcon from "../../../assets/icons/suggestions/food.svg?react";
+import HealthIcon from "../../../assets/icons/suggestions/health.svg?react";
+import PlacesIcon from "../../../assets/icons/suggestions/places.svg?react";
+import MusicIcon from "../../../assets/icons/suggestions/music.svg?react";
+import MovieIcon from "../../../assets/icons/suggestions/movie.svg?react";
 import Button from "../../../components/Button";
 import SuggestionTile from "../SuggestionTile";
 
@@ -41,7 +49,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
 
   return (
     <>
-      {weather && (
+      {weather && !aiResponse && (
         <div className="flex self-end gap-4 items-center absolute top-6 right-6">
           {isPending ? (
             <div className="flex text-sky-700 dark:text-sky-200 text-sm font-light gap-4">
@@ -58,17 +66,18 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
       {aiResponse && (
         <TranspContainer>
           <section className="flex flex-col w-full">
-            <div className="flex justify-between w-full">
-              <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-2xl font-semibold flex gap-4 drop-shadow items-center">
+            <div className="flex justify-between flex-col gap-4 md:flex-row w-full">
+              <h2 className="text-sky-700 transition-colors dark:text-sky-200  text-md sm:text-xl md:text-2xl font-semibold flex flex-wrap gap-3 drop-shadow items-center">
                 AI advices for today {`at ${data.location}`}
-                <StarsIcon width={28} height={28} />
+                <span className="text-fuchsia-400 drop-shadow-md">
+                  <StarsIcon width={28} height={28} />
+                </span>
               </h2>
               <p className="flex gap-2 text-sky-600 transition-colors dark:text-sky-300 text-md drop-shadow items-center ">
                 <LocationIcon width={20} height={20} /> {data.location},{" "}
                 {data.date}
               </p>
             </div>
-
             <article className="flex flex-col text-md text-gray-700 dark:text-white mt-8">
               <SuggestionTile
                 general_advice={{
@@ -80,45 +89,55 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   text: data.suggestions.mood,
                 }}
               />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-md mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-md mt-4">
                 <SuggestionTile
                   title="Indoor Activities"
+                  icon={<IndoorIcon width={20} height={20} />}
                   data={data.suggestions.indoor_activities}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Outdoor Activities"
+                  icon={<OutdoorIcon width={20} height={20} />}
                   data={data.suggestions.outdoor_activities}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Attire"
+                  icon={<AttireIcon width={20} height={20} />}
                   data={data.suggestions.attire}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Food Suggestions"
+                  icon={<FoodIcon width={20} height={20} />}
                   data={data.suggestions.food_suggestions}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Health Tips"
+                  icon={<HealthIcon width={20} height={20} />}
                   data={data.suggestions.health_tips}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Places to Visit"
+                  icon={<PlacesIcon width={20} height={20} />}
                   data={data.suggestions.places_to_visit}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Music"
-                  data={data.suggestions.music}
+                  icon={<MusicIcon width={20} height={20} />}
+                  musicOrMovies={data.suggestions.music}
+                  isMusicOrMovies={true}
                   isArray={true}
                 />
                 <SuggestionTile
                   title="Movies"
-                  data={data.suggestions.movies}
+                  icon={<MovieIcon width={20} height={20} />}
+                  musicOrMovies={data.suggestions.movies}
+                  isMusicOrMovies={true}
                   isArray={true}
                 />
               </div>
