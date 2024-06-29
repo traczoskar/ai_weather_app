@@ -4,18 +4,41 @@ import ThemeSwitch from "../ThemeSwitch";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsDarkMode, toggleDarkMode } from "../../slices/themeSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InfoButton from "../InfoButton";
+import StarsIcon from "../../assets/icons/stars.svg?react";
+import { GeocodingData, QueryData } from "../../types/types";
+import Button from "../Button";
 
 interface HeaderProps {
   title: string;
   openInfo: () => void;
   setSelectedLocation: (location: any) => void;
+  selectedLocation: GeocodingData | null;
+  aiData: QueryData;
+  aiRequest: () => void;
 }
 
-const Header = ({ title, setSelectedLocation, openInfo }: HeaderProps) => {
+const Header = ({
+  title,
+  setSelectedLocation,
+  openInfo,
+  aiData,
+  aiRequest,
+  selectedLocation,
+}: HeaderProps) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const dispatch = useDispatch();
+  const { isPending: isAiPending, data } = aiData;
+  const [aiResponse, setAiResponse] = useState<string | null>(null);
+
+  useEffect(() => {
+    setAiResponse(data);
+  }, [data]);
+
+  useEffect(() => {
+    setAiResponse(null);
+  }, [selectedLocation]);
 
   useEffect(() => {
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
@@ -56,6 +79,18 @@ const Header = ({ title, setSelectedLocation, openInfo }: HeaderProps) => {
           className="flex justify-center items-center gap-4"
         >
           <InfoButton onClick={openInfo} />
+          {!aiResponse && (
+            <div className="flex self-end gap-4 items-center ">
+              <Button
+                disabled={isAiPending}
+                onClick={aiRequest}
+                icon={<StarsIcon width={18} height={18} />}
+              >
+                Ask AI for advice
+              </Button>
+            </div>
+          )}
+
           <ThemeSwitch />
         </motion.nav>
       </div>
