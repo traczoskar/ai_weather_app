@@ -68,9 +68,29 @@ export const usePromptDataBase = (
       "food_suggestions": ["Food item 1", "Food item 2", ...],
       "health_tips": ["Health tip 1", "Health tip 2", ...]
       "places_to_visit": ["Place #1 near the location", "Place #2 near the location", ...]
-      "music": ["Artist - title #1", "Artist - title #2", ...]
-      "movies": ["Movie title #1", "Movie title #2", ...]
-      "general_advice": "General encouraging advice for the day"
+      "music": [
+        {
+          "artist": "Artist #1", 
+          "title": "Title #1", 
+          "link": "YouTube href link"
+        },
+        {
+          "artist": "Artist #2", 
+          "title": "Title #2", 
+          "link": "YouTube href link"
+        }
+      ],
+     "movies": [
+        {
+          "title": "Movie title #1",
+          "link": "IMDB href link"
+        },
+        {
+          "title": "Movie title #2",
+          "link": "IMDB href link"
+        }
+      ],
+      "general_advice": "General encouraging and engaging advice for the day in casual style."
     }
   }
     
@@ -99,6 +119,7 @@ ${
 - wind speed: ${weatherData?.wind.speed} m/s
 Answer in JSON format.`;
 
+  //---Prompt Construction---
   const prompt: ChatPrompt = {
     systemMessage: {
       role: "system",
