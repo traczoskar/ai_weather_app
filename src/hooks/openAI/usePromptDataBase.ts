@@ -80,7 +80,7 @@ export const usePromptDataBase = (
   const userMessage = `Weather data:
 - current date: ${currentDate} r.,
 - location: ${
-    selectedLocation?.name ? selectedLocation.name : weatherData.name
+    selectedLocation?.name ? selectedLocation.name : weatherData?.name
   },
 ${
   selectedLocation?.country
