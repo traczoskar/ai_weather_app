@@ -1,7 +1,10 @@
+import React from "react";
+
 interface SuggestionTileProps {
   title?: string;
   data?: string[];
   isArray?: boolean;
+  icon?: React.ReactNode;
   mood?: {
     title: string;
     text: string;
@@ -17,15 +20,19 @@ const SuggestionTile: React.FC<SuggestionTileProps> = ({
   mood,
   general_advice,
   title,
+  icon,
   isArray,
 }) => {
   return (
     <div className="flex flex-col gap-4 bg-sky-700 p-6 rounded-lg shadow-md border-t border-t-sky-600 hover:scale-[1.02] hover:shadow-lg transition-all">
       {isArray ? (
         <>
-          <h4 className="text-xl font-bold text-sky-300">{title}</h4>
+          <h4 className="flex gap-3  items-center text-xl font-bold drop-shadow-md text-sky-300">
+            <span className="text-sky-400">{icon}</span>
+            {title}
+          </h4>
           {data && data.length > 0 ? (
-            <ul className="flex flex-col gap-3 text-sm list-disc pl-4">
+            <ul className="flex flex-col gap-3 text-sm lg:text-md list-disc pl-4">
               {data.map((item, index) => (
                 <li className="text-sky-100" key={index}>
                   {item}
