@@ -9,6 +9,10 @@ export const INFO_DATA = {
       text: "Get real-time weather updates for your location.",
     },
     {
+      feature: "🦾 AI-Powered Suggestions",
+      text: "Receive personalized activity and attire suggestions based on the weather.",
+    },
+    {
       feature: "🏙️ Location Search",
       text: "Easily find weather info by searching for any city.",
     },
