@@ -2,6 +2,8 @@ import TranspContainer from "../../../components/TranspContainer";
 import Loader from "../../../components/Loader";
 import { GeocodingData, QueryData } from "../../../types/types";
 import { useEffect, useState } from "react";
+import CollapseIcon from "../../../assets/icons/suggestions/collapse.svg?react";
+import ExpandIcon from "../../../assets/icons/suggestions/expand.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
 import StarsIcon from "../../../assets/icons/stars.svg?react";
 import IndoorIcon from "../../../assets/icons/suggestions/indoor.svg?react";
@@ -14,6 +16,7 @@ import MusicIcon from "../../../assets/icons/suggestions/music.svg?react";
 import MovieIcon from "../../../assets/icons/suggestions/movie.svg?react";
 import SuggestionTile from "../SuggestionTile";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 interface SuggestionsDisplayProps {
   aiData: QueryData;
@@ -26,6 +29,9 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   selectedLocation,
 }) => {
   const { isPending, data, error } = aiData;
+  const isTablet = useMediaQuery({ query: "(max-width: 1023px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,31 +74,58 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           <h3>{error.message}</h3>
         </TranspContainer>
       )}
-      {aiResponse && (
-        <TranspContainer>
+      {aiResponse && !isCollapsed ? (
+        <TranspContainer isCollapsed={isCollapsed}>
           <motion.section
-            className="flex flex-col w-full"
+            className="flex flex-col w-full "
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.75 }}
           >
-            <div className="flex justify-between flex-col gap-4 md:flex-row w-full">
-              <h2 className="text-sky-700 transition-colors dark:text-sky-200  text-md sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
-                AI advices for today {`at ${data.location}`}
+            <div className="flex justify-between lg:gap-4 w-full">
+              <h2 className="text-sky-700 transition-colors dark:text-sky-200   text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
+                {isMobile
+                  ? "AI advices"
+                  : `AI advices for today ${
+                      data.location ? `at ${data.location}` : ""
+                    }`}
                 <span className="text-fuchsia-400 drop-shadow-md">
-                  <StarsIcon width={28} height={28} />
+                  <StarsIcon
+                    width={isMobile ? 23 : 28}
+                    height={isMobile ? 23 : 28}
+                  />
                 </span>
               </h2>
-              <p className="flex gap-2 text-sky-600 transition-colors dark:text-sky-300 text-md drop-shadow items-center ">
+              <div className="flex gap-4">
+                {!isTablet && (
+                  <p className="flex gap-2 text-sky-600 transition-colors dark:text-sky-300 text-sm drop-shadow items-center ">
+                    <LocationIcon width={20} height={20} /> {data.location},{" "}
+                    {data.date}
+                  </p>
+                )}
+                <button
+                  className="text-sky-600 dark:text-sky-400 p-3 hover:bg-sky-100 dark:hover:bg-sky-700 transition-colors"
+                  onClick={() => setIsCollapsed(!isCollapsed)}
+                >
+                  {isCollapsed ? (
+                    <ExpandIcon width={25} height={25} />
+                  ) : (
+                    <CollapseIcon width={25} height={25} />
+                  )}
+                </button>
+              </div>
+            </div>
+            {isTablet && (
+              <p className="flex gap-2 text-sky-600 transition-colors dark:text-sky-300 text-sm sm:text-md drop-shadow items-center ">
                 <LocationIcon width={20} height={20} /> {data.location},{" "}
                 {data.date}
               </p>
-            </div>
+            )}
             <article className="flex flex-col text-md text-gray-700 dark:text-white mt-8">
               <SuggestionTile
                 general_advice={{
-                  title: "One phrase from AI:",
+                  title: "Summary from AI:",
                   text: data.suggestions.general_advice,
                 }}
                 mood={{
@@ -159,6 +192,52 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
             </p>
           </motion.section>
         </TranspContainer>
+      ) : (
+        aiResponse && (
+          <TranspContainer isCollapsed={isCollapsed}>
+            <motion.section
+              className="flex flex-col w-full "
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.75 }}
+            >
+              <div className="flex justify-between lg:gap-4 flex-row w-full">
+                <h2 className="text-sky-700 transition-colors dark:text-sky-200   text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
+                  {isMobile
+                    ? "AI advices"
+                    : `AI advices for today ${
+                        data.location ? `at ${data.location}` : ""
+                      }`}
+                  <span className="text-fuchsia-400 drop-shadow-md">
+                    <StarsIcon
+                      width={isMobile ? 23 : 28}
+                      height={isMobile ? 23 : 28}
+                    />
+                  </span>
+                </h2>
+                <div className="flex gap-4">
+                  {!isTablet && (
+                    <p className="flex gap-2 text-sky-600 transition-colors dark:text-sky-300 text-sm drop-shadow items-center">
+                      <LocationIcon width={20} height={20} /> {data.location},{" "}
+                      {data.date}
+                    </p>
+                  )}
+                  <button
+                    className="text-sky-600 dark:text-sky-400 p-3 hover:bg-sky-100 dark:hover:bg-sky-700 transition-colors"
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                  >
+                    {isCollapsed ? (
+                      <ExpandIcon width={25} height={25} />
+                    ) : (
+                      <CollapseIcon width={25} height={25} />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </motion.section>
+          </TranspContainer>
+        )
       )}
     </>
   );
