@@ -1,4 +1,4 @@
-import TranspContainer from "../../../components/TranspContainer";
+import Container from "../../../components/Container";
 import Loader from "../../../components/Loader";
 import { GeocodingData, QueryData } from "../../../types/types";
 import DetailedInfo from "./DetailedInfo";
@@ -32,14 +32,14 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <TranspContainer>
+          <Container>
             <div className="w-full h-40 flex justify-center items-center gap-4 animate-pulseQuick">
               <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
                 🍋 Loading fresh data ...
               </span>
               <Loader />
             </div>
-          </TranspContainer>
+          </Container>
         </motion.section>
       ) : (
         <motion.section
@@ -50,7 +50,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
           transition={{ duration: 0.5 }}
         >
           {!weather ? null : (
-            <TranspContainer>
+            <Container>
               <div className="flex w-full">
                 <article className="flex w-full flex-col gap-4">
                   <div className="flex justify-between w-full flex-col lg:flex-row">
@@ -64,7 +64,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
                   <AirPollutionInfo airPollutionData={airPollutionData} />
                 </article>
               </div>
-            </TranspContainer>
+            </Container>
           )}
         </motion.section>
       )}
