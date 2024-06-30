@@ -1,7 +1,7 @@
 import TranspContainer from "../../../components/TranspContainer";
 import Loader from "../../../components/Loader";
 import { GeocodingData, QueryData } from "../../../types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CollapseIcon from "../../../assets/icons/suggestions/collapse.svg?react";
 import ExpandIcon from "../../../assets/icons/suggestions/expand.svg?react";
 import LocationIcon from "../../../assets/icons/location.svg?react";
@@ -17,6 +17,7 @@ import MovieIcon from "../../../assets/icons/suggestions/movie.svg?react";
 import SuggestionTile from "../SuggestionTile";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
+import Popover from "../../../components/Popover";
 
 interface SuggestionsDisplayProps {
   aiData: QueryData;
@@ -31,7 +32,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   const { isPending, data, error } = aiData;
   const isTablet = useMediaQuery({ query: "(max-width: 1023px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
@@ -41,6 +45,13 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   useEffect(() => {
     setAiResponse(null);
   }, [selectedLocation]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsPopoverOpen(true);
+      setAnchorEl(buttonRef.current);
+    }, 1000);
+  }, [aiResponse]);
 
   {
     isPending && <Loader />;
@@ -224,8 +235,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                     </p>
                   )}
                   <button
+                    ref={buttonRef}
                     className="text-sky-600 dark:text-sky-400 p-3 hover:bg-sky-100 dark:hover:bg-sky-700 transition-colors"
                     onClick={() => setIsCollapsed(!isCollapsed)}
+                    onMouseEnter={() => setAnchorEl(buttonRef.current)}
                   >
                     {isCollapsed ? (
                       <ExpandIcon width={25} height={25} />
@@ -233,6 +246,13 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                       <CollapseIcon width={25} height={25} />
                     )}
                   </button>
+                  <Popover
+                    anchorEl={anchorEl}
+                    open={isPopoverOpen}
+                    onClose={() => setIsPopoverOpen(false)}
+                  >
+                    <p>Click the button to expand AI advice.</p>
+                  </Popover>
                 </div>
               </div>
             </motion.section>
