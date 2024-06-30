@@ -1,9 +1,9 @@
-interface TranspContainerProps {
+interface ContainerProps {
   children: React.ReactNode;
   isCollapsed?: boolean;
 }
 
-const TranspContainer = ({ children, isCollapsed }: TranspContainerProps) => {
+const Container = ({ children, isCollapsed }: ContainerProps) => {
   return (
     <div
       className={`${
@@ -15,4 +15,4 @@ const TranspContainer = ({ children, isCollapsed }: TranspContainerProps) => {
   );
 };
 
-export default TranspContainer;
+export default Container;
