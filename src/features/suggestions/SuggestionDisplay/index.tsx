@@ -86,7 +86,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
         </TranspContainer>
       )}
       {aiResponse && !isCollapsed ? (
-        <TranspContainer isCollapsed={isCollapsed}>
+        <TranspContainer isCollapsed={isCollapsed} aria-expanded="true">
           <motion.section
             className="flex flex-col w-full "
             initial={{ opacity: 0, y: -20 }}
@@ -205,7 +205,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
         </TranspContainer>
       ) : (
         aiResponse && (
-          <TranspContainer isCollapsed={isCollapsed}>
+          <TranspContainer isCollapsed={isCollapsed} aria-expanded="false">
             <motion.section
               className="flex flex-col w-full "
               initial={{ opacity: 0, y: -20 }}
@@ -236,6 +236,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   )}
                   <button
                     ref={buttonRef}
+                    aria-label="Expand AI advice"
                     className="text-sky-600 dark:text-sky-400 p-3 hover:bg-sky-100 dark:hover:bg-sky-700 transition-colors"
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     onMouseEnter={() => setAnchorEl(buttonRef.current)}
