@@ -61,7 +61,7 @@ const Header = ({
 
   return (
     <header className="w-full flex flex-col gap-6">
-      <div className="flex flex-col min-[415px]:flex-row gap-6 justify-between items-center w-full mt-6">
+      <div className="flex flex-col min-[680px]:flex-row gap-6 justify-between items-center w-full mt-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
