@@ -7,7 +7,12 @@ const fetchAirPollution = async (lat: number, lon: number) => {
     }`
   );
   if (!response.ok) {
-    throw new Error("Failed to fetch air pollution data!");
+    throw new Error(
+      "Failed to fetch air pollution data! Response status: " +
+        response.status +
+        " - " +
+        response.statusText
+    );
   }
 
   return await response.json();
