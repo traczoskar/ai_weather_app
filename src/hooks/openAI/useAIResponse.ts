@@ -11,11 +11,11 @@ const getAIResponse = async (prompt: ChatPrompt) => {
       body: JSON.stringify(prompt),
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        `HTTP error while fetching AI response! status: ${response.status}`
+      );
     }
     const data = await response.json();
-    console.log("response", response);
-    console.log("data", data);
     return data;
   } catch (error) {
     console.error("Error fetching AI completion:", error);
@@ -25,7 +25,7 @@ const getAIResponse = async (prompt: ChatPrompt) => {
 
 export const useAIResponse = (prompt: ChatPrompt) => {
   return useQuery({
-    queryKey: ["ai", prompt],
+    queryKey: prompt ? ["ai", prompt] : [],
     queryFn: () => getAIResponse(prompt),
     retry: false,
     enabled: false,
