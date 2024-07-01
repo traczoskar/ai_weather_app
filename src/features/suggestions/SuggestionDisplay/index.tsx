@@ -65,7 +65,13 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   return (
     <>
       {!aiResponse && !isPending && weather && (
-        <button className="sm:self-end w-full sm:w-auto" onClick={aiRequest}>
+        <motion.button
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="sm:self-end w-full sm:w-auto"
+          onClick={aiRequest}
+        >
           <Container isButton={true}>
             <span className="text-sky-700 transition-colors dark:text-sky-200 text-sm flex flex-wrap gap-2 drop-shadow items-center">
               <span className="text-fuchsia-400 drop-shadow-md">
@@ -74,7 +80,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
               Click to ask AI for suggestions
             </span>
           </Container>
-        </button>
+        </motion.button>
       )}
       {isPending && (
         <motion.div
