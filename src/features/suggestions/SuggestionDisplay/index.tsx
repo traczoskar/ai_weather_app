@@ -73,6 +73,8 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
+          aria-label="Ask AI for suggestions"
+          title="Ask AI for suggestions"
           className="sm:self-end w-full sm:w-auto"
           onClick={aiRequest}
         >
@@ -93,6 +95,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.75 }}
+          aria-busy="true"
         >
           <Container>
             <div className="w-full h-32 flex justify-center items-center gap-4 animate-pulseQuick">
@@ -106,7 +109,11 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
       )}
       {error && <Error error={error} refersTo="AI response section" />}
       {aiResponse && !isCollapsed ? (
-        <Container isCollapsed={isCollapsed} aria-expanded="true">
+        <Container
+          isCollapsed={isCollapsed}
+          aria-expanded="true"
+          aria-label="AI response"
+        >
           <motion.section
             className="flex flex-col w-full "
             initial={{ opacity: 0, y: -20 }}
@@ -225,7 +232,11 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
         </Container>
       ) : (
         aiResponse && (
-          <Container isCollapsed={isCollapsed} aria-expanded="false">
+          <Container
+            isCollapsed={isCollapsed}
+            aria-expanded="false"
+            aria-label="AI response"
+          >
             <motion.section
               className="flex flex-col w-full"
               initial={{ opacity: 0, y: -20 }}
