@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
         isOnInfoDisplay ? "text-sky-300" : "text-sky-700"
       } ${isOnInfoDisplay ? "dark:text-sky-300" : "dark:text-sky-600"} ${
         isOnInfoDisplay ? "" : "absolute bottom-8"
-      }`}
+      } ${isOnInfoDisplay ? "flex-col items-center min-[380px]:flex-row" : ""}`}
     >
       <div className="flex gap-2 text-xs sm:text-sm self-end font-extralight">
         Developed by{" "}
@@ -34,26 +34,28 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
         </a>{" "}
         @2024
       </div>
-      <a
-        href="https://www.linkedin.com/in/traczoskar/"
-        target="_blank"
-        rel="noreferrer noopener"
-        aria-label="Link to LinkedIn profile"
-        title="Link to LinkedIn profile"
-        className="flex items-center no-underline transition-all hover:text-sky-200 hover:scale-105"
-      >
-        <LinkedInIcon className="w-6 h-6" />
-      </a>
-      <a
-        href="https://github.com/traczoskar/ai_weather_app"
-        target="_blank"
-        rel="noreferrer noopener"
-        aria-label="Link to GitHub profile"
-        title="Link to GitHub profile"
-        className="flex items-center no-underline  transition-all hover:text-sky-200 hover:scale-105"
-      >
-        <GitHubIcon className="w-6 h-6" />
-      </a>
+      <div className="flex items-center gap-4 min-[380px]:gap-2">
+        <a
+          href="https://www.linkedin.com/in/traczoskar/"
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label="Link to LinkedIn profile"
+          title="Link to LinkedIn profile"
+          className="flex items-center no-underline transition-all hover:text-sky-200 hover:scale-105"
+        >
+          <LinkedInIcon className="w-6 h-6" />
+        </a>
+        <a
+          href="https://github.com/traczoskar/ai_weather_app"
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label="Link to GitHub profile"
+          title="Link to GitHub profile"
+          className="flex items-center no-underline  transition-all hover:text-sky-200 hover:scale-105"
+        >
+          <GitHubIcon className="w-6 h-6" />
+        </a>
+      </div>
     </motion.footer>
   );
 };
