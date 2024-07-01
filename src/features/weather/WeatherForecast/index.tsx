@@ -14,6 +14,7 @@ import {
   processForecastData,
 } from "../../../utils/dataFormatting";
 import { useMediaQuery } from "react-responsive";
+import Error from "../../../components/Error";
 
 interface WeatherForecastProps {
   forecastData: QueryData;
@@ -44,7 +45,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
 
   return (
     <>
-      {error && <h3>{error.message}</h3>}
+      {error && <Error error={error} refersTo="Forecast Data section" />}
       {isForecastFetching ? (
         <motion.section
           className="flex w-full"
