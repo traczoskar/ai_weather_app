@@ -1,4 +1,4 @@
-import TranspContainer from "../../../components/TranspContainer";
+import Container from "../../../components/Container";
 import { QueryData } from "../../../types/types";
 import Lottie from "lottie-react";
 import { getWeatherAnimation } from "../../../utils/getWeatherAnimation";
@@ -53,14 +53,14 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <TranspContainer>
+          <Container>
             <div className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick">
               <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
                 🍋 Loading fresh data ...
               </span>
               <Loader />
             </div>
-          </TranspContainer>
+          </Container>
         </motion.section>
       ) : (
         <motion.section
@@ -71,7 +71,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
           transition={{ duration: 0.5 }}
         >
           {!forecastDays ? null : (
-            <TranspContainer>
+            <Container>
               <div className="flex flex-col items-center justify-between w-full gap-8">
                 <h2 className="text-sky-700 dark:text-sky-200 transition-colors text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
                   Forecast <ForecastIcon width={28} height={28} />
@@ -159,7 +159,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                   ))}
                 </ul>
               </div>
-            </TranspContainer>
+            </Container>
           )}
         </motion.section>
       )}
