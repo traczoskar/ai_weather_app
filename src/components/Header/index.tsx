@@ -4,11 +4,9 @@ import ThemeSwitch from "../ThemeSwitch";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsDarkMode, toggleDarkMode } from "../../slices/themeSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import InfoButton from "../InfoButton";
-import StarsIcon from "../../assets/icons/stars.svg?react";
 import { GeocodingData, QueryData } from "../../types/types";
-import Button from "../Button";
 
 interface HeaderProps {
   title: string;
@@ -16,29 +14,12 @@ interface HeaderProps {
   setSelectedLocation: (location: any) => void;
   selectedLocation: GeocodingData | null;
   aiData: QueryData;
-  aiRequest: () => void;
+  aiRequest?: () => void;
 }
 
-const Header = ({
-  title,
-  setSelectedLocation,
-  openInfo,
-  aiData,
-  aiRequest,
-  selectedLocation,
-}: HeaderProps) => {
+const Header = ({ title, setSelectedLocation, openInfo }: HeaderProps) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const dispatch = useDispatch();
-  const { isPending: isAiPending, data } = aiData;
-  const [aiResponse, setAiResponse] = useState<string | null>(null);
-
-  useEffect(() => {
-    setAiResponse(data);
-  }, [data]);
-
-  useEffect(() => {
-    setAiResponse(null);
-  }, [selectedLocation]);
 
   useEffect(() => {
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
@@ -79,23 +60,6 @@ const Header = ({
           className="flex justify-center items-center gap-4"
         >
           <InfoButton onClick={openInfo} />
-          {!aiResponse && selectedLocation && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="flex self-end gap-4 items-center "
-            >
-              <Button
-                disabled={isAiPending}
-                onClick={aiRequest}
-                icon={<StarsIcon width={18} height={18} />}
-              >
-                Ask AI for advice
-              </Button>
-            </motion.div>
-          )}
-
           <ThemeSwitch />
         </motion.nav>
       </div>
