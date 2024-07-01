@@ -24,6 +24,8 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
     error: geocodingError,
   } = useGeocodingData(cityName.length > 2 ? cityName.trim() : null);
 
+  //---Handling the input---
+
   const handleLocationInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCityName(e.target.value);
   };
@@ -34,6 +36,8 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
       inputRef.current.value = "";
     }
   };
+
+  //---Handling the Geolocation (Device location)---
 
   const handleLocation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -62,6 +66,26 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
       country: "",
       state: "",
     });
+  };
+
+  //---Handling reset of the viewport---
+
+  const resetViewport = () => {
+    const viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+      viewportMeta.setAttribute(
+        "content",
+        "width=device-width, initial-scale=1.0"
+      );
+    }
+  };
+
+  //---Handling the Select---
+
+  const handleSelect = (location: GeocodingData) => {
+    setSelectedLocation(location);
+    handleReset();
+    resetViewport();
   };
 
   return (
@@ -122,7 +146,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               aria-label="Search for city."
               onChange={handleLocationInput}
               placeholder="Enter city name..."
-              className="block w-full  p-4 ps-14 text-sm  text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-sky-700 shadow rounded-2xl bg-white dark:bg-sky-900 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 dark:hover:bg-sky-950 hover:bg-sky-50 dark:hover:placeholder:text-slate-300 hover:placeholder:text-slate-500
+              className="block w-full  px-4 py-3 sm:py-4 ps-14 text-sky-900 dark:text-slate-200 border transition-colors border-sky-200 dark:border-sky-700 shadow rounded-2xl bg-white dark:bg-sky-900 focus:ring-blue-500 focus:border-sky-600 placeholder:text-slate-400 dark:hover:bg-sky-950 hover:bg-sky-50 dark:hover:placeholder:text-slate-300 hover:placeholder:text-slate-500
         focus:outline-none "
             ></input>
           </div>
@@ -134,13 +158,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
             className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded-2xl overflow-hidden shadow-lg z-10"
           >
             {locations.map((location: GeocodingData, index: number) => (
-              <Select
-                key={index}
-                onClick={() => {
-                  setSelectedLocation(location);
-                  handleReset();
-                }}
-              >
+              <Select key={index} onClick={() => handleSelect(location)}>
                 <span className="text-sky-700 dark:text-sky-400 transition-colors font-bold">
                   {location.name}
                 </span>
