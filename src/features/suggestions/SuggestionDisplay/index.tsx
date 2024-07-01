@@ -1,4 +1,4 @@
-import TranspContainer from "../../../components/TranspContainer";
+import Container from "../../../components/Container";
 import Loader from "../../../components/Loader";
 import { GeocodingData, QueryData } from "../../../types/types";
 import { useEffect, useRef, useState } from "react";
@@ -21,21 +21,30 @@ import Popover from "../../../components/Popover";
 
 interface SuggestionsDisplayProps {
   aiData: QueryData;
-  weatherData: QueryData;
+  aiRequest: () => void;
   selectedLocation: GeocodingData | null;
+  weatherData: QueryData;
 }
 
 const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   aiData,
+  aiRequest,
   selectedLocation,
+  weatherData,
 }) => {
   const { isPending, data, error } = aiData;
+  const { data: weather } = weatherData;
   const isTablet = useMediaQuery({ query: "(max-width: 1023px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 550px)" });
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // let aiResponse = data;
+  // let isPending = false;
+  // let error = null;
+
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
@@ -53,15 +62,20 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
     }, 1000);
   }, [aiResponse]);
 
-  {
-    isPending && <Loader />;
-  }
-  {
-    error && <h3>{error.message}</h3>;
-  }
-
   return (
     <>
+      {!aiResponse && !isPending && weather && (
+        <button className="sm:self-end w-full sm:w-auto" onClick={aiRequest}>
+          <Container isButton={true}>
+            <span className="text-sky-700 transition-colors dark:text-sky-200 text-sm flex flex-wrap gap-2 drop-shadow items-center">
+              <span className="text-fuchsia-400 drop-shadow-md">
+                <StarsIcon width={23} height={23} />
+              </span>
+              Click to ask AI for suggestions
+            </span>
+          </Container>
+        </button>
+      )}
       {isPending && (
         <motion.div
           className="flex w-full"
@@ -70,23 +84,23 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.75 }}
         >
-          <TranspContainer>
-            <div className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick">
+          <Container>
+            <div className="w-full h-32 flex justify-center items-center gap-4 animate-pulseQuick">
               <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
                 🤖 Waiting for AI response ...
               </span>
               <Loader />
             </div>
-          </TranspContainer>
+          </Container>
         </motion.div>
       )}
       {error && (
-        <TranspContainer>
+        <Container>
           <h3>{error.message}</h3>
-        </TranspContainer>
+        </Container>
       )}
       {aiResponse && !isCollapsed ? (
-        <TranspContainer isCollapsed={isCollapsed} aria-expanded="true">
+        <Container isCollapsed={isCollapsed} aria-expanded="true">
           <motion.section
             className="flex flex-col w-full "
             initial={{ opacity: 0, y: -20 }}
@@ -95,7 +109,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
             transition={{ duration: 0.75 }}
           >
             <div className="flex justify-between lg:gap-4 w-full">
-              <h2 className="text-sky-700 transition-colors dark:text-sky-200   text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
+              <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
                 {isMobile
                   ? "AI advices"
                   : `AI advices for today ${
@@ -202,18 +216,18 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
               first search for new location.
             </p>
           </motion.section>
-        </TranspContainer>
+        </Container>
       ) : (
         aiResponse && (
-          <TranspContainer isCollapsed={isCollapsed} aria-expanded="false">
+          <Container isCollapsed={isCollapsed} aria-expanded="false">
             <motion.section
-              className="flex flex-col w-full "
+              className="flex flex-col w-full"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.75 }}
             >
-              <div className="flex justify-between lg:gap-4 flex-row w-full">
+              <div className="flex justify-between lg:gap-4  w-full">
                 <h2 className="text-sky-700 transition-colors dark:text-sky-200   text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
                   {isMobile
                     ? "AI advices"
@@ -256,8 +270,20 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   </Popover>
                 </div>
               </div>
+              <article className="flex flex-col text-md text-gray-700 dark:text-white mt-4">
+                <SuggestionTile
+                  general_advice={{
+                    title: "Summary from AI:",
+                    text: data.suggestions.general_advice,
+                  }}
+                  mood={{
+                    title: "Mood:",
+                    text: data.suggestions.mood,
+                  }}
+                />
+              </article>
             </motion.section>
-          </TranspContainer>
+          </Container>
         )
       )}
     </>
