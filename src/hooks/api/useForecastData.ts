@@ -7,7 +7,12 @@ const fetchForecast = async (lat: number, lon: number) => {
     }&lang=en&units=metric`
   );
   if (!response.ok) {
-    throw new Error("Failed to fetch weather data!");
+    throw new Error(
+      "Failed to fetch weather data! Response status: " +
+        response.status +
+        " - " +
+        response.statusText
+    );
   }
 
   return await response.json();
