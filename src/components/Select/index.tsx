@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 interface SelectProps {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 
