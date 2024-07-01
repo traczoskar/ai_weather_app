@@ -41,14 +41,6 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  // let aiResponse = null;
-  // let isPending = false;
-  // let error = {
-  //   name: "Error",
-  //   message: "An error has occured",
-  // };
-
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
@@ -79,8 +71,8 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           onClick={aiRequest}
         >
           <Container isButton={true}>
-            <span className="text-sky-700 transition-colors dark:text-sky-200 text-sm flex flex-wrap gap-2 drop-shadow items-center">
-              <span className="text-fuchsia-400 drop-shadow-md">
+            <span className="  text-sky-800 transition-colors dark:text-sky-200 text-sm flex flex-wrap gap-2 drop-shadow items-center">
+              <span className="dark:text-fuchsia-400  text-fuchsia-600 drop-shadow-sm dark:drop-shadow-md">
                 <StarsIcon width={23} height={23} />
               </span>
               Click to ask AI for suggestions
