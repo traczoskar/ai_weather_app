@@ -4,7 +4,7 @@
 
 Step into a smarter way to plan your day with **WeatherWise.ai**. This app connects to the OpenWeather API to provide current weather data tailored to your location. It integrates with OpenAI's ChatGPT for personalized activity suggestions and attire recommendations, ensuring you're perfectly prepared, no matter the weather.
 
-## 👨🏻‍💻 Check out Demo 
+## 👨🏻‍💻 Check out Demo
 
 [**Click Here**](https://traczoskar.github.io/ai_weather_app/) 👈
 
@@ -19,7 +19,7 @@ Step into a smarter way to plan your day with **WeatherWise.ai**. This app conne
 ![HTML5](https://img.shields.io/badge/HTML5-222222.svg?style=for-the-badge&logo=html5&logoColor=E34F26)
 ![CSS3](https://img.shields.io/badge/CSS3-222222.svg?style=for-the-badge&logo=css3&logoColor=1572B6)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-222222.svg?style=for-the-badge&logo=tailwind-css&logoColor=06B6D4)
-![Redux](https://img.shields.io/badge/React_Redux-222222.svg?style=for-the-badge&logo=redux&logoColor=764ABC)
+![Redux](https://img.shields.io/badge/Redux-222222.svg?style=for-the-badge&logo=redux&logoColor=764ABC)
 ![React Router](https://img.shields.io/badge/React_Router-222222.svg?style=for-the-badge&logo=react-router&logoColor=EF2E40)
 ![TanStack Query](https://img.shields.io/badge/TanStack_Query-222222.svg?style=for-the-badge&logo=react-query&logoColor=FF4154)
 ![Vite](https://img.shields.io/badge/Vite-222222.svg?style=for-the-badge&logo=vite&logoColor=D553F9)
@@ -70,65 +70,66 @@ WeatherWise.ai reads your system or browser theme preferences and adapts to it. 
 
 ## 📖 How to Use
 
-1. **Clone the Repository**: 
-    ```sh
-    git clone https://github.com/traczoskar/ai_weather_app.git
-    cd ai_weather_app
-    ```
+1. **Clone the Repository**:
 
-2. **Install Dependencies**: 
-    ```sh
-    npm install
-    ```
+   ```sh
+   git clone https://github.com/traczoskar/ai_weather_app.git
+   cd ai_weather_app
+   ```
 
-    
+2. **Install Dependencies**:
+   ```sh
+   npm install
+   ```
 3. **Set Up Webhook with Make.com**
 
-4. **Set Up Environment Variables**: 
-    - Create a `.env` file in the root directory.
-    - Add your OpenWeatherMap API key:
-      ```env
-      VITE_API_KEY=your_api_key
-      ```
-    - Add your Make.com WebHook URL:
-      ```env
-      VITE_MAKE_API_URL=your_webhook_url
-      ```
+4. **Set Up Environment Variables**:
 
-5. **Run the Application**: 
-    ```sh
-    npm start
-    ```
-    
+   - Create a `.env` file in the root directory.
+   - Add your OpenWeatherMap API key:
+     ```env
+     VITE_API_KEY=your_api_key
+     ```
+   - Add your Make.com WebHook URL:
+     ```env
+     VITE_MAKE_API_URL=your_webhook_url
+     ```
+
+5. **Run the Application**:
+   ```sh
+   npm start
+   ```
+
 To integrate OpenAI responses using Make.com, follow these steps to create a webhook:
 
-   ### Creating a Webhook in Make.com
+### Creating a Webhook in Make.com
 
-   1. **Log in to Make.com**: Go to [Make.com](https://www.make.com) and log in to your account.
-   2. **Create a New Scenario**:
-      - Click the **Create a new scenario** button.
-      - Click the **+** button to add a new module.
-      - Select **Webhooks** from the list of applications.
-      - Choose **Custom webhook** as the triggering event.
-      - Click **Add** to create a new webhook.
-      - Enter a name for the webhook and click **Save**.
-      - Copy the generated webhook URL to your clipboard.
+1.  **Log in to Make.com**: Go to [Make.com](https://www.make.com) and log in to your account.
+2.  **Create a New Scenario**:
 
-   3. **Configure the Webhook**:
-      - In the webhook settings, specify the data structure if needed.
-      - Optionally, add validation for incoming data.
+    - Click the **Create a new scenario** button.
+    - Click the **+** button to add a new module.
+    - Select **Webhooks** from the list of applications.
+    - Choose **Custom webhook** as the triggering event.
+    - Click **Add** to create a new webhook.
+    - Enter a name for the webhook and click **Save**.
+    - Copy the generated webhook URL to your clipboard.
 
-   4. **Integrate with OpenAI**:
-      - Add another module to your scenario for OpenAI.
-      - Configure the OpenAI module to process the incoming data and generate a response.
-      - Add a **Webhook Response** module to send the response back to the caller.
+3.  **Configure the Webhook**:
 
-   5. **Test the Webhook**:
-      - Run the scenario and trigger the webhook by sending a request to the copied URL.
-      - Ensure that the scenario processes the request and returns the expected response.
-     
+    - In the webhook settings, specify the data structure if needed.
+    - Optionally, add validation for incoming data.
+
+4.  **Integrate with OpenAI**:
+
+    - Add another module to your scenario for OpenAI.
+    - Configure the OpenAI module to process the incoming data and generate a response.
+    - Add a **Webhook Response** module to send the response back to the caller.
+
+5.  **Test the Webhook**:
+    - Run the scenario and trigger the webhook by sending a request to the copied URL.
+    - Ensure that the scenario processes the request and returns the expected response.
 
 ## 📬 Feedback
 
 I'd love to hear your thoughts and suggestions! Feel free to open an issue or submit a pull request.
-
