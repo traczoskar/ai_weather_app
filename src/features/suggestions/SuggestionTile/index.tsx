@@ -38,7 +38,7 @@ const SuggestionTile: React.FC<SuggestionTileProps> = ({
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
       className="flex flex-col gap-4 dark:bg-sky-700 p-6 rounded-lg shadow-md border dark:border-x-0 dark:border-b-0 dark:border-t-sky-600 hover:scale-[1.01] hover:shadow-lg transition-all"
     >
