@@ -5,6 +5,7 @@ import DetailedInfo from "./DetailedInfo";
 import { motion } from "framer-motion";
 import MainInfo from "./MainInfo";
 import AirPollutionInfo from "./AirPollutionInfo";
+import Error from "../../../components/Error";
 
 interface WeatherDisplayProps {
   selectedLocation: GeocodingData | null;
@@ -23,7 +24,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 
   return (
     <>
-      {error && <h3>{error.message}</h3>}
+      {error && <Error error={error} refersTo="Weather Data section" />}
       {isWeatherFetching ? (
         <motion.section
           className="flex w-full"
