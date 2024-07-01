@@ -76,8 +76,8 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 This application is mainly designed to be connected with AI via{" "}
                 <strong>Open AI API</strong> to provide users with suggestions
                 for leisure activities and clothing based on weather data
-                retrieved from the API. The model used for this is feature is
-                Chat GPT-3.5-Turbo in JSON mode.
+                retrieved from the API. The model used for this feature is Chat
+                GPT-3.5-Turbo in JSON mode.
               </p>
 
               <span className="font-bold  text-lg md:text-xl self-start text-sky-200">
