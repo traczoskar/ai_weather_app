@@ -19,12 +19,12 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
           <button
             onClick={closeInfo}
             aria-label="Close Info Window"
-            className="fixed flex justify-center items-center p-1 rounded-full text-sky-200 dark:text-sky-800 bg-sky-800 opacity-80 dark:bg-sky-200 top-4 left-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
+            className="fixed flex justify-center items-center p-1 rounded-full z-50 text-sky-200 dark:text-sky-800 bg-sky-800 opacity-80 dark:bg-sky-200 top-4 left-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
           >
             <CloseIcon />
           </button>
           <motion.div
-            className="flex flex-col w-[90vw] h-[90vh] z-50 relative lg:max-w-[90vw] lg:max-h-[90vh] p-8 sm:p-16 rounded-2xl gap-4  shadow-xl items-center  border-t dark:border-t-sky-700 bg-sky-900 border-t-sky-300 dark:bg-sky-800 bg-opacity-80 overflow-auto dark:bg-opacity-70"
+            className="flex flex-col w-[90vw] h-[90vh] z-40 relative lg:max-w-[90vw] lg:max-h-[90vh] p-8 sm:p-16 rounded-2xl gap-4  shadow-xl items-center  border-t dark:border-t-sky-700 bg-sky-900 border-t-sky-300 dark:bg-sky-800 bg-opacity-80 overflow-auto dark:bg-opacity-70"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
