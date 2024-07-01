@@ -18,9 +18,11 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
   const [cityName, setCityName] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const { isFetching, data: locations } = useGeocodingData(
-    cityName.length > 2 ? cityName.trim() : null
-  );
+  const {
+    isFetching,
+    data: locations,
+    error: geocodingError,
+  } = useGeocodingData(cityName.length > 2 ? cityName.trim() : null);
 
   const handleLocationInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCityName(e.target.value);
@@ -47,7 +49,9 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
 
   const handleGeolocationError = (error: GeolocationPositionError) => {
     console.error("Error obtaining location: ", error.message);
-    alert(`Error obtaining location: ${error.message}`);
+    alert(
+      `Error obtaining location: ${error.message}. Please allow your browser to use geolocation. We use it only to serve proper weather data.`
+    );
   };
 
   const getGeolocation = (position: GeolocationPosition) => {
@@ -62,6 +66,16 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
 
   return (
     <>
+      {geocodingError ? (
+        <Select>
+          <span className="text-sky-700 dark:text-sky-400 transition-colors font-bold">
+            🚨 Error during fetching location data has occured:{" "}
+          </span>
+          <span className="text-sky-700 dark:text-sky-400 transition-colors font-normal">
+            {geocodingError.message}
+          </span>
+        </Select>
+      ) : null}
       <motion.form
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
