@@ -18,6 +18,7 @@ import SuggestionTile from "../SuggestionTile";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import Popover from "../../../components/Popover";
+import Error from "../../../components/Error";
 
 interface SuggestionsDisplayProps {
   aiData: QueryData;
@@ -41,9 +42,12 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // let aiResponse = data;
+  // let aiResponse = null;
   // let isPending = false;
-  // let error = null;
+  // let error = {
+  //   name: "Error",
+  //   message: "An error has occured",
+  // };
 
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
@@ -100,11 +104,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           </Container>
         </motion.div>
       )}
-      {error && (
-        <Container>
-          <h3>{error.message}</h3>
-        </Container>
-      )}
+      {error && <Error error={error} refersTo="AI response section" />}
       {aiResponse && !isCollapsed ? (
         <Container isCollapsed={isCollapsed} aria-expanded="true">
           <motion.section
