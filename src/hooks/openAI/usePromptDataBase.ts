@@ -4,6 +4,7 @@ import {
   formatSecondaryTemp,
 } from "../../utils/dataFormatting";
 import { ChatPrompt, GeocodingData, QueryData } from "../../types/types";
+import { getAirQualityRating } from "../../utils/getAirQualityRating";
 
 const currentDate: string = useCurrentDate();
 
@@ -45,13 +46,18 @@ const getContext = (weatherType: string) => {
 
 export const usePromptDataBase = (
   weatherResponse: QueryData,
+  airPollutionData: QueryData,
   selectedLocation: GeocodingData | null
 ) => {
   //---Weather Data---
   const { data: weatherData } = weatherResponse;
 
+  //---Air Pollution Data---
+
+  const { data: airData } = airPollutionData;
+
   //---System Message---
-  const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in JSON format. Let's make the most of your day!
+  const systemMessage = `I am your day planning assistant integrated with a weather application. After reviewing today's weather and considering your interests and the current season, I suggest personalized activities and appropriate attire. My suggestions aim to be engaging and tailored to make your day enjoyable. I use a casual and encouraging tone, with emoticons to enhance the visual experience and separate suggestions for readability. I answer in JSON format. I remember to use air quality data to impact my Let's make the most of your day!
   ###
   Example activities for this weather: ${
     weatherData ? getContext(weatherData.weather[0].main) : ""
@@ -90,7 +96,7 @@ export const usePromptDataBase = (
           "link": "IMDB href link"
         }
       ],
-      "general_advice": "General encouraging and engaging advice for the day in casual style."
+      "general_advice": "General encouraging and engaging advice for the day in casual style. Mention about air quality."
     }
   }
     
@@ -114,6 +120,7 @@ ${
 - feels like: ${
     weatherData ? formatSecondaryTemp(weatherData?.main.feels_like) : ""
   }°C
+- air quality rating: ${getAirQualityRating(airData?.list[0].main.aqi)}
 - pressure: ${weatherData?.main.pressure} hPa
 - humidity: ${weatherData?.main.humidity}%
 - wind speed: ${weatherData?.wind.speed} m/s
@@ -130,6 +137,7 @@ Answer in JSON format.`;
       content: userMessage,
     },
   };
-
+  console.log(airData);
+  console.log(prompt);
   return prompt;
 };
