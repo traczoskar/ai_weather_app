@@ -103,6 +103,16 @@ const App: React.FC = () => {
     }
   }, [isInfoOpen]);
 
+  //---Document Title Handling---
+
+  useEffect(() => {
+    if (selectedLocation) {
+      document.title = `WeatherWise.ai - ${selectedLocation.name}`;
+    } else {
+      document.title = "WeatherWise.ai - Weather App";
+    }
+  }, [selectedLocation]);
+
   return (
     <main
       className={`flex flex-col items-center gap-8 pt-6 ${
