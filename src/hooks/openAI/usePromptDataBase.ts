@@ -137,7 +137,5 @@ Answer in JSON format.`;
       content: userMessage,
     },
   };
-  console.log(airData);
-  console.log(prompt);
   return prompt;
 };
