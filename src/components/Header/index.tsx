@@ -47,10 +47,10 @@ const Header = ({ title, setSelectedLocation, openInfo }: HeaderProps) => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          title="App Logo"
+          data-test="app-header"
           className="flex text-sky-800 dark:text-sky-300 dark:drop-shadow-md drop-shadow-lg items-center transition-colors"
         >
-          <AppLogo className="w-8 h-8 mr-3" />
+          <AppLogo title="App Logo" className="w-8 h-8 mr-3" />
           <h1 className="text-3xl font-bold font-['Raleway'] ">{title}</h1>
         </motion.div>
         <motion.nav
