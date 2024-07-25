@@ -1,7 +1,8 @@
-describe("Main view tests", () => {
+describe("Happy path tests", () => {
   beforeEach(() => {
     cy.visit("/");
   });
+
   it("Contains h1 tag and app logo in the header", () => {
     cy.getDataTest("app-header")
       .find("h1")
