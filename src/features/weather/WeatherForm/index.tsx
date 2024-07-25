@@ -104,6 +104,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
+        data-test="location-form"
         className="flex justify-center items-center gap-4 w-full relative"
       >
         <label className="w-full">
@@ -155,10 +156,15 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
           <nav
             aria-label="Location search results"
             aria-expanded="true"
+            data-test="location-list"
             className="absolute top-full mt-1 w-full border border-slate-200 dark:border-slate-400 transition-colors rounded-2xl overflow-hidden shadow-lg z-10"
           >
             {locations.map((location: GeocodingData, index: number) => (
-              <Select key={index} onClick={() => handleSelect(location)}>
+              <Select
+                index={index}
+                key={index}
+                onClick={() => handleSelect(location)}
+              >
                 <span className="text-sky-700 dark:text-sky-400 transition-colors font-bold">
                   {location.name}
                 </span>
