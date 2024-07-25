@@ -26,4 +26,30 @@ describe("Happy path tests", () => {
       .should("have.attr", "data-test", "moon-icon");
     cy.get("html").should("not.have.class", "dark");
   });
+
+  it.only("Form input searches for a location and fetches data after select", () => {
+    cy.getDataTest("location-form").as("locationForm");
+    cy.get("@locationForm").within(() => {
+      cy.getDataTest("loader").should("not.exist");
+    });
+    cy.get("@locationForm").find("input").type("London");
+    cy.get("@locationForm").within(() => {
+      cy.getDataTest("loader").should("exist").and("be.visible");
+    });
+
+    cy.getDataTest("location-list")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("li")
+          .should("have.length.greaterThan", 1)
+          .and("have.length.at.most", 5)
+          .and("contain.text", "London");
+      });
+    cy.get("@locationForm").within(() => {
+      cy.getDataTest("loader").should("not.exist");
+    });
+
+    cy.getDataTest("location-select-0").click();
+  });
 });
