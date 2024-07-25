@@ -9,7 +9,7 @@ interface LoaderProps {
 
 const Loader: React.FC<LoaderProps> = ({ width, height, color, element }) => {
   return (
-    <div role="status">
+    <div role="status" data-test="loader">
       <svg
         aria-busy="true"
         className={`${width ? width : "w-8"} ${height ? height : "h-8"} ${
