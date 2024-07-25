@@ -12,6 +12,7 @@ const ThemeSwitch: React.FC = () => {
     <button
       className="flex px-3 py-1.5 bg-sky-800 dark:bg-sky-700 border-t-sky-900 shadow-md border-b-0 border-x-0 dark:border-t-sky-600 rounded-full border  font-semibold text-sm  active:brightness-110 transition-all hover:scale-105"
       aria-hidden="true"
+      data-test="theme-switch"
       onClick={() => dispatch(toggleDarkMode())}
     >
       <div className="flex  justify-between items-center w-12">
@@ -21,9 +22,19 @@ const ThemeSwitch: React.FC = () => {
           }`}
         >
           {isDarkMode ? (
-            <SunIcon width={18} height={18} className="animate-pulseOnce" />
+            <SunIcon
+              width={18}
+              height={18}
+              data-test="sun-icon"
+              className="animate-pulseOnce"
+            />
           ) : (
-            <MoonIcon width={18} height={18} className="animate-pulseOnce" />
+            <MoonIcon
+              width={18}
+              height={18}
+              data-test="moon-icon"
+              className="animate-pulseOnce"
+            />
           )}
         </div>
         <div
