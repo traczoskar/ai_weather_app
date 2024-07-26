@@ -165,7 +165,10 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
                 key={index}
                 onClick={() => handleSelect(location)}
               >
-                <span className="text-sky-700 dark:text-sky-400 transition-colors font-bold">
+                <span
+                  data-test="location-select-name"
+                  className="text-sky-700 dark:text-sky-400 transition-colors font-bold"
+                >
                   {location.name}
                 </span>
                 ,{" "}
