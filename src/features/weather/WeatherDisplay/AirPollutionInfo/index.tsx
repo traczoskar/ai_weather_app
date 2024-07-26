@@ -67,7 +67,10 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
     <>
       {error && <Error error={error} refersTo="Air Pollution section" />}
       {data ? (
-        <div className="flex flex-col gap-8 w-full border-t dark:border-t-slate-400 pt-8">
+        <div
+          data-test="weather-airPollution"
+          className="flex flex-col gap-8 w-full border-t dark:border-t-slate-400 pt-8"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -75,7 +78,8 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
             className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-0 justify-between"
           >
             <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-2xl font-semibold flex gap-4 drop-shadow items-center">
-              Air Quality <BreathIcon width={28} height={28} />
+              Air Quality{" "}
+              <BreathIcon data-test="air-icon" width={28} height={28} />
             </h2>
             <h3 className="text-slate-500 transition-colors  dark:text-sky-300 self-center sm:self-start text-lg font-normal">
               Overall rating:{" "}
