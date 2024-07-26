@@ -33,7 +33,10 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
     : null;
 
   return (
-    <div className="flex lg:flex-col justify-between gap-4 pb-8 lg:pb-0">
+    <div
+      data-test="weather-main-info"
+      className="flex lg:flex-col justify-between gap-4 pb-8 lg:pb-0"
+    >
       <div className="flex flex-col gap-2 sm:gap-4">
         <motion.h2
           initial={{ opacity: 0 }}
@@ -71,6 +74,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
+          data-test="main-description"
           className="text-md sm:text-xl font-semibold
        text-sky-600 dark:text-sky-100 pt-0 sm:pt-2"
         >
@@ -96,7 +100,10 @@ const MainInfo: React.FC<MainInfoProps> = ({ weather, selectedLocation }) => {
           />
         ) : null}
 
-        <p className="text-[8.5vw] sm:text-5xl md:text-6xl font-semibold text-sky-900 dark:text-sky-200 drop-shadow-md">
+        <p
+          data-test="main-temperature"
+          className="text-[8.5vw] sm:text-5xl md:text-6xl font-semibold text-sky-900 dark:text-sky-200 drop-shadow-md"
+        >
           {weather ? formatPrimaryTemp(weather.main.temp) : null}°C
         </p>
       </motion.div>
