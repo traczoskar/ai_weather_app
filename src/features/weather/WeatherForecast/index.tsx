@@ -55,7 +55,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
           transition={{ duration: 0.5 }}
         >
           <Container>
-            <div className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick">
+            <div
+              data-test="forecast-loading"
+              className="w-full h-36 flex justify-center items-center gap-4 animate-pulseQuick"
+            >
               <span className="font-semibold text-md md:text-xl text-sky-600 dark:text-sky-200 drop-shadow">
                 🍋 Loading fresh data ...
               </span>
@@ -73,7 +76,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
         >
           {!forecastDays ? null : (
             <Container>
-              <div className="flex flex-col items-center justify-between w-full gap-8">
+              <div
+                data-test="forecast-main"
+                className="flex flex-col items-center justify-between w-full gap-8"
+              >
                 <h2 className="text-sky-700 dark:text-sky-200 transition-colors text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
                   Forecast <ForecastIcon width={28} height={28} />
                 </h2>
