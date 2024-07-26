@@ -28,6 +28,7 @@ describe("Happy path tests", () => {
   });
 
   it.only("Form input searches for a location and fetches data after select", () => {
+    //Form and loader functionality tests
     cy.getDataTest("location-form").as("locationForm");
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("not.exist");
@@ -36,7 +37,7 @@ describe("Happy path tests", () => {
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("exist").and("be.visible");
     });
-
+    //List of available locations tests
     cy.getDataTest("location-list")
       .should("exist")
       .and("be.visible")
@@ -49,7 +50,16 @@ describe("Happy path tests", () => {
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("not.exist");
     });
-
+    //Selecting a location and fetching response
     cy.getDataTest("location-select-0").click();
+    cy.getDataTest("location-list").should("not.exist");
+    cy.getDataTest("weather-loading")
+      .should("exist")
+      .and("be.visible")
+      .and("contain.text", "Loading fresh data ...");
+    cy.getDataTest("forecast-loading")
+      .should("exist")
+      .and("be.visible")
+      .and("contain.text", "Loading fresh data ...");
   });
 });
