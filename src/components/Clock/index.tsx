@@ -28,7 +28,7 @@ const Clock: React.FC<ClockProps> = ({ timezone }) => {
     return () => clearInterval(intervalId);
   }, [timezone]);
 
-  return <span>{currentTime}</span>;
+  return <span data-test="clock">{currentTime}</span>;
 };
 
 export default Clock;
