@@ -32,7 +32,10 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
     query: `(max-width: 639px)`,
   });
   return (
-    <div className="flex flex-col h-full justify-between gap-4 sm:gap-12 py-8">
+    <div
+      data-test="weather-detailed-info"
+      className="flex flex-col h-full justify-between gap-4 sm:gap-12 py-8"
+    >
       {weather?.main.feels_like ? (
         <Detail
           icon={
