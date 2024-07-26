@@ -61,5 +61,35 @@ describe("Happy path tests", () => {
       .should("exist")
       .and("be.visible")
       .and("contain.text", "Loading fresh data ...");
+    //Checking if the data is fetched and displayed properly
+    cy.getDataTest("weather-main-info")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        //Checking if the location name is displayed and the current time is updated
+        cy.get("h2").should("be.visible").and("contain.text", "London");
+        let previousTime: string;
+        const checkIfTimeIsUpdating = () => {
+          cy.getDataTest("clock")
+            .should("exist")
+            .and("be.visible")
+            .invoke("text")
+            .then((text) => {
+              const currentTime = text.trim();
+              expect(currentTime).to.not.equal(previousTime);
+              previousTime = currentTime;
+            });
+        };
+        for (let i = 0; i < 5; i++) {
+          cy.wait(1000);
+          checkIfTimeIsUpdating();
+        }
+        //Checking if the main temperature and description are displayed
+        cy.getDataTest("main-temperature")
+          .should("exist")
+          .and("be.visible")
+          .and("contain.text", "°C");
+        cy.getDataTest("main-description").should("exist").and("be.visible");
+      });
   });
 });
