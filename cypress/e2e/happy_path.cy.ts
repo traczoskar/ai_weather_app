@@ -263,4 +263,25 @@ describe("Happy path tests", () => {
     cy.getDataTest("forecast-loading").should("not.exist");
     cy;
   });
+
+  it("Contains footer with developer info and social media links", () => {
+    cy.getDataTest("footer")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("p")
+          .should("exist")
+          .and("be.visible")
+          .and("contain.text", "Developed by Oskar Tracz @2024");
+        cy.get("a")
+          .should("have.length", 3)
+          .each(($a) => {
+            cy.wrap($a)
+              .should("exist")
+              .and("be.visible")
+              .and("have.attr", "href")
+              .and("contain", "https://");
+          });
+      });
+  });
 });
