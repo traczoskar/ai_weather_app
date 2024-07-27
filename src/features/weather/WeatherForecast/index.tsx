@@ -81,7 +81,12 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                 className="flex flex-col items-center justify-between w-full gap-8"
               >
                 <h2 className="text-sky-700 dark:text-sky-200 transition-colors text-2xl self-start font-semibold flex gap-4 drop-shadow items-center">
-                  Forecast <ForecastIcon width={28} height={28} />
+                  Forecast{" "}
+                  <ForecastIcon
+                    data-test="forecast-title-icon"
+                    width={28}
+                    height={28}
+                  />
                 </h2>
                 <ul className="grid grid-cols-1 min-[450px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center w-full gap-3">
                   {forecastDays?.map((day, index) => (
@@ -99,7 +104,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                             weekday: "long",
                           })}
                         </h3>
-                        <p className="text-sm text-slate-500 dark:text-sky-300 transition-colors font-semibold">
+                        <p
+                          data-test="forecast-date"
+                          className="text-sm text-slate-500 dark:text-sky-300 transition-colors font-semibold"
+                        >
                           {new Date(day.date).toLocaleDateString("en-EN", {
                             day: "2-digit",
                             month: "2-digit",
@@ -112,9 +120,13 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                               loop={true}
                               autoplay={true}
                               style={{ width: "45px", height: "45px" }}
+                              data-test="forecast-animation"
                             />
                           )}
-                          <p className="text-2xl text-sky-900 dark:text-sky-100 transition-colors font-bold drop-shadow">
+                          <p
+                            data-test="forecast-temperature"
+                            className="text-2xl text-sky-900 dark:text-sky-100 transition-colors font-bold drop-shadow"
+                          >
                             {day.dayTemps.length > 0
                               ? calculateAverage(day.dayTemps)
                               : calculateAverage(day.nightTemps)}{" "}
@@ -122,6 +134,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                           </p>
                         </div>
                         <p
+                          data-test="forecast-description"
                           className="text-sm min-[450px]:text-md capitalize drop-shadow-sm font-semibold
            text-sky-600 dark:text-sky-300 transition-colors"
                         >
@@ -132,7 +145,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                         <div className="flex flex-col gap-3 min-[340px]:gap-6 sm:gap-3 pt-1 min-[450px]:pt-4">
                           <div className="flex flex-col min-[340px]:flex-row gap-1 min-[340px]:gap-3 text-slate-400 dark:text-sky-200 transition-colors items-center">
                             <PressureIcon width={20} height={20} />
-                            <p className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow">
+                            <p
+                              data-test="forecast-pressure"
+                              className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow"
+                            >
                               {day.dayPressures.length > 0
                                 ? calculateAverage(day.dayPressures)
                                 : calculateAverage(day.nightPressures)}{" "}
@@ -141,7 +157,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                           </div>
                           <div className="flex flex-col min-[340px]:flex-row gap-1 min-[340px]:gap-3 text-slate-400 dark:text-sky-200 transition-colors items-center">
                             <HumidityIcon width={20} height={20} />
-                            <p className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow">
+                            <p
+                              data-test="forecast-humidity"
+                              className="text-sm text-slate-500 dark:text-sky-200 transition-colors font-semibold drop-shadow"
+                            >
                               {day.dayHumidities.length > 0
                                 ? calculateAverage(day.dayHumidities)
                                 : calculateAverage(day.nightHumidities)}{" "}
@@ -154,7 +173,10 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
                             width={isExtraSmallMobile ? 25 : 32}
                             height={isExtraSmallMobile ? 25 : 32}
                           />
-                          <p className="text-lg font-bold drop-shadow">
+                          <p
+                            data-test="forecast-nightTemperature"
+                            className="text-lg font-bold drop-shadow"
+                          >
                             {day.nightTemps.length > 0
                               ? calculateAverage(day.nightTemps)
                               : calculateAverage(day.dayTemps)}{" "}
