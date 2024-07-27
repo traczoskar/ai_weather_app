@@ -17,8 +17,9 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
       } ${isOnInfoDisplay ? "dark:text-sky-300" : "dark:text-sky-600"} ${
         isOnInfoDisplay ? "" : "absolute bottom-8"
       } ${isOnInfoDisplay ? "flex-col items-center min-[380px]:flex-row" : ""}`}
+      data-test="footer"
     >
-      <div className="flex gap-2 text-xs sm:text-sm self-end font-extralight">
+      <p className="flex gap-2 text-xs sm:text-sm self-end font-extralight">
         Developed by{" "}
         <a
           href="https://traczoskar.dev"
@@ -33,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
           Oskar Tracz
         </a>{" "}
         @2024
-      </div>
+      </p>
       <div className="flex items-center gap-4 min-[380px]:gap-2">
         <a
           href="https://www.linkedin.com/in/traczoskar/"
