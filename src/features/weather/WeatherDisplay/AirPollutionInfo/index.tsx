@@ -99,7 +99,10 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
                     key={key}
                     className="flex flex-col items-center justify-center p-2 border dark:border-x-0 dark:border-b-0 rounded-xl transition-colors shadow dark:bg-sky-700 dark:border-sky-600 border-slate-200"
                   >
-                    <h5 className=" text-lg mb-4 font-bold text-slate-700 transition-colors dark:text-sky-100">
+                    <h5
+                      data-test="air-key"
+                      className=" text-lg mb-4 font-bold text-slate-700 transition-colors dark:text-sky-100"
+                    >
                       {formatKey(key)}
                     </h5>
                     <div
@@ -109,7 +112,10 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
                       )} rounded-lg`}
                     >
                       <div className="flex flex-col items-center justify-center">
-                        <span className=" text-md font-semibold ">
+                        <span
+                          data-test="air-value"
+                          className="text-md font-semibold"
+                        >
                           {value as number}
                         </span>
                         <span className=" text-xs">
@@ -117,7 +123,10 @@ const AirPollutionInfo: React.FC<AirPollutionProps> = ({
                         </span>
                       </div>
                     </div>
-                    <span className=" text-md mt-4 font-normal text-slate-700 dark:text-sky-300 transition-colors">
+                    <span
+                      data-test="air-rate"
+                      className=" text-md mt-4 font-normal text-slate-700 dark:text-sky-300 transition-colors"
+                    >
                       {getAirQualityName(value as number, key)}
                     </span>
                   </motion.li>
