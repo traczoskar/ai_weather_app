@@ -128,5 +128,71 @@ describe("Happy path tests", () => {
           .and("contain.text", "Sunset:")
           .and("contain.text", "Night:");
       });
+    //Checking if the air pollution info is fetched and properly displayed
+    cy.getDataTest("weather-airPollution")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("h2")
+          .scrollIntoView()
+          .should("be.visible")
+          .and("contain.text", "Air Quality");
+        cy.getDataTest("air-icon").should("exist").and("be.visible");
+        cy.get("ul")
+          .should("exist")
+          .and("be.visible")
+          .within(() => {
+            cy.get("li").should("have.length", 8);
+            cy.get("li").each(($li) => {
+              cy.wrap($li).within(() => {
+                cy.getDataTest("air-key")
+                  .invoke("text")
+                  .then((text) => {
+                    expect(text.trim()).to.be.a("string");
+                    const expectedKeys = [
+                      "CO",
+                      "NO",
+                      "NO2",
+                      "O3",
+                      "SO2",
+                      "PM2.5",
+                      "PM10",
+                      "NH3",
+                    ];
+                    const regexKeys = new RegExp(expectedKeys.join("|"));
+                    expect(text.trim()).to.match(regexKeys);
+                  });
+              });
+            });
+            cy.get("li").each(($li) => {
+              cy.wrap($li).within(() => {
+                cy.getDataTest("air-rate")
+                  .invoke("text")
+                  .then((text) => {
+                    const expectedValues = [
+                      "Very Good",
+                      "Good",
+                      "Moderate",
+                      "Poor",
+                      "Bad",
+                      "Very Bad",
+                    ];
+                    const regexValues = new RegExp(expectedValues.join("|"));
+                    expect(text.trim()).to.match(regexValues);
+                  });
+              });
+            });
+            cy.get("li").each(($li) => {
+              cy.wrap($li).within(() => {
+                cy.getDataTest("air-value")
+                  .invoke("text")
+                  .then((text) => {
+                    expect(parseFloat(text.trim())).to.be.a("number");
+                    expect(parseFloat(text.trim())).to.be.gte(0);
+                  });
+              });
+            });
+          });
+      });
   });
 });
