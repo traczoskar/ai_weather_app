@@ -237,4 +237,30 @@ describe("Happy path tests", () => {
       });
     cy.getDataTest("forecast-loading").should("not.exist");
   });
+
+  it("Searches location using Navigator API and fetches data", () => {
+    cy.getDataTest("location-form").as("locationForm");
+    cy.get("@locationForm").within(() => {
+      cy.getDataTest("navigator-button").click();
+    });
+    cy.getDataTest("weather-loading")
+      .should("exist")
+      .and("be.visible")
+      .and("contain.text", "Loading fresh data ...");
+    cy.getDataTest("forecast-loading")
+      .should("exist")
+      .and("be.visible")
+      .and("contain.text", "Loading fresh data ...");
+    cy.getDataTest("weather-main-info")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("h2")
+          .should("be.visible")
+          .and("contain.text", "Browser Location");
+      });
+    cy.getDataTest("weather-loading").should("not.exist");
+    cy.getDataTest("forecast-loading").should("not.exist");
+    cy;
+  });
 });
