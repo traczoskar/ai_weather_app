@@ -26,6 +26,8 @@ Step into a smarter way to plan your day with **WeatherWise.ai**. This app conne
 ![NPM](https://img.shields.io/badge/NPM-222222.svg?style=for-the-badge&logo=npm&logoColor=EF2E40)
 ![Make](https://img.shields.io/badge/Make-222222.svg?style=for-the-badge&logo=make&logoColor=C559F2)
 
+**E2E testing:** ![Cypress](https://img.shields.io/badge/Cypress-222222.svg?style=for-the-badge&logo=cypress&logoColor=15B781)
+
 ## ✅ Features
 
 📍 **Weather Data**: Get real-time weather data based on your geolocation, ensuring you're always aware of what's outside.
@@ -99,6 +101,12 @@ WeatherWise.ai reads your system or browser theme preferences and adapts to it. 
    ```sh
    npm start
    ```
+
+6. **To run E2E tests use the command below**:
+   ```sh
+   npx cypress open
+   ```
+   - And select E2E tests to open in Chrome Browser.
 
 To integrate OpenAI responses using Make.com, follow these steps to create a webhook:
 
