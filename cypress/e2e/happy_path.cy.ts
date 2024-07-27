@@ -106,5 +106,27 @@ describe("Happy path tests", () => {
           .and("contain.text", "°C");
         cy.getDataTest("main-description").should("exist").and("be.visible");
       });
+    cy.getDataTest("weather-loading").should("not.exist");
+    //Checking if the detailed weather info is properly displayed
+    cy.getDataTest("weather-detailed-info")
+      .should("exist")
+      .and("be.visible")
+      .scrollIntoView()
+      .within(() => {
+        cy.get("li").should("have.length", 11);
+        cy.get("li")
+          .should("contain.text", "Feels like:")
+          .and("contain.text", "°C")
+          .and("contain.text", "Max:")
+          .and("contain.text", "Min:")
+          .and("contain.text", "Humidity:")
+          .and("contain.text", "Pressure:")
+          .and("contain.text", "Wind:")
+          .and("contain.text", "Cloudiness:")
+          .and("contain.text", "Visibility:")
+          .and("contain.text", "Sunrise:")
+          .and("contain.text", "Sunset:")
+          .and("contain.text", "Night:");
+      });
   });
 });
