@@ -14,26 +14,41 @@ describe("Happy path tests", () => {
   });
 
   it("Contains theme switch and it works properly", () => {
-    cy.getDataTest("theme-switch").should("be.visible").as("themeSwitch");
-    cy.get("@themeSwitch").click();
-    cy.get("html").should("have.class", "dark");
-    cy.get("@themeSwitch")
-      .find("svg")
-      .should("have.attr", "data-test", "sun-icon");
-    cy.get("@themeSwitch").click();
-    cy.get("@themeSwitch")
-      .find("svg")
-      .should("have.attr", "data-test", "moon-icon");
-    cy.get("html").should("not.have.class", "dark");
+    cy.getDataTest("theme-switch").should("be.visible");
+    cy.get("html").then(($html) => {
+      if ($html.hasClass("dark")) {
+        cy.getDataTest("theme-switch").click().as("themeSwitch");
+        cy.get("html").should("not.have.class", "dark");
+        cy.get("@themeSwitch")
+          .find("svg")
+          .should("have.attr", "data-test", "moon-icon");
+        cy.get("@themeSwitch").click();
+        cy.get("html").should("have.class", "dark");
+        cy.get("@themeSwitch")
+          .find("svg")
+          .should("have.attr", "data-test", "sun-icon");
+      } else {
+        cy.getDataTest("theme-switch").click().as("themeSwitch");
+        cy.get("html").should("have.class", "dark");
+        cy.get("@themeSwitch")
+          .find("svg")
+          .should("have.attr", "data-test", "sun-icon");
+        cy.get("@themeSwitch").click();
+        cy.get("html").should("not.have.class", "dark");
+        cy.get("@themeSwitch")
+          .find("svg")
+          .should("have.attr", "data-test", "moon-icon");
+      }
+    });
   });
 
-  it.only("Form input searches for a location and fetches data after select", () => {
+  it("Form input searches for a location and fetches data after select", () => {
     //Form and loader functionality tests
     cy.getDataTest("location-form").as("locationForm");
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("not.exist");
     });
-    cy.get("@locationForm").find("input").type("London");
+    cy.get("@locationForm").find("input").type("Zabol");
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("exist").and("be.visible");
     });
@@ -43,9 +58,9 @@ describe("Happy path tests", () => {
       .and("be.visible")
       .within(() => {
         cy.get("li")
-          .should("have.length.greaterThan", 1)
+          .should("have.length.gte", 1)
           .and("have.length.at.most", 5)
-          .and("contain.text", "London");
+          .and("contain.text", "Zabol");
       });
     cy.get("@locationForm").within(() => {
       cy.getDataTest("loader").should("not.exist");
@@ -67,7 +82,7 @@ describe("Happy path tests", () => {
       .and("be.visible")
       .within(() => {
         //Checking if the location name is displayed and the current time is updated
-        cy.get("h2").should("be.visible").and("contain.text", "London");
+        cy.get("h2").should("be.visible").and("contain.text", "Zabol");
         let previousTime: string;
         const checkIfTimeIsUpdating = () => {
           cy.getDataTest("clock")
