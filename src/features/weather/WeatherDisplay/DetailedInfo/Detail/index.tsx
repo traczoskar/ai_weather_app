@@ -17,11 +17,11 @@ const Detail: React.FC<DetailProps> = ({
   textSize,
 }) => {
   return (
-    <motion.div
+    <motion.li
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
-      className="flex items-center gap-4 text-slate-500 dark:text-sky-300 transition-colors"
+      className="flex items-center gap-4 text-slate-500 dark:text-sky-300 transition-colors list-none"
     >
       {icon}
       <p
@@ -34,7 +34,7 @@ const Detail: React.FC<DetailProps> = ({
           {data}
         </span>
       </p>
-    </motion.div>
+    </motion.li>
   );
 };
 
