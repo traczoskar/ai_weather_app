@@ -135,6 +135,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ setSelectedLocation }) => {
               onClick={handleLocation}
               aria-label="Use my geolocation to get weather data"
               title="Use my location"
+              data-test="navigator-button"
               className="absolute inset-y-0 end-5 flex items-center hover:cursor-pointer transition-all hover:scale-110 dark:hover:text-gray-100 hover:text-sky-600 text-gray-400 active:scale-75"
             >
               <TargetIcon width={20} height={20} />
