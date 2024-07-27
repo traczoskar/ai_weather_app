@@ -32,9 +32,9 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
     query: `(max-width: 639px)`,
   });
   return (
-    <div
+    <ul
       data-test="weather-detailed-info"
-      className="flex flex-col h-full justify-between gap-4 sm:gap-12 py-8"
+      className="flex flex-col h-full justify-between gap-4 sm:gap-12 py-8 list-none"
     >
       {weather?.main.feels_like ? (
         <Detail
@@ -134,7 +134,7 @@ const DetailedInfo: React.FC<DetailedInfoProps> = ({ weather, nightTemp }) => {
           />
         ) : null}
       </div>
-    </div>
+    </ul>
   );
 };
 
