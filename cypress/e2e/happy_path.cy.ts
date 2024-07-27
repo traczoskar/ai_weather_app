@@ -194,5 +194,47 @@ describe("Happy path tests", () => {
             });
           });
       });
+    //Checking if the forecast data is fetched and properly displayed
+    cy.getDataTest("forecast-main")
+      .scrollIntoView()
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("h2").should("be.visible").and("contain.text", "Forecast");
+        cy.getDataTest("forecast-title-icon").should("exist").and("be.visible");
+        cy.get("ul")
+          .should("exist")
+          .and("be.visible")
+          .within(() => {
+            cy.get("li").should("have.length", 5);
+            cy.get("li").each(($li) => {
+              cy.wrap($li).within(() => {
+                cy.get("h3").should("exist").and("be.visible");
+                cy.getDataTest("forecast-date")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-animation")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-temperature")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-description")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-pressure")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-humidity")
+                  .should("exist")
+                  .and("be.visible");
+                cy.getDataTest("forecast-nightTemperature")
+                  .should("exist")
+                  .and("be.visible");
+              });
+            });
+          });
+      });
+    cy.getDataTest("forecast-loading").should("not.exist");
   });
 });
