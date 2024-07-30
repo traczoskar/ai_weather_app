@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ isOnInfoDisplay }) => {
       } ${isOnInfoDisplay ? "dark:text-sky-300" : "dark:text-sky-600"} ${
         isOnInfoDisplay ? "" : "absolute bottom-8"
       } ${isOnInfoDisplay ? "flex-col items-center min-[380px]:flex-row" : ""}`}
-      data-test="footer"
+      data-test={isOnInfoDisplay ? "info-footer" : "footer"}
     >
       <p className="flex gap-2 text-xs sm:text-sm self-end font-extralight">
         Developed by{" "}
