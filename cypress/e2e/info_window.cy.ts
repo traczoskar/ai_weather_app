@@ -54,5 +54,13 @@ describe("Info window tests", () => {
           .and("contain.text", "About this App");
         cy.getDataTest("info-about").should("exist").and("be.visible");
       });
+    //Footer test
+    cy.getDataTest("info-footer")
+      .scrollIntoView()
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("p").should("contain.text", "Developed by Oskar Tracz @2024");
+      });
   });
 });
