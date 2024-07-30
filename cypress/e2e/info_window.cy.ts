@@ -33,6 +33,19 @@ describe("Info window tests", () => {
               expect(li).to.contain.text(INFO_DATA.keyFeatures[index].text);
             });
           });
+        //Built with test
+        cy.getDataTest("info-tools-header")
+          .should("exist")
+          .and("contain.text", "Built with:");
+        cy.getDataTest("info-tools")
+          .scrollIntoView()
+          .should("exist")
+          .within(() => {
+            cy.get("li").should("have.length", INFO_DATA.builtWith.length);
+            cy.get("li").each((li, index) => {
+              expect(li).to.contain.text(INFO_DATA.builtWith[index]);
+            });
+          });
       });
   });
 });
