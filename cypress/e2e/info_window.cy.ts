@@ -46,6 +46,13 @@ describe("Info window tests", () => {
               expect(li).to.contain.text(INFO_DATA.builtWith[index]);
             });
           });
+        //About this App test
+        cy.getDataTest("info-about-header")
+          .scrollIntoView()
+          .should("exist")
+          .and("be.visible")
+          .and("contain.text", "About this App");
+        cy.getDataTest("info-about").should("exist").and("be.visible");
       });
   });
 });
