@@ -35,14 +35,23 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 {INFO_DATA.title}
                 <span>{INFO_DATA.subTitle}</span>
               </h2>
-              <p className="text-sky-200 font-light text-[3.8vw] sm:text-lg drop-shadow-sm max-w-3xl text-center ">
+              <p
+                data-test="info-description"
+                className="text-sky-200 font-light text-[3.8vw] sm:text-lg drop-shadow-sm max-w-3xl text-center "
+              >
                 {INFO_DATA.description}
               </p>
               <div className="w-full h-px bg-sky-300 dark:bg-sky-300"></div>
-              <h3 className="text-sky-50 font-bold  text-lg md:text-2xl lg:text-3xl drop-shadow-sm self-start ">
+              <h3
+                data-test="info-features-header"
+                className="text-sky-50 font-bold  text-lg md:text-2xl lg:text-3xl drop-shadow-sm self-start "
+              >
                 Key Features:
               </h3>
-              <ul className="flex flex-col gap-3 text-mdsm:text-lg marker:text-sky-400 self-start">
+              <ul
+                data-test="info-features"
+                className="flex flex-col gap-3 text-md sm:text-lg marker:text-sky-400 self-start"
+              >
                 {INFO_DATA.keyFeatures.map((feature, index) => (
                   <li
                     key={index}
@@ -56,10 +65,16 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 ))}
               </ul>
               <div className="w-full h-px bg-sky-300 dark:bg-sky-300"></div>
-              <h3 className="text-sky-50 font-bold text-lg md:text-2xl lg:text-3xl drop-shadow-md self-start">
+              <h3
+                data-test="info-tools-header"
+                className="text-sky-50 font-bold text-lg md:text-2xl lg:text-3xl drop-shadow-md self-start"
+              >
                 Built with:
               </h3>
-              <ul className="flex flex-wrap gap-3 text-md self-start">
+              <ul
+                data-test="info-tools"
+                className="flex flex-wrap gap-3 text-md self-start"
+              >
                 {INFO_DATA.builtWith.map((tool, index) => (
                   <li
                     key={index}
@@ -70,15 +85,21 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
                 ))}
               </ul>
               <div className="w-full h-px bg-sky-300 dark:bg-sky-300"></div>
-              <h3 className="text-sky-100 font-bold text-lg md:text-2xl lg:text-3xl drop-shadow-sm self-start  ">
+              <h3
+                data-test="info-about-header"
+                className="text-sky-100 font-bold text-lg md:text-2xl lg:text-3xl drop-shadow-sm self-start  "
+              >
                 About this App
               </h3>
-              <p className="text-sky-200 text-md tracking-wide md:text-lg drop-shadow-sm">
+              <p
+                data-test="info-about"
+                className="text-sky-200 text-md tracking-wide md:text-lg drop-shadow-sm"
+              >
                 This application is mainly designed to be connected with AI via{" "}
                 <strong>Open AI API</strong> to provide users with suggestions
                 for leisure activities and clothing based on weather data
                 retrieved from the API. The model used for this feature is Chat
-                GPT-3.5-Turbo in JSON mode.
+                GPT-4 OMNI in JSON mode.
               </p>
 
               <span className="font-bold  text-lg md:text-xl self-start text-sky-200">
