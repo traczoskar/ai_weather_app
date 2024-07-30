@@ -46,6 +46,6 @@ export const INFO_DATA = {
     "Lottie",
     "Framer Motion",
     "Redux",
-    " Vite",
+    "Vite",
   ],
 };
