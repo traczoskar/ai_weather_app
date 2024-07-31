@@ -6,6 +6,7 @@ describe("Info window tests", () => {
   });
 
   it("Should open info window when button clicked", () => {
+    cy.get("h1").should("contain.text", "WeatherWise.ai").and("be.visible");
     cy.getDataTest("info-button").click();
     cy.getDataTest("info-window")
       .should("exist")
@@ -62,5 +63,12 @@ describe("Info window tests", () => {
       .within(() => {
         cy.get("p").should("contain.text", "Developed by Oskar Tracz @2024");
       });
+  });
+
+  it("Should close info window when close button clicked", () => {
+    cy.getDataTest("info-button").click();
+    cy.getDataTest("info-window").should("exist").and("be.visible");
+    cy.getDataTest("info-close-button").click();
+    cy.getDataTest("info-window").should("not.exist");
   });
 });
