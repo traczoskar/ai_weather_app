@@ -17,6 +17,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
           className="flex justify-center items-center w-full h-full fixed left-0 top-0 backdrop-blur-md z-40 "
         >
           <button
+            data-test="info-close-button"
             onClick={closeInfo}
             aria-label="Close Info Window"
             className="fixed flex justify-center items-center p-1 rounded-full z-50 text-sky-200 dark:text-sky-800 bg-sky-800 opacity-80 dark:bg-sky-200 top-4 left-4 hover:brightness-105 hover:scale-105 active:scale-90 transition-all"
