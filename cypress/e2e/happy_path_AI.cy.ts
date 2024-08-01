@@ -95,5 +95,21 @@ describe("Happy path AI response tests", () => {
               });
           });
       });
+    // Checking if the AI tip is displayed correctly
+    cy.getDataTest("ai-tip")
+      .scrollIntoView()
+      .should("exist")
+      .and("be.visible")
+      .and(
+        "contain.text",
+        "Tip: To unlock next AI query first search for new location."
+      );
+    // Checking if the AI response is reset correctly
+    cy.getDataTest("location-form").scrollIntoView().as("locationForm");
+    cy.get("@locationForm").find("input").type("Dubai");
+    cy.getDataTest("location-select-0").click();
+    cy.getDataTest("ai-expanded").should("not.exist");
+    cy.getDataTest("ai-collapsed").should("not.exist");
+    cy.getDataTest("ai-button").should("exist");
   });
 });
