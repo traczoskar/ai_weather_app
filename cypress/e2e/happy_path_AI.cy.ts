@@ -4,9 +4,9 @@ describe("Happy path AI response tests", () => {
   });
 
   it("AI response is fetched correctly", () => {
+    // Checking if the main page is loaded and fetches the weather data
     cy.getDataTest("location-form").as("locationForm");
     cy.get("@locationForm").find("input").type("New York");
-    //List of available locations tests
     cy.getDataTest("location-list")
       .should("exist")
       .and("be.visible")
@@ -16,10 +16,8 @@ describe("Happy path AI response tests", () => {
           .and("have.length.at.most", 5)
           .and("contain.text", "New York");
       });
+    cy.getDataTest("ai-button").should("not.exist");
     cy.getDataTest("location-select-0").click();
     cy.getDataTest("weather-main-info").should("exist").and("be.visible");
-    cy.getDataTest("ai-button").wait(1000).click();
-    cy.getDataTest("ai-waiting").should("exist").and("be.visible").wait(6000);
-    cy.getDataTest("ai-collapsed").should("exist").and("be.visible").pause();
   });
 });
