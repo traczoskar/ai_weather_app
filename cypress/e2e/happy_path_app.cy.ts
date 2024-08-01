@@ -1,4 +1,4 @@
-describe("Happy path tests", () => {
+describe("Happy path App tests", () => {
   beforeEach(() => {
     cy.visit("/");
   });
