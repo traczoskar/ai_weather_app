@@ -31,5 +31,26 @@ describe("Happy path AI response tests", () => {
       .and("be.visible");
     cy.getDataTest("ai-waiting").should("not.exist");
     cy.getDataTest("ai-button").should("not.exist");
+    // Checking if the AI response is displayed correctly in collapsed view
+    cy.getDataTest("ai-collapsed").within(() => {
+      cy.get("h2")
+        .should("contain.text", "AI advices for today at New York County")
+        .find("svg")
+        .should("exist");
+    });
+    cy.getDataTest("ai-collapsed-general")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.get("h4")
+          .should("contain.text", "Summary from AI:")
+          .and("contain.text", "Mood:");
+      });
+    cy.getDataTest("ai-popover")
+      .should("exist")
+      .and("be.visible")
+      .and("contain.text", "Click the button to expand AI advice.");
+    cy.getDataTest("ai-collapsed").click();
+    cy.getDataTest("ai-popover").should("not.exist");
   });
 });
