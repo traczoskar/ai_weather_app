@@ -81,11 +81,11 @@ const SuggestionTile: React.FC<SuggestionTileProps> = ({
                         className="text-sky-500 dark:text-sky-200 drop-shadow-lg"
                       />
                       {item.artist ? (
-                        <div>
+                        <span>
                           <span className="font-bold">{item.artist} - </span>
                           <span className="font-semibold">{item.title}</span>
                           <span className="no-underline"> 🎶</span>
-                        </div>
+                        </span>
                       ) : (
                         <span className="font-semibold">{item.title} 🎬</span>
                       )}
