@@ -19,5 +19,17 @@ describe("Happy path AI response tests", () => {
     cy.getDataTest("ai-button").should("not.exist");
     cy.getDataTest("location-select-0").click();
     cy.getDataTest("weather-main-info").should("exist").and("be.visible");
+    // Checking if the AI response is fetched correctly and loading screen is shown
+    cy.getDataTest("ai-button").should("exist").wait(1000).click();
+    cy.getDataTest("ai-waiting")
+      .scrollIntoView()
+      .should("exist")
+      .and("be.visible");
+    cy.get(`[data-test="ai-collapsed"`, { timeout: 20000 })
+      .scrollIntoView()
+      .should("exist")
+      .and("be.visible");
+    cy.getDataTest("ai-waiting").should("not.exist");
+    cy.getDataTest("ai-button").should("not.exist");
   });
 });
