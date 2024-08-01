@@ -52,5 +52,48 @@ describe("Happy path AI response tests", () => {
       .and("contain.text", "Click the button to expand AI advice.");
     cy.getDataTest("ai-collapsed").click();
     cy.getDataTest("ai-popover").should("not.exist");
+    // Checking if the AI response is displayed correctly in expanded view
+    cy.getDataTest("ai-expand-button").click();
+    cy.getDataTest("ai-expanded")
+      .should("exist")
+      .and("be.visible")
+      .within(() => {
+        cy.getDataTest("ai-expanded-general")
+          .should("exist")
+          .and("be.visible")
+          .within(() => {
+            cy.get("h4")
+              .should("contain.text", "Summary from AI:")
+              .and("contain.text", "Mood:");
+          });
+        cy.getDataTest("ai-expanded-list")
+          .scrollIntoView()
+          .should("exist")
+          .and("be.visible")
+          .within(() => {
+            cy.get("div")
+              .should("have.length.gte", 8)
+              .each((div) => {
+                cy.wrap(div)
+                  .find("h4")
+                  .should("exist")
+                  .invoke("text")
+                  .then((text) => {
+                    const expectedCategories = [
+                      "Indoor Activities",
+                      "Outdoor Activities",
+                      "Health Tips",
+                      "Attire",
+                      "Food Suggestions",
+                      "Places to Visit",
+                      "Music",
+                      "Movies",
+                    ];
+                    const regexKeys = new RegExp(expectedCategories.join("|"));
+                    expect(text.trim()).to.match(regexKeys);
+                  });
+              });
+          });
+      });
   });
 });
