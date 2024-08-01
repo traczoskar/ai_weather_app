@@ -17,9 +17,9 @@ describe("Happy path AI response tests", () => {
           .and("contain.text", "New York");
       });
     cy.getDataTest("location-select-0").click();
-    cy.getDataTest("weather-main-info")
-      .should("exist")
-      .and("be.visible")
-      .pause();
+    cy.getDataTest("weather-main-info").should("exist").and("be.visible");
+    cy.getDataTest("ai-button").wait(1000).click();
+    cy.getDataTest("ai-waiting").should("exist").and("be.visible").wait(6000);
+    cy.getDataTest("ai-collapsed").should("exist").and("be.visible").pause();
   });
 });
