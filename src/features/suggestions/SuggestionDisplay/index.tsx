@@ -155,7 +155,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                 {data.date}
               </p>
             )}
-            <article className="flex flex-col text-md text-gray-700 dark:text-white mt-8">
+            <article
+              data-test="ai-expanded-general"
+              className="flex flex-col text-md text-gray-700 dark:text-white mt-8"
+            >
               <SuggestionTile
                 general_advice={{
                   title: "Summary from AI:",
@@ -166,7 +169,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   text: data.suggestions.mood,
                 }}
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-md mt-4">
+              <div
+                data-test="ai-expanded-list"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 text-md mt-4"
+              >
                 <SuggestionTile
                   title="Indoor Activities"
                   icon={<IndoorIcon width={20} height={20} />}
@@ -219,7 +225,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                 />
               </div>
             </article>
-            <p className="text-sm dark:text-sky-300  text-sky-700 mt-4">
+            <p
+              data-test="ai-tip"
+              className="text-sm dark:text-sky-300  text-sky-700 mt-4"
+            >
               <span className="font-bold">✅ Tip:</span> To unlock next AI query
               first search for new location.
             </p>
@@ -264,6 +273,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   <button
                     ref={buttonRef}
                     aria-label="Expand AI advice"
+                    data-test="ai-expand-button"
                     className="text-sky-600 dark:text-sky-400 p-3 hover:bg-sky-100 dark:hover:bg-sky-700 transition-colors"
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     onMouseEnter={() => setAnchorEl(buttonRef.current)}
@@ -283,7 +293,10 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
                   </Popover>
                 </div>
               </div>
-              <article className="flex flex-col text-md text-gray-700 dark:text-white mt-4">
+              <article
+                data-test="ai-collapsed-general"
+                className="flex flex-col text-md text-gray-700 dark:text-white mt-4"
+              >
                 <SuggestionTile
                   general_advice={{
                     title: "Summary from AI:",
