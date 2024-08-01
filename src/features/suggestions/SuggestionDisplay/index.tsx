@@ -69,6 +69,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           title="Ask AI for suggestions"
           className="sm:self-end w-full sm:w-auto"
           onClick={aiRequest}
+          data-test="ai-button"
         >
           <Container isButton={true}>
             <span className="  text-sky-800 transition-colors dark:text-sky-200 text-sm flex flex-wrap gap-2 drop-shadow items-center">
@@ -88,6 +89,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.75 }}
           aria-busy="true"
+          data-test="ai-waiting"
         >
           <Container>
             <div className="w-full h-32 flex justify-center items-center gap-4 animate-pulseQuick">
@@ -112,6 +114,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.75 }}
+            data-test="ai-expanded"
           >
             <div className="flex justify-between lg:gap-4 w-full">
               <h2 className="text-sky-700 transition-colors dark:text-sky-200 text-lg sm:text-xl md:text-2xl font-bold flex flex-wrap gap-3 drop-shadow items-center">
@@ -231,6 +234,7 @@ const SuggestionDisplay: React.FC<SuggestionsDisplayProps> = ({
           >
             <motion.section
               className="flex flex-col w-full"
+              data-test="ai-collapsed"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
