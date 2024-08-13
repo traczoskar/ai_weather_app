@@ -28,7 +28,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ isInfoOpen, closeInfo }) => {
             className="flex flex-col w-[90vw] h-[90vh] z-40 relative lg:max-w-[90vw] lg:max-h-[90vh] p-8 sm:p-16 rounded-2xl gap-4  shadow-xl items-center  border-t dark:border-t-sky-700 bg-sky-900 border-t-sky-300 dark:bg-sky-800 bg-opacity-80 overflow-auto dark:bg-opacity-70"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
             data-test="info-window"
           >
             <article className="flex flex-col items-center justify-center relative gap-8">
