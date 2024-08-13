@@ -9,8 +9,10 @@ const prefersDarkMode = window.matchMedia(
   "(prefers-color-scheme: dark)"
 ).matches;
 
+const darkModeFromLocalStorage = localStorage.getItem("darkMode");
+
 const initialState: ThemeState = {
-  darkMode: localStorage.getItem("darkMode") === "true" || prefersDarkMode,
+  darkMode: !!darkModeFromLocalStorage || prefersDarkMode,
 };
 
 const themeSlice = createSlice({
