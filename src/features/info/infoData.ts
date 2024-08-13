@@ -47,5 +47,6 @@ export const INFO_DATA = {
     "Framer Motion",
     "Redux",
     "Vite",
+    "Cypress",
   ],
 };
